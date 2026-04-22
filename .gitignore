@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment secrets
+.env
+
+# OS files
+.DS_Store
+
+# Claude Code local state
+.claude/

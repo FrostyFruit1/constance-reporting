@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constance Conservation — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-linen: #FAF8F5; --color-cream: #F5EFE9; --color-white: #FFFFFF; --color-sand: #F3EDE7;
+      --color-espresso: #2D2A26; --color-umber: #5C5549; --color-taupe: #8A8178; --color-stone: #B8AFA5;
+      --color-clay: #B07D4F; --color-clay-hover: #9A6B3F; --color-amber: #D4A574; --color-caramel: #C49A6C;
+      --color-sage: #7C9A72; --color-sage-bg: #F0F5EE;
+      --color-cooling: #D4A574; --color-cooling-bg: #FDF6EE;
+      --color-terracotta: #C47069; --color-terracotta-bg: #FDF0EE;
+      --color-steel: #6B8CA3; --color-steel-bg: #EEF3F6;
+      --shadow-sm: 0 1px 2px rgba(45,42,38,0.04);
+      --shadow-md: 0 2px 8px rgba(45,42,38,0.06), 0 1px 2px rgba(45,42,38,0.04);
+      --shadow-lg: 0 4px 16px rgba(45,42,38,0.08), 0 2px 4px rgba(45,42,38,0.04);
+      --shadow-hover: 0 4px 20px rgba(45,42,38,0.10), 0 2px 6px rgba(45,42,38,0.05);
+      --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px;
+      --gradient-hero: linear-gradient(135deg, #2D2A26 0%, #5C5549 50%, #C49A6C 100%);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'DM Sans',-apple-system,sans-serif; background:var(--color-linen); color:var(--color-espresso); min-height:100vh; }
+    .font-serif { font-family:'Instrument Serif',Georgia,serif; }
+    .tabular-nums { font-variant-numeric:tabular-nums; }
+
+    /* Sidebar */
+    .sidebar { position:fixed; top:0; left:0; bottom:0; width:240px; background:var(--color-cream); border-right:1px solid var(--color-sand); padding:24px 16px; display:flex; flex-direction:column; z-index:10; }
+    .main { margin-left:240px; padding:32px; max-width:1200px; }
+    .logo { font-size:15px; font-weight:600; color:var(--color-espresso); padding:0 8px 24px; border-bottom:1px solid var(--color-sand); margin-bottom:16px; }
+    .logo span { font-family:'Instrument Serif',serif; font-style:italic; color:var(--color-clay); }
+    .nav-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:var(--radius-md); font-size:14px; color:var(--color-umber); cursor:pointer; transition:all 0.15s ease; margin-bottom:2px; user-select:none; }
+    .nav-item:hover { background:rgba(243,237,231,0.6); color:var(--color-espresso); }
+    .nav-item.active { background:var(--color-white); color:var(--color-espresso); font-weight:500; box-shadow:var(--shadow-sm); }
+    .nav-icon { width:18px; text-align:center; opacity:0.7; font-size:14px; }
+    .nav-section { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; color:var(--color-taupe); padding:16px 12px 6px; }
+    .sidebar-footer { margin-top:auto; padding:16px 12px 0; border-top:1px solid var(--color-sand); }
+    .sync-status { font-size:12px; color:var(--color-taupe); }
+    .sync-dot { display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:6px; }
+    .sync-dot.live { background:var(--color-sage); }
+    .sync-dot.syncing { background:var(--color-cooling); animation:pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* Page */
+    .page-header { margin-bottom:28px; }
+    .page-title { font-size:22px; font-weight:600; }
+    .page-subtitle { font-size:14px; color:var(--color-taupe); margin-top:4px; }
+    .page { display:none; }
+    .page.active { display:block; }
+
+    /* KPI Cards */
+    .kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-bottom:28px; }
+    .kpi-grid-4 { grid-template-columns:repeat(4,1fr); }
+    .kpi-grid-3 { grid-template-columns:repeat(3,1fr); }
+    .kpi-card { background:var(--color-white); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm); transition:transform 0.2s ease,box-shadow 0.2s ease; }
+    .kpi-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+    .kpi-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; color:var(--color-taupe); margin-bottom:8px; }
+    .kpi-value { font-size:28px; font-weight:600; font-variant-numeric:tabular-nums; line-height:1.1; }
+    .kpi-sub { font-size:12px; margin-top:6px; color:var(--color-taupe); }
+    .kpi-sub.sage { color:var(--color-sage); }
+
+    /* Section */
+    .section { background:var(--color-white); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); margin-bottom:24px; overflow:hidden; }
+    .section-header { padding:16px 20px; border-bottom:1px solid var(--color-sand); display:flex; justify-content:space-between; align-items:center; }
+    .section-title { font-size:15px; font-weight:600; }
+    .section-badge { font-size:12px; color:var(--color-taupe); }
+    .section-body { padding:20px; }
+
+    /* Columns */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px; }
+    .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:24px; }
+
+    /* Pills */
+    .pill { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:9999px; font-size:12px; font-weight:500; }
+    .pill.sage { background:var(--color-sage-bg); color:var(--color-sage); }
+    .pill.cooling { background:var(--color-cooling-bg); color:#9A7A3F; }
+    .pill.terracotta { background:var(--color-terracotta-bg); color:var(--color-terracotta); }
+    .pill.steel { background:var(--color-steel-bg); color:var(--color-steel); }
+    .pill-dot { width:6px; height:6px; border-radius:50%; }
+    .pill.sage .pill-dot { background:var(--color-sage); }
+    .pill.cooling .pill-dot { background:var(--color-cooling); }
+    .pill.terracotta .pill-dot { background:var(--color-terracotta); }
+    .pill.steel .pill-dot { background:var(--color-steel); }
+
+    /* Table */
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th { text-align:left; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.04em; color:var(--color-taupe); padding:10px 16px; border-bottom:1px solid var(--color-sand); }
+    td { padding:12px 16px; border-bottom:1px solid rgba(243,237,231,0.6); color:var(--color-umber); }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:rgba(250,248,245,0.5); }
+
+    /* Bars */
+    .bar-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .bar-label { width:130px; font-size:13px; color:var(--color-umber); text-align:right; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .bar-track { flex:1; height:24px; background:var(--color-sand); border-radius:var(--radius-sm); overflow:hidden; }
+    .bar-fill { height:100%; border-radius:var(--radius-sm); transition:width 0.8s ease; }
+    .bar-fill.clay { background:var(--color-clay); } .bar-fill.sage { background:var(--color-sage); }
+    .bar-fill.steel { background:var(--color-steel); } .bar-fill.amber { background:var(--color-amber); }
+    .bar-fill.caramel { background:var(--color-caramel); } .bar-fill.stone { background:var(--color-stone); }
+    .bar-fill.terracotta { background:var(--color-terracotta); }
+    .bar-count { width:50px; font-size:13px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--color-espresso); }
+
+    /* Donut */
+    .donut-container { display:flex; align-items:center; gap:24px; }
+    .donut { width:120px; height:120px; border-radius:50%; position:relative; }
+    .donut-center { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:72px; background:var(--color-white); border-radius:50%; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+    .donut-center .value { font-size:24px; font-weight:600; font-variant-numeric:tabular-nums; }
+    .donut-center .label { font-size:11px; color:var(--color-taupe); }
+    .donut-legend { display:flex; flex-direction:column; gap:8px; }
+    .legend-item { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--color-umber); }
+    .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .legend-count { font-weight:500; font-variant-numeric:tabular-nums; margin-left:auto; color:var(--color-espresso); min-width:30px; text-align:right; }
+
+    /* Site card */
+    .site-card { background:var(--color-white); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm); transition:transform 0.2s ease,box-shadow 0.2s ease; }
+    .site-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+    .site-name { font-size:15px; font-weight:600; margin-bottom:4px; }
+    .site-meta { font-size:12px; color:var(--color-taupe); margin-bottom:12px; }
+    .site-stats { display:flex; gap:16px; }
+    .site-stat { text-align:center; }
+    .site-stat-value { font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; }
+    .site-stat-label { font-size:11px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; }
+
+    /* Species card */
+    .species-card { background:var(--color-white); border-radius:var(--radius-lg); padding:16px 20px; box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:space-between; transition:transform 0.2s ease,box-shadow 0.2s ease; }
+    .species-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+    .species-info { flex:1; }
+    .species-name { font-size:14px; font-weight:600; }
+    .species-sci { font-size:12px; color:var(--color-taupe); font-style:italic; }
+    .species-count { font-size:22px; font-weight:600; font-variant-numeric:tabular-nums; color:var(--color-clay); }
+    .species-count-label { font-size:11px; color:var(--color-taupe); text-align:right; }
+
+    /* Report card */
+    .report-card { background:var(--color-white); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm); border-left:3px solid var(--color-sand); transition:transform 0.2s ease,box-shadow 0.2s ease; }
+    .report-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+    .report-card.draft { border-left-color:var(--color-steel); }
+    .report-card.review { border-left-color:var(--color-cooling); }
+    .report-card.approved { border-left-color:var(--color-sage); }
+    .report-title { font-size:15px; font-weight:600; margin-bottom:4px; }
+    .report-meta { font-size:12px; color:var(--color-taupe); margin-bottom:12px; }
+    .report-footer { display:flex; justify-content:space-between; align-items:center; }
+
+    /* Chemical card */
+    .chem-card { background:var(--color-white); border-radius:var(--radius-lg); padding:16px 20px; box-shadow:var(--shadow-sm); }
+    .chem-name { font-size:15px; font-weight:600; margin-bottom:2px; }
+    .chem-type { font-size:12px; color:var(--color-taupe); margin-bottom:10px; }
+    .chem-stat-row { display:flex; gap:20px; }
+    .chem-stat-val { font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; }
+    .chem-stat-lbl { font-size:11px; color:var(--color-taupe); }
+
+    /* Alert bar */
+    .alert-bar { background:var(--color-cooling-bg); border-left:3px solid var(--color-cooling); border-radius:var(--radius-lg); padding:14px 20px; margin-bottom:24px; display:flex; align-items:center; gap:10px; font-size:13px; color:var(--color-umber); }
+
+    /* Empty state */
+    .empty-state { text-align:center; padding:48px 20px; color:var(--color-taupe); }
+    .empty-state .icon { font-size:36px; margin-bottom:12px; opacity:0.4; }
+    .empty-state .msg { font-size:14px; }
+
+    @media (max-width:1024px) { .kpi-grid{grid-template-columns:repeat(3,1fr)} .two-col,.three-col{grid-template-columns:1fr} }
+    @media (max-width:768px) { .sidebar{display:none} .main{margin-left:0;padding:16px} .kpi-grid{grid-template-columns:repeat(2,1fr)} }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="logo">Constance <span>Conservation</span></div>
+  <div class="nav-section">Overview</div>
+  <div class="nav-item active" data-page="dashboard"><span class="nav-icon">&#9632;</span> Dashboard</div>
+  <div class="nav-item" data-page="inspections"><span class="nav-icon">&#9776;</span> Inspections</div>
+  <div class="nav-item" data-page="sites"><span class="nav-icon">&#9673;</span> Sites</div>
+  <div class="nav-section">Operations</div>
+  <div class="nav-item" data-page="staff"><span class="nav-icon">&#9874;</span> Staff &amp; Hours</div>
+  <div class="nav-item" data-page="chemicals"><span class="nav-icon">&#9883;</span> Chemicals</div>
+  <div class="nav-item" data-page="species"><span class="nav-icon">&#10070;</span> Species</div>
+  <div class="nav-section">Reports</div>
+  <div class="nav-item" data-page="reports"><span class="nav-icon">&#9993;</span> Client Reports</div>
+  <div class="nav-item" data-page="pipeline"><span class="nav-icon">&#9881;</span> Pipeline Health</div>
+  <div class="sidebar-footer">
+    <div class="sync-status" id="sync-indicator"><span class="sync-dot syncing"></span>Backfill running...</div>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ============ DASHBOARD PAGE ============ -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header">
+    <div class="page-title">Pipeline Dashboard</div>
+    <div class="page-subtitle">Live data from Safety Culture ingestion — <span id="last-updated"></span></div>
+  </div>
+  <div class="alert-bar" id="backfill-alert"><span>&#9888;</span> Backfill in progress — <strong id="backfill-count">0</strong> of ~1,683 inspections processed</div>
+  <div class="kpi-grid" id="dashboard-kpis"></div>
+  <div class="two-col">
+    <div class="section"><div class="section-header"><div class="section-title">Processing Status</div></div><div class="section-body"><div class="donut-container"><div class="donut" id="donut-chart"></div><div class="donut-legend" id="donut-legend"></div></div></div></div>
+    <div class="section"><div class="section-header"><div class="section-title">Tasks Undertaken</div></div><div class="section-body" id="tasks-chart"></div></div>
+  </div>
+  <div class="two-col">
+    <div class="section"><div class="section-header"><div class="section-title">Top Weed Species</div></div><div class="section-body" id="weeds-chart"></div></div>
+    <div class="section"><div class="section-header"><div class="section-title">Staff Hours</div></div><div class="section-body" id="hours-chart"></div></div>
+  </div>
+</div>
+
+<!-- ============ INSPECTIONS PAGE ============ -->
+<div class="page" id="page-inspections">
+  <div class="page-header">
+    <div class="page-title">Inspections</div>
+    <div class="page-subtitle">All ingested Safety Culture inspections</div>
+  </div>
+  <div class="kpi-grid kpi-grid-4" id="inspections-kpis"></div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Inspection Feed</div><div class="section-badge" id="insp-table-count"></div></div>
+    <div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Site</th><th>Template</th><th>Supervisor</th><th>Tasks</th><th>Species</th><th>Photos</th><th>Status</th></tr></thead><tbody id="insp-tbody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ============ SITES PAGE ============ -->
+<div class="page" id="page-sites">
+  <div class="page-header">
+    <div class="page-title">Sites</div>
+    <div class="page-subtitle">All tracked work sites</div>
+  </div>
+  <div class="kpi-grid kpi-grid-3" id="sites-kpis"></div>
+  <div class="three-col" id="sites-grid"></div>
+</div>
+
+<!-- ============ STAFF PAGE ============ -->
+<div class="page" id="page-staff">
+  <div class="page-header">
+    <div class="page-title">Staff &amp; Hours</div>
+    <div class="page-subtitle">Crew activity across all inspections</div>
+  </div>
+  <div class="kpi-grid kpi-grid-3" id="staff-kpis"></div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Hours by Staff Member</div></div>
+    <div class="section-body" id="staff-hours-bars"></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Staff Roster</div></div>
+    <div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Role</th><th>Inspections</th><th>Total Hours</th><th>Status</th></tr></thead><tbody id="staff-tbody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ============ CHEMICALS PAGE ============ -->
+<div class="page" id="page-chemicals">
+  <div class="page-header">
+    <div class="page-title">Chemicals</div>
+    <div class="page-subtitle">Herbicide usage across all inspections</div>
+  </div>
+  <div class="kpi-grid kpi-grid-4" id="chem-kpis"></div>
+  <div class="two-col">
+    <div class="section"><div class="section-header"><div class="section-title">Usage Frequency</div></div><div class="section-body" id="chem-bars"></div></div>
+    <div class="section"><div class="section-header"><div class="section-title">Application Records</div></div><div class="section-body" id="chem-records"></div></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Chemical Reference</div></div>
+    <div class="three-col" style="padding:20px;" id="chem-cards"></div>
+  </div>
+</div>
+
+<!-- ============ SPECIES PAGE ============ -->
+<div class="page" id="page-species">
+  <div class="page-header">
+    <div class="page-title">Weed Species</div>
+    <div class="page-subtitle">Species targeted across all site inspections</div>
+  </div>
+  <div class="kpi-grid kpi-grid-3" id="species-kpis"></div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Species Frequency</div></div>
+    <div class="section-body" id="species-bars"></div>
+  </div>
+  <div class="three-col" id="species-cards" style="margin-top:0"></div>
+</div>
+
+<!-- ============ REPORTS PAGE ============ -->
+<div class="page" id="page-reports">
+  <div class="page-header">
+    <div class="page-title">Client Reports</div>
+    <div class="page-subtitle">Generated monthly reports for clients</div>
+  </div>
+  <div class="kpi-grid kpi-grid-4" id="reports-kpis"></div>
+  <div id="reports-content"></div>
+</div>
+
+<!-- ============ PIPELINE PAGE ============ -->
+<div class="page" id="page-pipeline">
+  <div class="page-header">
+    <div class="page-title">Pipeline Health</div>
+    <div class="page-subtitle">Ingestion pipeline status and diagnostics</div>
+  </div>
+  <div class="kpi-grid kpi-grid-4" id="pipeline-kpis"></div>
+  <div class="two-col">
+    <div class="section"><div class="section-header"><div class="section-title">Status Breakdown</div></div><div class="section-body"><div class="donut-container"><div class="donut" id="pipeline-donut"></div><div class="donut-legend" id="pipeline-legend"></div></div></div></div>
+    <div class="section"><div class="section-header"><div class="section-title">Template Types Processed</div></div><div class="section-body" id="pipeline-templates"></div></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Recent Failures &amp; Review Items</div></div>
+    <div style="overflow-x:auto"><table><thead><tr><th>Audit ID</th><th>Date</th><th>Template</th><th>Status</th></tr></thead><tbody id="pipeline-issues"></tbody></table></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Sync State</div></div>
+    <div class="section-body" id="sync-state-info"></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+const SUPABASE_URL = 'https://yrkclyeklwjlfblxvdbc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlya2NseWVrbHdqbGZibHh2ZGJjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjIxOTI5MywiZXhwIjoyMDkxNzk1MjkzfQ.3GEMeRFnfZBsPs7GAEO93Z_waVMAwVX3BArh6NImZXc';
+const H = { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` };
+
+async function q(table, params='') { return (await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {headers:H})).json(); }
+async function qCount(table, filter='') {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=id${filter?'&'+filter:''}`, {headers:{...H,'Prefer':'count=exact','Range':'0-0'}});
+  const rng = r.headers.get('content-range'); return rng ? parseInt(rng.split('/')[1]) : 0;
+}
+
+// Helpers
+function pill(status) {
+  const m = {completed:'sage',needs_review:'cooling',failed:'terracotta',pending:'steel',processing:'steel',draft:'steel',review:'cooling',approved:'sage',sent:'sage'};
+  return `<span class="pill ${m[status]||'steel'}"><span class="pill-dot"></span>${(status||'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span>`;
+}
+function tmpl(t) { return {daily_work_report:'Daily Work Report',chemical_application_record:'Chemical Application'}[t]||t; }
+function kpiHTML(label,value,sub,color) { return `<div class="kpi-card"><div class="kpi-label">${label}</div><div class="kpi-value" ${color?`style="color:${color}"`:''}>${value}</div><div class="kpi-sub">${sub||''}</div></div>`; }
+function bars(id, data, maxV, colors) {
+  const el=document.getElementById(id); if(!data.length){el.innerHTML='<div style="color:var(--color-taupe);font-size:13px">No data yet</div>';return;}
+  const cs=colors||['clay','sage','steel','amber','caramel','stone'];
+  el.innerHTML=data.map((d,i)=>`<div class="bar-row"><div class="bar-label" title="${d.label}">${d.label}</div><div class="bar-track"><div class="bar-fill ${cs[i%cs.length]}" style="width:${(d.value/maxV*100).toFixed(1)}%"></div></div><div class="bar-count">${typeof d.value==='number'&&d.value%1?d.value.toFixed(0):d.value}</div></div>`).join('');
+}
+function donut(chartId, legendId, segments) {
+  const total=segments.reduce((s,x)=>s+x.val,0); if(!total)return;
+  let grad='conic-gradient(', off=0;
+  segments.filter(s=>s.val>0).forEach((s,i,a)=>{const p=s.val/total*100;grad+=`${s.color} ${off}% ${off+p}%`;if(i<a.length-1)grad+=',';off+=p;});
+  grad+=')';
+  document.getElementById(chartId).style.background=grad;
+  document.getElementById(chartId).innerHTML=`<div class="donut-center"><div class="value">${total}</div><div class="label">total</div></div>`;
+  document.getElementById(legendId).innerHTML=segments.filter(s=>s.val>0).map(s=>`<div class="legend-item"><span class="legend-dot" style="background:${s.color}"></span>${s.label}<span class="legend-count">${s.val}</span></div>`).join('');
+}
+function countBy(arr, key) { const c={}; arr.forEach(x=>{const k=x[key]||'unknown';c[k]=(c[k]||0)+1;}); return c; }
+function topN(obj, n=10) { return Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,n).map(([label,value])=>({label,value})); }
+
+// ─── Navigation ───────────────────────────────────────────────
+document.querySelectorAll('.nav-item[data-page]').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+el.dataset.page).classList.add('active');
+    loadPage(el.dataset.page);
+  });
+});
+
+let cache = {};
+
+async function loadData() {
+  const [inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState, chemLookup, speciesLookup, carRecords, carItems, reports] = await Promise.all([
+    q('inspections','select=id,sc_audit_id,date,sc_template_type,processing_status,supervisor_id,staff(name),site_id,sites(name)&order=date.desc.nullslast&limit=2000'),
+    q('inspection_tasks','select=task_type,inspection_id&limit=5000'),
+    q('inspection_weeds','select=species_name_raw,species_name_canonical,source,inspection_id&limit=5000'),
+    q('inspection_chemicals','select=chemical_name_raw,chemical_name_canonical,rate_raw,inspection_id&limit=5000'),
+    q('inspection_personnel','select=staff_id,staff(name),hours_worked,raw_hours_text,inspection_id&limit=5000'),
+    q('inspection_media','select=id,inspection_id,media_type,sc_media_href,storage_url&limit=5000'),
+    q('sites','select=id,name,canonical_name,project_code,client_id,site_type&order=name'),
+    q('staff','select=id,name,role,active&order=name'),
+    q('inspection_observations','select=observation_type,species_name,notes,inspection_id&limit=1000'),
+    q('sync_state','select=*'),
+    q('chemical_lookup','select=canonical_name,type,active_ingredient&order=canonical_name'),
+    q('species_lookup','select=canonical_name,scientific_name,species_type,category&order=canonical_name'),
+    q('chemical_application_records','select=id,sc_audit_id,date,site_id,sites(name),application_method,total_amount_sprayed_litres,weather_general&order=date.desc&limit=500'),
+    q('chemical_application_items','select=chemical_name_raw,rate_raw,concentrate_raw,application_record_id&limit=2000'),
+    q('client_reports','select=*&limit=100').catch(()=>[]),
+  ]);
+  cache = { inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState: syncState[0]||{}, chemLookup, speciesLookup, carRecords, carItems, reports };
+  return cache;
+}
+
+// ─── Page loaders ─────────────────────────────────────────────
+
+function loadPage(page) {
+  const d = cache;
+  if (!d.inspections) return;
+  ({dashboard:loadDashboard, inspections:loadInspections, sites:loadSites, staff:loadStaff, chemicals:loadChemicals, species:loadSpecies, reports:loadReports, pipeline:loadPipeline})[page]?.(d);
+}
+
+function loadDashboard(d) {
+  document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+  const sc = countBy(d.inspections,'processing_status');
+  const total=d.inspections.length, completed=sc.completed||0, review=sc.needs_review||0;
+
+  document.getElementById('dashboard-kpis').innerHTML = [
+    kpiHTML('Total Inspections', total.toLocaleString(), `${Object.keys(sc).length} status types`),
+    kpiHTML('Completed', completed.toLocaleString(), `${total?((completed/total)*100).toFixed(0):0}% of total`, 'var(--color-sage)'),
+    kpiHTML('Needs Review', review.toLocaleString(), 'non-DWR templates', '#9A7A3F'),
+    kpiHTML('Sites Tracked', d.sites.length, 'across all clients'),
+    kpiHTML('Photos', d.media.length.toLocaleString(), 'from field inspections'),
+  ].join('');
+
+  document.getElementById('backfill-count').textContent = total.toLocaleString();
+  if (total >= 1680) { document.getElementById('backfill-alert').style.display='none'; document.getElementById('sync-indicator').innerHTML='<span class="sync-dot live"></span>Pipeline live'; }
+
+  donut('donut-chart','donut-legend',[
+    {val:completed,color:'var(--color-sage)',label:'Completed'},
+    {val:review,color:'var(--color-cooling)',label:'Needs Review'},
+    {val:sc.failed||0,color:'var(--color-terracotta)',label:'Failed'},
+    {val:(sc.processing||0)+(sc.pending||0),color:'var(--color-steel)',label:'Processing'},
+  ]);
+
+  const tc=countBy(d.tasks,'task_type'), td=topN(tc,8);
+  bars('tasks-chart',td,td[0]?.value||1,['clay','clay','amber','amber','caramel','caramel','stone','stone']);
+
+  const wc=countBy(d.weeds,'species_name_raw'), wd=topN(wc,8);
+  bars('weeds-chart',wd,wd[0]?.value||1,['sage','sage','sage','sage','steel','steel','steel','steel']);
+
+  const sh={}; d.personnel.forEach(p=>{const n=p.staff?.name||'Unknown';sh[n]=(sh[n]||0)+(parseFloat(p.hours_worked)||0);});
+  const sd=Object.entries(sh).filter(([_,h])=>h>0).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([label,value])=>({label,value:Math.round(value)}));
+  bars('hours-chart',sd,sd[0]?.value||1,['amber','amber','caramel','caramel','clay','clay','stone','stone']);
+}
+
+function loadInspections(d) {
+  const sc=countBy(d.inspections,'processing_status');
+  const tc=countBy(d.inspections,'sc_template_type');
+  document.getElementById('inspections-kpis').innerHTML = [
+    kpiHTML('Total', d.inspections.length.toLocaleString(), 'all templates'),
+    kpiHTML('Daily Work Reports', (tc.daily_work_report||0).toLocaleString(), 'primary template', 'var(--color-clay)'),
+    kpiHTML('Chemical Records', (tc.chemical_application_record||0).toLocaleString(), 'compliance data', 'var(--color-steel)'),
+    kpiHTML('Failed', (sc.failed||0).toLocaleString(), 'need investigation', 'var(--color-terracotta)'),
+  ].join('');
+
+  const taskMap={}, weedMap={}, mediaMap={};
+  d.tasks.forEach(t=>{taskMap[t.inspection_id]=(taskMap[t.inspection_id]||0)+1;});
+  d.weeds.forEach(w=>{weedMap[w.inspection_id]=(weedMap[w.inspection_id]||0)+1;});
+  d.media.forEach(m=>{mediaMap[m.inspection_id]=(mediaMap[m.inspection_id]||0)+1;});
+
+  document.getElementById('insp-tbody').innerHTML = d.inspections.slice(0,50).map(i=>`<tr>
+    <td class="tabular-nums">${i.date||'—'}</td>
+    <td>${i.sites?.name||'<span style="color:var(--color-stone)">—</span>'}</td>
+    <td>${tmpl(i.sc_template_type)}</td>
+    <td>${i.staff?.name||'—'}</td>
+    <td class="tabular-nums">${taskMap[i.id]||0}</td>
+    <td class="tabular-nums">${weedMap[i.id]||0}</td>
+    <td class="tabular-nums">${mediaMap[i.id]||0}</td>
+    <td>${pill(i.processing_status)}</td>
+  </tr>`).join('');
+  document.getElementById('insp-table-count').textContent = `Showing ${Math.min(50,d.inspections.length)} of ${d.inspections.length}`;
+}
+
+function loadSites(d) {
+  const siteInsp={}, siteHours={};
+  d.inspections.forEach(i=>{if(i.site_id){siteInsp[i.site_id]=(siteInsp[i.site_id]||0)+1;}});
+  d.personnel.forEach(p=>{
+    const insp=d.inspections.find(i=>i.id===p.inspection_id);
+    if(insp?.site_id){siteHours[insp.site_id]=(siteHours[insp.site_id]||0)+(parseFloat(p.hours_worked)||0);}
+  });
+
+  const activeSites=d.sites.filter(s=>siteInsp[s.id]);
+  document.getElementById('sites-kpis').innerHTML = [
+    kpiHTML('Total Sites', d.sites.length, `${activeSites.length} with inspections`),
+    kpiHTML('Most Active', activeSites[0]? activeSites.sort((a,b)=>(siteInsp[b.id]||0)-(siteInsp[a.id]||0))[0].name :'—', activeSites[0]?`${siteInsp[activeSites[0].id]} inspections`:''),
+    kpiHTML('Total Site Hours', Object.values(siteHours).reduce((s,h)=>s+h,0).toLocaleString()+'h', 'across all sites'),
+  ].join('');
+
+  document.getElementById('sites-grid').innerHTML = d.sites.sort((a,b)=>(siteInsp[b.id]||0)-(siteInsp[a.id]||0)).map(s=>`
+    <div class="site-card">
+      <div class="site-name">${s.name}</div>
+      <div class="site-meta">${s.site_type||'—'} ${s.project_code?'&middot; '+s.project_code:''}</div>
+      <div class="site-stats">
+        <div class="site-stat"><div class="site-stat-value">${siteInsp[s.id]||0}</div><div class="site-stat-label">Inspections</div></div>
+        <div class="site-stat"><div class="site-stat-value">${Math.round(siteHours[s.id]||0)}</div><div class="site-stat-label">Hours</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadStaff(d) {
+  const sh={}, si={};
+  d.personnel.forEach(p=>{const n=p.staff?.name||'Unknown';sh[n]=(sh[n]||0)+(parseFloat(p.hours_worked)||0);si[n]=(si[n]||0)+1;});
+  const totalHours=Object.values(sh).reduce((s,h)=>s+h,0);
+  const activeStaff=d.staff.filter(s=>s.active!==false);
+
+  document.getElementById('staff-kpis').innerHTML = [
+    kpiHTML('Total Staff', d.staff.length, `${activeStaff.length} active`),
+    kpiHTML('Total Hours', Math.round(totalHours).toLocaleString()+'h', 'all staff combined'),
+    kpiHTML('Top Performer', Object.entries(sh).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—', Object.entries(sh).sort((a,b)=>b[1]-a[1])[0]?Math.round(Object.entries(sh).sort((a,b)=>b[1]-a[1])[0][1])+'h':''),
+  ].join('');
+
+  const sd=Object.entries(sh).filter(([_,h])=>h>0).sort((a,b)=>b[1]-a[1]).map(([label,value])=>({label,value:Math.round(value)}));
+  bars('staff-hours-bars',sd,sd[0]?.value||1,['clay','amber','caramel','sage','steel','stone']);
+
+  document.getElementById('staff-tbody').innerHTML = d.staff.map(s=>`<tr>
+    <td style="font-weight:500">${s.name}</td>
+    <td>${s.role||'—'}</td>
+    <td class="tabular-nums">${si[s.name]||0}</td>
+    <td class="tabular-nums">${Math.round(sh[s.name]||0)}h</td>
+    <td>${pill(s.active!==false?'completed':'failed')}</td>
+  </tr>`).join('');
+}
+
+function loadChemicals(d) {
+  const cc=countBy(d.chemicals,'chemical_name_raw'), cd=topN(cc);
+  document.getElementById('chem-kpis').innerHTML = [
+    kpiHTML('Chemical Records', d.chemicals.length.toLocaleString(), 'from inspections'),
+    kpiHTML('Unique Chemicals', Object.keys(cc).length.toString(), 'identified'),
+    kpiHTML('Application Records', d.carRecords.length.toLocaleString(), 'compliance docs'),
+    kpiHTML('Most Used', cd[0]?.label||'—', cd[0]?`${cd[0].value} mentions`:'', 'var(--color-clay)'),
+  ].join('');
+
+  bars('chem-bars',cd,cd[0]?.value||1,['clay','clay','amber','amber','caramel','caramel','sage','sage','stone','stone']);
+
+  document.getElementById('chem-records').innerHTML = d.carRecords.length ?
+    d.carRecords.slice(0,6).map(r=>`<div style="margin-bottom:12px;padding:12px;background:var(--color-linen);border-radius:var(--radius-md)">
+      <div style="font-weight:500;font-size:13px">${r.sites?.name||'Unknown site'}</div>
+      <div style="font-size:12px;color:var(--color-taupe)">${r.date||'—'} &middot; ${r.application_method||'—'} &middot; ${r.weather_general||''}</div>
+    </div>`).join('') :
+    '<div class="empty-state"><div class="icon">&#9883;</div><div class="msg">No application records yet</div></div>';
+
+  document.getElementById('chem-cards').innerHTML = d.chemLookup.map(c=>`
+    <div class="chem-card">
+      <div class="chem-name">${c.canonical_name}</div>
+      <div class="chem-type">${c.type||'—'} ${c.active_ingredient?'&middot; '+c.active_ingredient:''}</div>
+      <div class="chem-stat-row">
+        <div><div class="chem-stat-val">${cc[c.canonical_name]||0}</div><div class="chem-stat-lbl">Mentions</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadSpecies(d) {
+  const wc=countBy(d.weeds,'species_name_raw'), wd=topN(wc,15);
+  const uniqueSpecies=Object.keys(wc).length;
+  document.getElementById('species-kpis').innerHTML = [
+    kpiHTML('Total Sightings', d.weeds.length.toLocaleString(), 'across all inspections'),
+    kpiHTML('Unique Species', uniqueSpecies.toString(), `${d.speciesLookup.length} in reference DB`),
+    kpiHTML('Most Common', wd[0]?.label||'—', wd[0]?`${wd[0].value} sightings`:'', 'var(--color-sage)'),
+  ].join('');
+
+  bars('species-bars',wd,wd[0]?.value||1,['sage','sage','sage','sage','sage','steel','steel','steel','steel','steel','stone','stone','stone','stone','stone']);
+
+  document.getElementById('species-cards').innerHTML = d.speciesLookup.slice(0,12).map(s=>`
+    <div class="species-card">
+      <div class="species-info">
+        <div class="species-name">${s.canonical_name}</div>
+        <div class="species-sci">${s.scientific_name||s.category||s.species_type||''}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="species-count">${wc[s.canonical_name]||0}</div>
+        <div class="species-count-label">sightings</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadReports(d) {
+  const hasReports = d.reports && d.reports.length > 0;
+  if (!hasReports) {
+    // Show what reports WOULD look like from the data we have
+    const siteDates={};
+    d.inspections.filter(i=>i.sites?.name && i.date).forEach(i=>{
+      const month=i.date.substring(0,7);
+      const key=i.sites.name+'||'+month;
+      siteDates[key]=(siteDates[key]||0)+1;
+    });
+    const potentialReports=Object.entries(siteDates).sort((a,b)=>b[0].split('||')[1].localeCompare(a[0].split('||')[1])).slice(0,12);
+
+    document.getElementById('reports-kpis').innerHTML = [
+      kpiHTML('Generated Reports', '0', 'M03 not yet built'),
+      kpiHTML('Potential Reports', potentialReports.length.toString(), 'site-months with data', 'var(--color-steel)'),
+      kpiHTML('Sites with Data', new Set(potentialReports.map(r=>r[0].split('||')[0])).size.toString(), 'ready for reporting'),
+      kpiHTML('Report Pipeline', 'M03', 'upcoming milestone', 'var(--color-taupe)'),
+    ].join('');
+
+    document.getElementById('reports-content').innerHTML = `
+      <div class="alert-bar" style="border-left-color:var(--color-steel);background:var(--color-steel-bg)">
+        <span>&#9432;</span> Report generation (M03) is not yet built. Below shows what reports <strong>could</strong> be generated from existing inspection data.
+      </div>
+      <div class="section"><div class="section-header"><div class="section-title">Available Site-Months</div><div class="section-badge">Ready for report generation</div></div>
+      <div style="padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        ${potentialReports.map(([key,count])=>{
+          const [site,month]=key.split('||');
+          const monthLabel=new Date(month+'-01').toLocaleDateString('en-AU',{month:'long',year:'numeric'});
+          return `<div class="report-card draft">
+            <div class="report-title">${site}</div>
+            <div class="report-meta">${monthLabel} &middot; ${count} inspection${count>1?'s':''}</div>
+            <div class="report-footer">${pill('draft')}<span style="font-size:12px;color:var(--color-taupe)">${count} data points</span></div>
+          </div>`;
+        }).join('')}
+      </div></div>`;
+  } else {
+    document.getElementById('reports-kpis').innerHTML = [
+      kpiHTML('Total Reports', d.reports.length.toString(), ''),
+      kpiHTML('Approved', d.reports.filter(r=>r.status==='approved'||r.status==='sent').length.toString(), '', 'var(--color-sage)'),
+      kpiHTML('In Review', d.reports.filter(r=>r.status==='review').length.toString(), '', '#9A7A3F'),
+      kpiHTML('Drafts', d.reports.filter(r=>r.status==='draft').length.toString(), '', 'var(--color-steel)'),
+    ].join('');
+  }
+}
+
+function loadPipeline(d) {
+  const sc=countBy(d.inspections,'processing_status');
+  const tc=countBy(d.inspections,'sc_template_type');
+  const total=d.inspections.length;
+
+  document.getElementById('pipeline-kpis').innerHTML = [
+    kpiHTML('Processed', total.toLocaleString(), 'total inspections'),
+    kpiHTML('Success Rate', total?((sc.completed||0)/total*100).toFixed(1)+'%':'—', `${sc.completed||0} completed`, 'var(--color-sage)'),
+    kpiHTML('Review Queue', (sc.needs_review||0).toLocaleString(), 'need manual check', '#9A7A3F'),
+    kpiHTML('Failures', (sc.failed||0).toLocaleString(), 'need investigation', 'var(--color-terracotta)'),
+  ].join('');
+
+  donut('pipeline-donut','pipeline-legend',[
+    {val:sc.completed||0,color:'var(--color-sage)',label:'Completed'},
+    {val:sc.needs_review||0,color:'var(--color-cooling)',label:'Needs Review'},
+    {val:sc.failed||0,color:'var(--color-terracotta)',label:'Failed'},
+    {val:(sc.processing||0)+(sc.pending||0),color:'var(--color-steel)',label:'Processing'},
+  ]);
+
+  const ttd=Object.entries(tc).sort((a,b)=>b[1]-a[1]).map(([label,value])=>({label:tmpl(label),value}));
+  bars('pipeline-templates',ttd,ttd[0]?.value||1,['clay','steel','amber','stone']);
+
+  const issues=d.inspections.filter(i=>i.processing_status==='failed'||i.processing_status==='needs_review').slice(0,20);
+  document.getElementById('pipeline-issues').innerHTML = issues.length ?
+    issues.map(i=>`<tr><td style="font-size:11px;font-family:monospace">${i.sc_audit_id?.substring(0,24)||'—'}...</td><td class="tabular-nums">${i.date||'—'}</td><td>${tmpl(i.sc_template_type)}</td><td>${pill(i.processing_status)}</td></tr>`).join('') :
+    '<tr><td colspan="4" style="text-align:center;color:var(--color-taupe);padding:24px">No issues found</td></tr>';
+
+  const ss=d.syncState;
+  document.getElementById('sync-state-info').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div><div class="kpi-label">Last Sync</div><div style="font-size:14px">${ss.last_sync_at?new Date(ss.last_sync_at).toLocaleString():'Never'}</div></div>
+      <div><div class="kpi-label">High Water Mark</div><div style="font-size:14px">${ss.high_water_mark||'Not set'}</div></div>
+      <div><div class="kpi-label">Total Synced</div><div style="font-size:14px;font-weight:600" class="tabular-nums">${ss.total_synced||0}</div></div>
+    </div>
+    ${ss.last_error?`<div style="margin-top:12px;padding:10px;background:var(--color-terracotta-bg);border-radius:var(--radius-sm);font-size:12px;color:var(--color-terracotta)">${ss.last_error}</div>`:''}
+  `;
+}
+
+// ─── Init ─────────────────────────────────────────────────────
+async function init() {
+  await loadData();
+  loadDashboard(cache);
+}
+init();
+setInterval(async()=>{ await loadData(); loadPage(document.querySelector('.nav-item.active')?.dataset?.page||'dashboard'); }, 30000);
+</script>
+</body>
+</html>

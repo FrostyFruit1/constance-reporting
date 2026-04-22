@@ -1,0 +1,1737 @@
+{
+    "template_id": "template_f0eb0c0c58d24ce6bd21ab671f200a69",
+    "audit_id": "audit_0bd83f72874f49d2ae3e616b6c62ef10",
+    "archived": false,
+    "created_at": "2026-01-22T03:30:12.532Z",
+    "modified_at": "2026-01-22T04:24:35.360Z",
+    "audit_data": {
+        "score": 23.5,
+        "total_score": 62,
+        "score_percentage": 37.903,
+        "name": "Kavanaugh Riparian",
+        "duration": 11,
+        "authorship": {
+            "device_id": "user_6b914af1a23e477da5bff15989a27d29",
+            "owner": "Reece Morgan",
+            "owner_id": "user_6b914af1a23e477da5bff15989a27d29",
+            "author": "Reece Morgan",
+            "author_id": "user_6b914af1a23e477da5bff15989a27d29"
+        },
+        "date_completed": "2026-01-22T04:24:21.519Z",
+        "date_modified": "2026-01-22T04:24:35.360Z",
+        "date_started": "2026-01-22T03:30:12.000Z"
+    },
+    "template_data": {
+        "authorship": {
+            "device_id": "user_4115f63407da48f5a95ff720c59c1435",
+            "owner": "Constanceconservation User",
+            "owner_id": "user_4115f63407da48f5a95ff720c59c1435",
+            "author": "Regen Manager",
+            "author_id": "user_b8cb393ffa274660a74623098f5ffab8"
+        },
+        "metadata": {
+            "description": "",
+            "name": "Daily Work Report"
+        },
+        "response_sets": {
+            "3fcedca5-15de-43c3-9ae3-4e6600b5388d": {
+                "id": "3fcedca5-15de-43c3-9ae3-4e6600b5388d",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "e8f965c1-379b-42e9-806f-384f11fb4202",
+                        "label": "Example 1",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "b27db82c-87e8-4bb8-8ecf-d8230d7e451d",
+                        "label": "Example 2",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "5785c27b-ba31-49c1-8cd4-379ea43fdd0a": {
+                "id": "5785c27b-ba31-49c1-8cd4-379ea43fdd0a",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "9dbd0ae2-6805-4249-b022-0c9b510dfef4",
+                        "label": "Harrington Forest",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "27677f7b-c1f7-46ba-9a11-cb8d3676d42c",
+                        "label": "Camden Town Farm",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ed923109-7b3f-4975-85a4-f8b1d2d8f23b",
+                        "label": "Riparian",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a796a2fc-1ffb-4ac9-aff9-4233ccc7ef9f",
+                        "label": "Camden Council Basins",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ee2877f8-623f-4d7b-add0-0f30b329ff4e",
+                        "label": "Harrington Lake Alligator Weed",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a60a80b7-1b42-43ae-8383-008d0aeb69bd",
+                        "label": "Tom Way Reserve Liverpool",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a810104b-b4e1-4e2b-a71d-827911136d20",
+                        "label": "Hinchinbrook",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "73c16dc6-6e99-45a1-8e94-9b7b2bb8b4ca",
+                        "label": "EBSF Zone D",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "dfe4dce6-16f9-4de5-af90-77a95cc6f7bf",
+                        "label": "EBSF Zone B",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "870b9755-ad4d-4026-aee7-ba59be7d8c51",
+                        "label": "EBSF Zone C",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "53b21c68-a3fd-496c-a209-d327e15a7aa7",
+                        "label": "Riverside Dr",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "8c38f8e8-b4e2-46b0-b459-15731850b15d",
+                        "label": "Mount Annan Botanic Gardens",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "490caf7f-c2f5-474c-b279-d1e35d14c54a",
+                        "label": "Rotary Cowpasture",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "647f2d65-1e37-49a0-abf5-b62224236a1b",
+                        "label": "Sixth Ave",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "00790540-dd81-4ba8-98b6-fd5555bd8966",
+                        "label": "Gow Park",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c3d855d9-6145-4b12-9f85-089b2153fc43",
+                        "label": "Factory Road Reserve",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a5f4bc66-58ed-4de1-90e7-be39072caed9",
+                        "label": "Ferguson's Cricket Ground",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "7c50999f-244c-48af-bad1-fee07005f10f",
+                        "label": "Chauvel Park",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "50850ca5-2237-4fc7-a938-e1be7280c79b",
+                        "label": "Lloyd Place",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "8df35701-3ae4-4cb4-a84d-ca4465e6a467",
+                        "label": "Western Sydney Parklands",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6372f8dc-c217-4d26-ae70-2c3fa02119fd",
+                        "label": "Bulga Stock Reserve",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "5b69aee5-0532-46a4-b2f5-d020d4d5381d": {
+                "id": "5b69aee5-0532-46a4-b2f5-d020d4d5381d",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca20",
+                        "label": "Good",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca21",
+                        "label": "Fair",
+                        "colour": "255,176,0",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca22",
+                        "label": "Poor",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca23",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "5b998908-f850-4530-ae6e-e585acb114fa": {
+                "id": "5b998908-f850-4530-ae6e-e585acb114fa",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "7933e7ab-43c6-4170-b152-8ed712e7c632",
+                        "label": "Purple Top",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "126ebfb7-7b91-4623-9868-bdb8701d9144",
+                        "label": "Fleabane",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "72239f54-8e12-4027-b8cb-8133e8658fce",
+                        "label": "Thistle",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "4027db5b-6ec4-4379-8758-b760044a1d27",
+                        "label": "Prickly Lettuce",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "9790df00-bb42-404f-9e17-a3240d5b1eed",
+                        "label": "Paddy's Lucerne",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "17669ead-445a-4e65-8177-aad19f151a96",
+                        "label": "Bidens Pilosa",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "7574a404-19b9-4166-9cca-b0ffea980dec",
+                        "label": "Paspalum",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "483f8a55-4e48-43bb-b5a7-a3b83a3b2053",
+                        "label": "Bromus",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "9cbc7f35-8cfb-4eed-88b8-43911602aae4",
+                        "label": "Pigeon Grass",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "bfc45f71-037f-4d5f-95ed-e32c096ede01",
+                        "label": "Kikuyu",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "99feeb34-9b8a-4285-97e3-1ffcabb8f7c6",
+                        "label": "African Olive",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "5348169c-853a-4b51-9279-720f8440eda9",
+                        "label": "Moth Vine",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "1573ee38-548e-4622-b7c3-63415ac3a7ae",
+                        "label": "Sticky nightshade (solanum sisymbriifolium)",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "193957fb-e20d-40e0-9157-2bfa2eb601b3",
+                        "label": "Cats claw creeper",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "7cfccd08-2e80-4260-91e2-a95dd6e8c5d5",
+                        "label": "Japanese honeysuckle",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ee81ae22-dda0-44c8-a426-015f63e4ca83",
+                        "label": "Balloon Vine",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "0781bc7a-0034-41d3-9ea5-fe6d7ea5c6c9",
+                        "label": "Privett sp.",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "b54f5d41-6aab-4416-9adf-98ee4842b5ce",
+                        "label": "African Love Grass",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "fc273fbe-5af6-4b47-aeee-6a6d879bfd15",
+                        "label": "Lantana",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "5fd9ff33-7640-4095-846d-22eeea47089a",
+                        "label": "Prickly Pear",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "7d1d2bf1-9b0f-437b-b6bb-29e3a023df1b",
+                        "label": "Blackberry",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "e16f793c-67a3-4ee9-b2f3-30807004c39f",
+                        "label": "Asparagus Fern",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "70da8330-86af-4f38-9c3e-4f0f601ffdf3",
+                        "label": "Bridal Creeper",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "fd85bd19-d88e-40d0-a6bd-7ae6b70b8222",
+                        "label": "Crofton",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "7601fb75-80ae-4409-b31a-9acd58d45445": {
+                "id": "7601fb75-80ae-4409-b31a-9acd58d45445",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "af89ffa0-5db2-4a49-93e5-7dd392ab8f10",
+                        "label": "Safe",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "af89ffa1-5db2-4a49-93e5-7dd392ab8f10",
+                        "label": "At Risk",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "af89ffa2-5db2-4a49-93e5-7dd392ab8f10",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "8c3b2280-60ec-40b9-886d-6ad4d793f3bc": {
+                "id": "8c3b2280-60ec-40b9-886d-6ad4d793f3bc",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "8e0d3d37-0aa2-47df-83ed-38ca86a831c9",
+                        "label": "Spraying",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a4b37422-4aed-4ae7-9e73-9971b0b99053",
+                        "label": "Cut & Painting",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "413624a4-c878-43c3-b008-4b4dee596c78",
+                        "label": "Chainsawing",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "984c47c8-90c2-448a-8a16-e65fb34cdc09",
+                        "label": "Handweeding",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2b6e81b9-f43c-4964-816a-e08132ad0555",
+                        "label": "Scrape and Paint",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "cb83e7e6-9326-4829-827b-4bd9bc9bb41d",
+                        "label": "Brushcutting",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "de7f67a4-0987-4751-9ea1-3e9820f4ff5a",
+                        "label": "Drill & Fill",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "196419e0-2cf5-4f31-a241-3627f8ee4710",
+                        "label": "Landscaping",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "006b5d83-d3eb-449c-8e52-0ed1af6d5bca",
+                        "label": "Burning",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "8e6d1758-3757-4742-aaee-8243350d9e8f",
+                        "label": "APZ",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c8b392d4-341a-485f-be02-5713d2ac8243",
+                        "label": "Ecological surveying/monitoring",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "97f86dd9-4bbf-4bbe-aba4-4fedd0bb20c4": {
+                "id": "97f86dd9-4bbf-4bbe-aba4-4fedd0bb20c4",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "e3c8e67a-0496-4392-9d04-590262f28e90",
+                        "label": "Yes",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "188af9ee-c282-442f-9b1c-65b440eaf1df",
+                        "label": "No",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "9aa8e599-7bac-47b0-9236-a5ed326d2bff": {
+                "id": "9aa8e599-7bac-47b0-9236-a5ed326d2bff",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "e586675c-a869-4183-9be3-293a8143156f",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "21d066b9-617c-42a7-b7ed-0c78677381b9",
+                        "label": "Jordan Darnley",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "15d15913-8526-4024-8970-6e12e2838d67",
+                        "label": "Suzie Kiloh",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "d71f906c-1160-4f9e-9dae-8fa6c2f78dd0",
+                        "label": "Madeline Sharpe",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6262da34-a51c-4ca6-8c7b-096c0aa8ba2f",
+                        "label": "Matthew Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a2915db5-4ef0-4557-b67f-c0a420619b51",
+                        "label": "Anthony Jalalaty",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "64e6ea19-b973-4a8f-a213-347405cbe2eb",
+                        "label": "Ethan Magtoto",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "1d5b2c06-5273-4651-9cd4-65e0be7cdc35",
+                        "label": "Cameron Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "4ae5a86c-fadd-405b-804c-ea1c6baf634f",
+                        "label": "Josh Collins",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "313bb5cf-ad52-4b36-b5ca-92876b378c13",
+                        "label": "Reece Morgan",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "b5e9273b-5ce3-404f-8191-ac8a223c47f8",
+                        "label": "Juliet Savva",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "b52a8b4c-048b-4f7d-99b9-c6b9680be5ed": {
+                "id": "b52a8b4c-048b-4f7d-99b9-c6b9680be5ed",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "2a2b8507-c53d-4d0e-83ec-164cb179b6a0",
+                        "label": "Pass",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2a2b8507-c53d-4d0e-83ec-164cb179b6a1",
+                        "label": "Fail",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2a2b8507-c53d-4d0e-83ec-164cb179b6a2",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "bb88773a-ad2c-4226-bc74-84b12e018f7c": {
+                "id": "bb88773a-ad2c-4226-bc74-84b12e018f7c",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "fc319b7d-79b5-445c-a084-d49a67063a25",
+                        "label": "Starane",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "f6a18fc0-1910-469f-be88-c980f429b93e",
+                        "label": "Glyphosate",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "054b751e-7a7e-4fe9-aacd-fa561f2b5d2d",
+                        "label": "Dicamba",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "abbcf66d-bff3-47d7-9c21-97a8772a53ef",
+                        "label": "Fusilade",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "99e40bc0-75c8-4921-b51e-614babd74435",
+                        "label": "Brushwet",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "e08e2f9e-9c7e-4df3-adc2-050346b36d31",
+                        "label": "Grazon Extra",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "12ede5e2-3edc-4900-b3da-277b7dddf574",
+                        "label": "Metsulfuron",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "c6c011ed-4ade-460d-a04b-da730834b667": {
+                "id": "c6c011ed-4ade-460d-a04b-da730834b667",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "060ace00-1f61-468e-9c42-918fa93badcf",
+                        "label": "Yes",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "060ace01-1f61-468e-9c42-918fa93badcf",
+                        "label": "No",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "060ace02-1f61-468e-9c42-918fa93badcf",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "d6036f1d-5384-403b-af50-809c09f37500": {
+                "id": "d6036f1d-5384-403b-af50-809c09f37500",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "3c185e19-0b14-4be2-a597-c80931344f5a",
+                        "label": "Cameron Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "f3ad04b4-e1ce-4610-93dd-462f7fe47ed4",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "29ad8b2f-d0c1-43ac-9a6a-38780e840909",
+                        "label": "Jordan Darnley",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c66c3ef4-c506-494a-9446-56cc4ee1f245",
+                        "label": "Anthony Jalalaty",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "b2bedc61-12e4-4d51-b3ac-adbcad066111",
+                        "label": "Ethan Magtoto",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "f53bf5c4-14e6-493f-af5d-ac256627b7fb",
+                        "label": "Suzie Kiloh",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c331febd-4a71-49aa-a111-ab6ad2eeacef",
+                        "label": "Reece Morgan",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "d743f356-a147-472c-a790-0c46a187de92": {
+                "id": "d743f356-a147-472c-a790-0c46a187de92",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "6bb1beb4-494e-4a17-bff7-bed8a6fcd3d0",
+                        "label": "Compliant",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6bb1beb4-494e-4a17-bff7-bed8a6fcd3d1",
+                        "label": "Non-Compliant",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6bb1beb4-494e-4a17-bff7-bed8a6fcd3d2",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            }
+        }
+    },
+    "header_items": [
+        {
+            "item_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "label": "Title Page",
+            "type": "section",
+            "scoring": {
+                "combined_score": 1,
+                "combined_max_score": 1,
+                "combined_score_percentage": 100
+            },
+            "children": [
+                "68e335d0-9df7-4340-9e85-325e861a5f89",
+                "f3245d44-ea77-11e1-aff1-0800200c9a66",
+                "f3245d42-ea77-11e1-aff1-0800200c9a66",
+                "894d739f-6fd3-4c50-a77e-597d3f381b0f"
+            ]
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "68e335d0-9df7-4340-9e85-325e861a5f89",
+            "label": "Site Name",
+            "type": "text",
+            "options": {
+                "is_mandatory": true
+            },
+            "responses": {
+                "text": "Kavanaugh Riparian"
+            }
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "f3245d44-ea77-11e1-aff1-0800200c9a66",
+            "label": "",
+            "type": "address",
+            "responses": {
+                "location_text": "15 Lorikeet St\nGregory Hills NSW 2557\nAustralia\n(-34.02430813165668, 150.7781407729123)",
+                "location": {
+                    "name": "",
+                    "country": "",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            150.7781407729123,
+                            -34.02430813165668
+                        ]
+                    },
+                    "locality": "",
+                    "postal_code": "",
+                    "sub_locality": "",
+                    "thoroughfare": "",
+                    "iso_country_code": "",
+                    "sub_thoroughfare": "",
+                    "administrative_area": "",
+                    "sub_administrative_area": ""
+                }
+            }
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "f3245d42-ea77-11e1-aff1-0800200c9a66",
+            "label": "Conducted on",
+            "type": "datetime",
+            "options": {
+                "is_mandatory": false,
+                "enable_date": true,
+                "enable_time": true
+            },
+            "responses": {
+                "datetime": "2026-01-22T03:30:12.000Z"
+            }
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "894d739f-6fd3-4c50-a77e-597d3f381b0f",
+            "label": "Prepared by/ Supervisor",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "d6036f1d-5384-403b-af50-809c09f37500",
+                "failed_responses": []
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "c331febd-4a71-49aa-a111-ab6ad2eeacef",
+                        "label": "Reece Morgan",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        }
+    ],
+    "items": [
+        {
+            "item_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "label": "Inspection",
+            "type": "section",
+            "scoring": {
+                "combined_score": 22.5,
+                "combined_max_score": 61,
+                "combined_score_percentage": 36.885
+            },
+            "children": [
+                "fe13021a-d840-4ea3-8117-7c10d5e1cc1c",
+                "b9d6c080-5a98-4054-9f3b-e523edfb745d",
+                "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+                "0d12439e-ffe3-4b82-9456-5bdcbe94fe7b",
+                "3e3ddba1-5ded-4acc-a23f-0d20293cce6a",
+                "d5727504-e010-4e27-9678-7d82dc45dd22",
+                "d7103053-1946-4ddb-9561-93de2fd6c91b",
+                "a412bda6-84af-48d1-bff2-1ef19fe97fc1"
+            ]
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "fe13021a-d840-4ea3-8117-7c10d5e1cc1c",
+            "label": "Weather Comments e.g Hot, Windy, Rain",
+            "type": "textsingle",
+            "responses": {
+                "text": "Overcast, arvo winds "
+            }
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "b9d6c080-5a98-4054-9f3b-e523edfb745d",
+            "label": "Personel Onsite",
+            "type": "category",
+            "scoring": {
+                "combined_score": 3,
+                "combined_max_score": 11,
+                "combined_score_percentage": 27.273
+            },
+            "children": [
+                "3354e8d6-76d5-41d0-9d53-12974444951c",
+                "3d81f273-5344-492b-82ba-0a34af6b5630",
+                "61ed27bb-8488-416d-a5e9-d38a4b509635",
+                "9399067c-2e36-4aa0-80f9-f3fe2669fb96"
+            ]
+        },
+        {
+            "parent_id": "b9d6c080-5a98-4054-9f3b-e523edfb745d",
+            "item_id": "3354e8d6-76d5-41d0-9d53-12974444951c",
+            "label": "Staff/Contractors",
+            "type": "list",
+            "scoring": {
+                "score": 3,
+                "max_score": 11,
+                "score_percentage": 27.273
+            },
+            "options": {
+                "response_set": "9aa8e599-7bac-47b0-9236-a5ed326d2bff",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "6262da34-a51c-4ca6-8c7b-096c0aa8ba2f",
+                        "label": "Matthew Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "4ae5a86c-fadd-405b-804c-ea1c6baf634f",
+                        "label": "Josh Collins",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "313bb5cf-ad52-4b36-b5ca-92876b378c13",
+                        "label": "Reece Morgan",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "b9d6c080-5a98-4054-9f3b-e523edfb745d",
+            "item_id": "3d81f273-5344-492b-82ba-0a34af6b5630",
+            "label": "Total Worked Hours",
+            "type": "textsingle",
+            "responses": {
+                "text": "24"
+            }
+        },
+        {
+            "parent_id": "b9d6c080-5a98-4054-9f3b-e523edfb745d",
+            "item_id": "61ed27bb-8488-416d-a5e9-d38a4b509635",
+            "label": "Staff worked hours (individual)",
+            "type": "textsingle",
+            "responses": {
+                "text": "8"
+            }
+        },
+        {
+            "parent_id": "b9d6c080-5a98-4054-9f3b-e523edfb745d",
+            "item_id": "9399067c-2e36-4aa0-80f9-f3fe2669fb96",
+            "label": "Remaining Hours",
+            "type": "textsingle"
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "label": "Work Onsite",
+            "type": "category",
+            "scoring": {
+                "combined_score": 10,
+                "combined_max_score": 35,
+                "combined_score_percentage": 28.571
+            },
+            "children": [
+                "178b8976-c88c-4154-a30f-b17356573335",
+                "f42c57eb-266d-4187-abd9-d49ff23a8200",
+                "1340ac1f-8f6c-4c21-8999-80739bec1d44",
+                "c716ddd5-879c-471e-be87-54262090f5c7",
+                "cdad7f04-482a-4a3b-9bbb-22c214c9b454",
+                "0979b9db-4176-4213-89c2-b85723930f38",
+                "ae1fb2f5-9705-48c3-ba15-bd8e9a8d054e",
+                "b613d624-417d-4db8-a229-9cbfef837438"
+            ]
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "178b8976-c88c-4154-a30f-b17356573335",
+            "label": "Questions to Answer",
+            "type": "category"
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "f42c57eb-266d-4187-abd9-d49ff23a8200",
+            "label": "Tasks Undertaken",
+            "type": "list",
+            "scoring": {
+                "score": 3,
+                "max_score": 11,
+                "score_percentage": 27.273
+            },
+            "options": {
+                "response_set": "8c3b2280-60ec-40b9-886d-6ad4d793f3bc",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "8e0d3d37-0aa2-47df-83ed-38ca86a831c9",
+                        "label": "Spraying",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a4b37422-4aed-4ae7-9e73-9971b0b99053",
+                        "label": "Cut & Painting",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "984c47c8-90c2-448a-8a16-e65fb34cdc09",
+                        "label": "Handweeding",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "1340ac1f-8f6c-4c21-8999-80739bec1d44",
+            "label": "Details Of Tasks",
+            "type": "text",
+            "responses": {
+                "text": "Today\u2019s works focused on weed control and site maintenance within Zone 2, commencing from the Coral Flame Crescent side. Two team members undertook spot spraying using a Grazon mix, systematically covering the entire slope. To ensure thorough coverage and minimise unnecessary movement across the area, each team member was allocated one half of the slope. This method reduced the risk of missed weeds and improved overall efficiency.\nThe third team member rotated between the crew throughout the day, carrying out complementary tasks. These included collecting accumulated rubbish along the roadside and conducting hand weeding of moth vine growing within native grasses to prevent further smothering and spread. Additional hand weeding was completed on small African olive seedlings where possible. For olive plants that could not be removed by hand, cutting and painting was undertaken to ensure effective control.\nThe same work approach and treatment methods were then applied on the opposite side of the riparian zone, ensuring consistency across the site and addressing weed infestations on both banks."
+            }
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "c716ddd5-879c-471e-be87-54262090f5c7",
+            "label": "Weeds Targeted",
+            "type": "list",
+            "scoring": {
+                "score": 7,
+                "max_score": 24,
+                "score_percentage": 29.167
+            },
+            "options": {
+                "response_set": "5b998908-f850-4530-ae6e-e585acb114fa",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "7933e7ab-43c6-4170-b152-8ed712e7c632",
+                        "label": "Purple Top",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "126ebfb7-7b91-4623-9868-bdb8701d9144",
+                        "label": "Fleabane",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "72239f54-8e12-4027-b8cb-8133e8658fce",
+                        "label": "Thistle",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "9790df00-bb42-404f-9e17-a3240d5b1eed",
+                        "label": "Paddy's Lucerne",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "17669ead-445a-4e65-8177-aad19f151a96",
+                        "label": "Bidens Pilosa",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "99feeb34-9b8a-4285-97e3-1ffcabb8f7c6",
+                        "label": "African Olive",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "5348169c-853a-4b51-9279-720f8440eda9",
+                        "label": "Moth Vine",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "cdad7f04-482a-4a3b-9bbb-22c214c9b454",
+            "label": "Other Weeds",
+            "type": "text"
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "0979b9db-4176-4213-89c2-b85723930f38",
+            "label": "Rough percentage of weeds removed (within the zones worked in)",
+            "type": "textsingle",
+            "responses": {
+                "text": "90"
+            }
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "ae1fb2f5-9705-48c3-ba15-bd8e9a8d054e",
+            "label": "Site Area Work Map",
+            "type": "media",
+            "responses": {},
+            "media": [
+                {
+                    "date_created": "2026-01-22T03:35:12Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "87690895-4696-407a-a5d2-5f46a5bca9ac",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/87690895-4696-407a-a5d2-5f46a5bca9ac"
+                }
+            ]
+        },
+        {
+            "parent_id": "bd8fa235-d7d8-47c8-bab0-45078d189de7",
+            "item_id": "b613d624-417d-4db8-a229-9cbfef837438",
+            "label": "Details of Mapped Areas or Description of Areas Worked",
+            "type": "text",
+            "responses": {
+                "text": "Red: Chem spray/Hand weeding\nYellow: rubbish collection "
+            }
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "0d12439e-ffe3-4b82-9456-5bdcbe94fe7b",
+            "label": "Chemicals Used",
+            "type": "category",
+            "scoring": {
+                "combined_score": 2,
+                "combined_max_score": 7,
+                "combined_score_percentage": 28.571
+            },
+            "children": [
+                "ff61f3b0-5f21-43f8-9889-64f564d8e702"
+            ]
+        },
+        {
+            "parent_id": "0d12439e-ffe3-4b82-9456-5bdcbe94fe7b",
+            "item_id": "ff61f3b0-5f21-43f8-9889-64f564d8e702",
+            "label": "Herbicide",
+            "type": "list",
+            "scoring": {
+                "score": 2,
+                "max_score": 7,
+                "score_percentage": 28.571
+            },
+            "options": {
+                "response_set": "bb88773a-ad2c-4226-bc74-84b12e018f7c",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "text": "8, 10L packs sprayed.\n\nGrazon rate: 6ml per 1L \n\n60ml per pack\n\nOutput: 480ml\n\nBrushwet rate: 1ml per 1L\n\n10ml per pack\n\nOutput: 80ml",
+                "selected": [
+                    {
+                        "id": "99e40bc0-75c8-4921-b51e-614babd74435",
+                        "label": "Brushwet",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "e08e2f9e-9c7e-4df3-adc2-050346b36d31",
+                        "label": "Grazon Extra",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "3e3ddba1-5ded-4acc-a23f-0d20293cce6a",
+            "label": "Priorities ",
+            "type": "category",
+            "scoring": {
+                "combined_score": 2,
+                "combined_max_score": 2,
+                "combined_score_percentage": 100
+            },
+            "children": [
+                "582fa3dc-945f-4c14-9ed3-437291a4a747",
+                "9931f121-f49e-4e0e-875a-8f5bda838768",
+                "84c97227-1365-49f2-bcb9-56e3633020c3"
+            ]
+        },
+        {
+            "parent_id": "3e3ddba1-5ded-4acc-a23f-0d20293cce6a",
+            "item_id": "582fa3dc-945f-4c14-9ed3-437291a4a747",
+            "label": "New observed fauna?",
+            "type": "question",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "97f86dd9-4bbf-4bbe-aba4-4fedd0bb20c4",
+                "failed_responses": []
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "188af9ee-c282-442f-9b1c-65b440eaf1df",
+                        "label": "No",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            },
+            "children": [
+                "7e78e824-f5d7-48c7-ba39-d4cd2c11cce8"
+            ]
+        },
+        {
+            "parent_id": "582fa3dc-945f-4c14-9ed3-437291a4a747",
+            "item_id": "7e78e824-f5d7-48c7-ba39-d4cd2c11cce8",
+            "label": "",
+            "type": "smartfield",
+            "evaluation": false,
+            "options": {
+                "values": [
+                    "e3c8e67a-0496-4392-9d04-590262f28e90"
+                ],
+                "condition": "3f206182-e4f6-11e1-aff1-0800200c9a66",
+                "require_action": false
+            },
+            "children": [
+                "e401eb45-c6c7-4306-8fff-ec9124ca5174"
+            ]
+        },
+        {
+            "parent_id": "7e78e824-f5d7-48c7-ba39-d4cd2c11cce8",
+            "item_id": "e401eb45-c6c7-4306-8fff-ec9124ca5174",
+            "label": "What was it? (common or species name is fine)",
+            "type": "textsingle",
+            "inactive": true
+        },
+        {
+            "parent_id": "3e3ddba1-5ded-4acc-a23f-0d20293cce6a",
+            "item_id": "9931f121-f49e-4e0e-875a-8f5bda838768",
+            "label": "New observed flora?",
+            "type": "question",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "97f86dd9-4bbf-4bbe-aba4-4fedd0bb20c4",
+                "failed_responses": [],
+                "is_mandatory": false
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "188af9ee-c282-442f-9b1c-65b440eaf1df",
+                        "label": "No",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            },
+            "children": [
+                "e2d018da-0cce-434f-a180-c4ccacd8c68f"
+            ]
+        },
+        {
+            "parent_id": "9931f121-f49e-4e0e-875a-8f5bda838768",
+            "item_id": "e2d018da-0cce-434f-a180-c4ccacd8c68f",
+            "label": "",
+            "type": "smartfield",
+            "evaluation": false,
+            "options": {
+                "values": [
+                    "e3c8e67a-0496-4392-9d04-590262f28e90"
+                ],
+                "condition": "3f206182-e4f6-11e1-aff1-0800200c9a66",
+                "require_action": false
+            },
+            "children": [
+                "162f0a0a-332d-4931-8510-2cd26b7a466b"
+            ]
+        },
+        {
+            "parent_id": "e2d018da-0cce-434f-a180-c4ccacd8c68f",
+            "item_id": "162f0a0a-332d-4931-8510-2cd26b7a466b",
+            "label": "What was it? (common or species name is fine)",
+            "type": "textsingle",
+            "inactive": true
+        },
+        {
+            "parent_id": "3e3ddba1-5ded-4acc-a23f-0d20293cce6a",
+            "item_id": "84c97227-1365-49f2-bcb9-56e3633020c3",
+            "label": "Other Comments/ Future Works",
+            "type": "text"
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "d5727504-e010-4e27-9678-7d82dc45dd22",
+            "label": "Area Of Concerns",
+            "type": "category",
+            "children": [
+                "b0f260e1-ce71-4666-ae45-f1d51a510d5b",
+                "707c7b7c-6735-440c-9236-a881cb5714de",
+                "6b4341a4-65df-4e78-8784-cfd1d57b01ca"
+            ]
+        },
+        {
+            "parent_id": "d5727504-e010-4e27-9678-7d82dc45dd22",
+            "item_id": "b0f260e1-ce71-4666-ae45-f1d51a510d5b",
+            "label": "What is found there and describe the area and why its an AOC",
+            "type": "textsingle"
+        },
+        {
+            "parent_id": "d5727504-e010-4e27-9678-7d82dc45dd22",
+            "item_id": "707c7b7c-6735-440c-9236-a881cb5714de",
+            "label": "Pictures of AOC and or pin location",
+            "type": "media",
+            "options": {
+                "is_mandatory": false
+            }
+        },
+        {
+            "parent_id": "d5727504-e010-4e27-9678-7d82dc45dd22",
+            "item_id": "6b4341a4-65df-4e78-8784-cfd1d57b01ca",
+            "label": "Location",
+            "type": "address"
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "d7103053-1946-4ddb-9561-93de2fd6c91b",
+            "label": "IAP's (Independent Assessment Points) Areas that are not photo points provided by the client and are our own",
+            "type": "category",
+            "children": [
+                "f8314cb0-bbe7-43ae-a731-bd290a1399a7",
+                "67b541ed-bdbd-4cee-94e5-a097eaf22bce"
+            ]
+        },
+        {
+            "parent_id": "d7103053-1946-4ddb-9561-93de2fd6c91b",
+            "item_id": "f8314cb0-bbe7-43ae-a731-bd290a1399a7",
+            "label": "",
+            "type": "media",
+            "responses": {},
+            "media": [
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "4e56e554-88ce-4aec-8298-81f88e4e407d",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/4e56e554-88ce-4aec-8298-81f88e4e407d"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "8c7f1cd1-0192-4153-a201-7675259071b9",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/8c7f1cd1-0192-4153-a201-7675259071b9"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "e5b4ba63-c780-4687-9528-5135ae9d56ab",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/e5b4ba63-c780-4687-9528-5135ae9d56ab"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "14ebf1ea-df40-438e-8b26-9cb77317d532",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/14ebf1ea-df40-438e-8b26-9cb77317d532"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "5767d898-f6e0-4a4e-b804-9a05918c9909",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/5767d898-f6e0-4a4e-b804-9a05918c9909"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "49d548db-41df-4b48-bdb5-813dfb3eb16c",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/49d548db-41df-4b48-bdb5-813dfb3eb16c"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "11ba6644-0aa9-43a7-bc34-2c010683d41d",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/11ba6644-0aa9-43a7-bc34-2c010683d41d"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "84c2ef7f-7861-4fc1-b44e-15d826d694c9",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/84c2ef7f-7861-4fc1-b44e-15d826d694c9"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "3146bfb9-a074-41e5-b23d-9174a8b9a05f",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/3146bfb9-a074-41e5-b23d-9174a8b9a05f"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "7256e33c-8ab1-4b56-8db1-0c96fef27ad4",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/7256e33c-8ab1-4b56-8db1-0c96fef27ad4"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "724884b7-ea23-449c-aaf3-99bbe510c114",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/724884b7-ea23-449c-aaf3-99bbe510c114"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "f9fad51d-5fd0-4be3-9154-4a8d98b5fcb7",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/f9fad51d-5fd0-4be3-9154-4a8d98b5fcb7"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "e19bfdba-168a-45e8-ae6f-618ec2b64874",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/e19bfdba-168a-45e8-ae6f-618ec2b64874"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "4a99b5c4-7ebb-4f54-9803-b07ccd1b8875",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/4a99b5c4-7ebb-4f54-9803-b07ccd1b8875"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "4bf5d678-0a7e-4171-9e98-886717cfca08",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/4bf5d678-0a7e-4171-9e98-886717cfca08"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "40cd8084-37ba-4c54-b0bb-37d49969a099",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/40cd8084-37ba-4c54-b0bb-37d49969a099"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "4c905f0d-d3a3-46f3-95d7-fba07ea15128",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/4c905f0d-d3a3-46f3-95d7-fba07ea15128"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "988b4533-d617-484c-939d-f996b0d2ff8b",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/988b4533-d617-484c-939d-f996b0d2ff8b"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "a08cbc57-975c-4697-bc28-91c6ee544483",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/a08cbc57-975c-4697-bc28-91c6ee544483"
+                },
+                {
+                    "date_created": "2026-01-22T03:41:30Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "5cb7c8d2-6cfc-4834-91cc-26920d34b7e9",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/5cb7c8d2-6cfc-4834-91cc-26920d34b7e9"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "b9004dd6-abd7-46e3-bd35-e3d3c931fe85",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/b9004dd6-abd7-46e3-bd35-e3d3c931fe85"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "e1bdc878-61b6-4ab6-b242-923cee588772",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/e1bdc878-61b6-4ab6-b242-923cee588772"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "fe3bb51a-b223-411e-85d6-b773dda153b6",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/fe3bb51a-b223-411e-85d6-b773dda153b6"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "19a46917-ee44-4467-99da-6d7652aa233d",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/19a46917-ee44-4467-99da-6d7652aa233d"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "4b106b63-a969-47cc-ac22-4315a2c977f2",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/4b106b63-a969-47cc-ac22-4315a2c977f2"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "5e76deb3-4284-4ae9-8f37-663b933d021e",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/5e76deb3-4284-4ae9-8f37-663b933d021e"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "6c2fd67f-b727-4eac-8df1-b099a0bd8670",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/6c2fd67f-b727-4eac-8df1-b099a0bd8670"
+                },
+                {
+                    "date_created": "2026-01-22T03:42:20Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "7a29105b-fc91-46e0-a4d7-95ddad398534",
+                    "href": "https://api.safetyculture.io/audits/audit_0bd83f72874f49d2ae3e616b6c62ef10/media/7a29105b-fc91-46e0-a4d7-95ddad398534"
+                }
+            ]
+        },
+        {
+            "parent_id": "d7103053-1946-4ddb-9561-93de2fd6c91b",
+            "item_id": "67b541ed-bdbd-4cee-94e5-a097eaf22bce",
+            "label": "Location of IAP or GPS, if not accurate please upload in media",
+            "type": "address",
+            "options": {
+                "is_mandatory": false
+            }
+        },
+        {
+            "parent_id": "8bab8286-9863-40ed-8b0c-9441ea5804b6",
+            "item_id": "a412bda6-84af-48d1-bff2-1ef19fe97fc1",
+            "label": "Team Performance and KPIs ",
+            "type": "category",
+            "scoring": {
+                "combined_score": 5.5,
+                "combined_max_score": 6,
+                "combined_score_percentage": 91.667
+            },
+            "children": [
+                "005718ee-e3b8-4139-be6f-a2370f12951b",
+                "5bc73ea8-12fd-45a4-8ed8-897d299955e9",
+                "e59a3b00-e0c1-4c06-bd6a-e3ae99c8c86f"
+            ]
+        },
+        {
+            "parent_id": "a412bda6-84af-48d1-bff2-1ef19fe97fc1",
+            "item_id": "005718ee-e3b8-4139-be6f-a2370f12951b",
+            "label": "How would you rate the overall teams performance, efficiency and KPI delivery?",
+            "type": "slider",
+            "scoring": {
+                "score": 4.5,
+                "max_score": 5,
+                "score_percentage": 90
+            },
+            "options": {
+                "weighting": 1,
+                "increment": 0.5,
+                "max": 5,
+                "min": 1,
+                "is_mandatory": false
+            },
+            "responses": {
+                "value": 4.5
+            }
+        },
+        {
+            "parent_id": "a412bda6-84af-48d1-bff2-1ef19fe97fc1",
+            "item_id": "5bc73ea8-12fd-45a4-8ed8-897d299955e9",
+            "label": "Why this rating? or any comments?",
+            "type": "textsingle"
+        },
+        {
+            "parent_id": "a412bda6-84af-48d1-bff2-1ef19fe97fc1",
+            "item_id": "e59a3b00-e0c1-4c06-bd6a-e3ae99c8c86f",
+            "label": "MVP of the day?",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "9aa8e599-7bac-47b0-9236-a5ed326d2bff",
+                "failed_responses": []
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "6262da34-a51c-4ca6-8c7b-096c0aa8ba2f",
+                        "label": "Matthew Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        }
+    ]
+}

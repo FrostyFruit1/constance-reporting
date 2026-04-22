@@ -1,0 +1,1135 @@
+{
+    "template_id": "template_6710ff759a2f4150aba889837ecd9ed2",
+    "audit_id": "audit_cda07055bba440529c8120dc6f40d882",
+    "archived": false,
+    "created_at": "2025-01-15T21:23:52.104Z",
+    "modified_at": "2025-01-15T21:30:21.461Z",
+    "audit_data": {
+        "score": 12,
+        "total_score": 42,
+        "score_percentage": 28.571,
+        "name": "14 Jan 2025",
+        "duration": 276,
+        "authorship": {
+            "device_id": "user_3ff0fb77a5cf4c758136bd1663fa3e06",
+            "owner": "Ryan Arford",
+            "owner_id": "user_3ff0fb77a5cf4c758136bd1663fa3e06",
+            "author": "Ryan Arford",
+            "author_id": "user_3ff0fb77a5cf4c758136bd1663fa3e06"
+        },
+        "date_completed": "2025-01-15T21:30:20.425Z",
+        "date_modified": "2025-01-15T21:30:21.461Z",
+        "date_started": "2025-01-15T21:23:51.000Z"
+    },
+    "template_data": {
+        "authorship": {
+            "device_id": "user_4115f63407da48f5a95ff720c59c1435",
+            "owner": "Constanceconservation User",
+            "owner_id": "user_4115f63407da48f5a95ff720c59c1435",
+            "author": "Constanceconservation User",
+            "author_id": "user_f7296d4209234363879fca046bfeea3e"
+        },
+        "metadata": {
+            "description": "",
+            "name": "Chemical Application Record"
+        },
+        "response_sets": {
+            "2c22270b-746b-46cb-936a-e32bff9f9a33": {
+                "id": "2c22270b-746b-46cb-936a-e32bff9f9a33",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "72563f6c-79df-47e8-96a1-6c88baf60925",
+                        "label": "Backpack",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c230bc43-bd23-4cf7-8ecd-55810bc23b7d",
+                        "label": "Spray Ute",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6de6f6a4-397c-44a1-9cdf-eb0b0361530c",
+                        "label": "Cut & paint",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2477248c-dda3-47b3-98e0-078e1f035ea4",
+                        "label": "Drill/Frill",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "3727e2f3-9258-4708-a3e0-30b104af830a": {
+                "id": "3727e2f3-9258-4708-a3e0-30b104af830a",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "19d666bf-d9fc-4e29-b8b3-c14d612ddc48",
+                        "label": "Cameron Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "f309a9dd-5194-43a8-952c-a2230dd0b87b",
+                        "label": "Maddie Bryant",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "7edb3217-908d-46ad-9bc8-3c57845bf6d5",
+                        "label": "Jordan Darnley",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "311f318e-26af-4f74-9ea5-6ae1cfbbe769",
+                        "label": "Ethan Magtoto",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "225e4fb1-1e03-4f7a-af82-24daf89c6a29",
+                        "label": "Ethan Tuma",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2cddf920-9fd6-41bc-bd7c-bf2a322b38c8",
+                        "label": "Mathew Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "43959679-c579-4f6c-8841-f4354c54c8c3",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "3c930bc2-a156-4cac-af7f-3869e12dd07d": {
+                "id": "3c930bc2-a156-4cac-af7f-3869e12dd07d",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "f45b5fd2-7588-4357-bd6a-da25294332aa",
+                        "label": "Cameron Constance",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "0d996b5a-a64a-4ab0-b77f-ab4fcab93488",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "afddfc78-5b6e-4e3a-99cf-7531c11bc2af",
+                        "label": "Maddison Bryant",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "55dcde49-0578-4a38-996e-e355580a4492": {
+                "id": "55dcde49-0578-4a38-996e-e355580a4492",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "2fb59497-f4e4-4f91-b58e-0d8a02831ad5",
+                        "label": "N",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "f3c245ec-8b5a-4b6c-a404-8531479674f0",
+                        "label": "NE",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "abd78017-812d-456f-9d04-43a5ac06d1b9",
+                        "label": "E",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "33665f48-0a69-407e-8641-274e47826634",
+                        "label": "SE",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "683a0960-f247-4a32-afa3-9b30a61e9d4b",
+                        "label": "S",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "8a01167b-3eb2-45c9-96fa-05f6d569114b",
+                        "label": "SW",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "17e4a9c5-8801-4d41-8004-078bc59a237f",
+                        "label": "W",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "44ae041d-a811-42ab-b519-b6dac086d01d",
+                        "label": "NW",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "65b2699d-5551-4f38-8249-d3b976282307",
+                        "label": "Other",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "5b69aee5-0532-46a4-b2f5-d020d4d5381d": {
+                "id": "5b69aee5-0532-46a4-b2f5-d020d4d5381d",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca20",
+                        "label": "Good",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca21",
+                        "label": "Fair",
+                        "colour": "255,176,0",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca22",
+                        "label": "Poor",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "ef4abf51-3361-46f5-ba04-70c23c85ca23",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "6971bac2-664f-4a49-ad14-9ee2baca23c4": {
+                "id": "6971bac2-664f-4a49-ad14-9ee2baca23c4",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "e21cf2b1-45c7-4e0f-a357-d581859fc3d7",
+                        "label": "Cameron- 0435571201",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "08044569-bc34-440a-8015-f3459a948277",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "62aab152-8eac-49de-b27a-594a4fc5bbcf",
+                        "label": "Maddison Bryant - 0422703462",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "7601fb75-80ae-4409-b31a-9acd58d45445": {
+                "id": "7601fb75-80ae-4409-b31a-9acd58d45445",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "af89ffa0-5db2-4a49-93e5-7dd392ab8f10",
+                        "label": "Safe",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "af89ffa1-5db2-4a49-93e5-7dd392ab8f10",
+                        "label": "At Risk",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "af89ffa2-5db2-4a49-93e5-7dd392ab8f10",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "916d5619-4410-46d9-882b-1c4509a29a4b": {
+                "id": "916d5619-4410-46d9-882b-1c4509a29a4b",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "4d303642-67f0-4236-bd24-052bd385b334",
+                        "label": "Signage",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "7f72f9ad-ca22-4187-ac61-30330fc0d747",
+                        "label": "Prior notification",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "09c44822-e597-47f4-bd32-a280fe2acb2e",
+                        "label": "Other",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "b52a8b4c-048b-4f7d-99b9-c6b9680be5ed": {
+                "id": "b52a8b4c-048b-4f7d-99b9-c6b9680be5ed",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "2a2b8507-c53d-4d0e-83ec-164cb179b6a0",
+                        "label": "Pass",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2a2b8507-c53d-4d0e-83ec-164cb179b6a1",
+                        "label": "Fail",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "2a2b8507-c53d-4d0e-83ec-164cb179b6a2",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "b8e53271-8e04-4afe-87a5-482e7fb611cb": {
+                "id": "b8e53271-8e04-4afe-87a5-482e7fb611cb",
+                "type": "list",
+                "responses": [
+                    {
+                        "id": "2896850f-9224-47d5-9d40-3143f438c98f",
+                        "label": "Harrington Forest",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "8c07539d-ae16-4f6c-b318-a93ab98fb5e3",
+                        "label": "Camden Town Farm",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "b1567b63-2348-487f-ad94-d2e40cdfc599",
+                        "label": "Spring Farm/Elderslie/Mt Annan/ Curruns Hill Basins",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "acd2720d-4481-409a-912a-d12d39f97e28",
+                        "label": "Liverpool planting areas",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6ea08fd3-1e99-47dc-b977-238d03a53251",
+                        "label": "Camden- Alligator Weed",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "b18c1eb5-4978-458b-bdfa-0fbce2525c06",
+                        "label": "Casula",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6fa4081b-498e-4851-b401-16b94994e530",
+                        "label": "Elizabeth McArthur Reserve",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "53b84ce3-997d-42fa-855a-ee3891486a4b",
+                        "label": "Spring Farm EBSF",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "a7980d71-eeda-4d97-9b8b-3fafe384bcaa",
+                        "label": "Harrington Park Lake Alligator Weed",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "942bd5fa-97e9-422c-b2ff-0d5ed31ccdb0",
+                        "label": "Tom Way Reserve Liverpool",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c0e52f51-55a0-4102-a9d6-85457c9ff2a6",
+                        "label": "Gregory Hills/Glenswood Hills",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "f15e729b-32eb-4ce9-a666-1b3bfdf66bb2",
+                        "label": "South Creek",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "c6c011ed-4ade-460d-a04b-da730834b667": {
+                "id": "c6c011ed-4ade-460d-a04b-da730834b667",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "060ace00-1f61-468e-9c42-918fa93badcf",
+                        "label": "Yes",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "060ace01-1f61-468e-9c42-918fa93badcf",
+                        "label": "No",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "060ace02-1f61-468e-9c42-918fa93badcf",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "ccb24262-48e7-45f5-8e2a-681a64e5b648": {
+                "id": "ccb24262-48e7-45f5-8e2a-681a64e5b648",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "8e4a3d5b-77e5-42b2-884a-7dcb47ec8ab0",
+                        "label": "Brushwet 2ml/L",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "3557d93b-6934-449e-b511-8cb0873c4d1a",
+                        "label": "Blue Dye 5ml/L",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            },
+            "d743f356-a147-472c-a790-0c46a187de92": {
+                "id": "d743f356-a147-472c-a790-0c46a187de92",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "6bb1beb4-494e-4a17-bff7-bed8a6fcd3d0",
+                        "label": "Compliant",
+                        "colour": "19,133,95",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6bb1beb4-494e-4a17-bff7-bed8a6fcd3d1",
+                        "label": "Non-Compliant",
+                        "colour": "198,0,34",
+                        "score": 0,
+                        "failed": true,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "6bb1beb4-494e-4a17-bff7-bed8a6fcd3d2",
+                        "label": "N/A",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": false
+                    }
+                ]
+            },
+            "f432cc93-4ee1-4fce-a0de-5850a0012e0a": {
+                "id": "f432cc93-4ee1-4fce-a0de-5850a0012e0a",
+                "type": "question",
+                "responses": [
+                    {
+                        "id": "5bb8be0d-d994-4842-9dee-f51e6f1b5b25",
+                        "label": "Clear Sky",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "c82eade1-1f93-4e16-9d9a-fadda6a784d1",
+                        "label": "Light Cloud",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "26db2d84-3947-4030-80fb-ba5f153668a8",
+                        "label": "Overcast",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "253a5543-ce52-4517-a9e5-b808ffd99321",
+                        "label": "Rain/Showers",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ]
+            }
+        }
+    },
+    "header_items": [
+        {
+            "item_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "label": "Title Page",
+            "type": "section",
+            "scoring": {
+                "combined_score": 2,
+                "combined_max_score": 2,
+                "combined_score_percentage": 100
+            },
+            "children": [
+                "e3a7fad9-d286-4239-b953-fd4634983431",
+                "f3245d42-ea77-11e1-aff1-0800200c9a66",
+                "51426c0b-8e27-4b06-a5f2-220f92bfc2c0",
+                "f3245d44-ea77-11e1-aff1-0800200c9a66"
+            ]
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "e3a7fad9-d286-4239-b953-fd4634983431",
+            "label": "Site conducted",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "b8e53271-8e04-4afe-87a5-482e7fb611cb",
+                "failed_responses": [],
+                "is_mandatory": true
+            },
+            "responses": {
+                "text": "Hichinbrook",
+                "selected": [
+                    {
+                        "id": "f15e729b-32eb-4ce9-a666-1b3bfdf66bb2",
+                        "label": "South Creek",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "f3245d42-ea77-11e1-aff1-0800200c9a66",
+            "label": "Conducted on",
+            "type": "datetime",
+            "options": {
+                "enable_date": true,
+                "enable_time": true
+            },
+            "responses": {
+                "datetime": "2025-01-13T21:23:00.000Z"
+            }
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "51426c0b-8e27-4b06-a5f2-220f92bfc2c0",
+            "label": "Prepared by",
+            "type": "question",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "3c930bc2-a156-4cac-af7f-3869e12dd07d",
+                "failed_responses": []
+            },
+            "responses": {
+                "text": "Jordan Darnley",
+                "selected": [
+                    {
+                        "id": "0d996b5a-a64a-4ab0-b77f-ab4fcab93488",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "f3245d39-ea77-11e1-aff1-0800200c9a66",
+            "item_id": "f3245d44-ea77-11e1-aff1-0800200c9a66",
+            "label": "Location",
+            "type": "address",
+            "responses": {
+                "location_text": "46 Riverside Rd\nChipping Norton NSW 2170\nAustralia\n(-33.92166011760193, 150.96845307376972)",
+                "location": {
+                    "name": "",
+                    "country": "",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            150.96845307376972,
+                            -33.92166011760193
+                        ]
+                    },
+                    "locality": "",
+                    "postal_code": "",
+                    "sub_locality": "",
+                    "thoroughfare": "",
+                    "iso_country_code": "",
+                    "sub_thoroughfare": "",
+                    "administrative_area": "",
+                    "sub_administrative_area": ""
+                }
+            }
+        }
+    ],
+    "items": [
+        {
+            "item_id": "bc21d8ab-8beb-4af5-b709-4377a98992f2",
+            "label": "Report",
+            "type": "section",
+            "scoring": {
+                "combined_score": 10,
+                "combined_max_score": 40,
+                "combined_score_percentage": 25
+            },
+            "children": [
+                "b25eaf21-d294-4058-af35-26bb20d14c2f"
+            ]
+        },
+        {
+            "parent_id": "bc21d8ab-8beb-4af5-b709-4377a98992f2",
+            "item_id": "b25eaf21-d294-4058-af35-26bb20d14c2f",
+            "label": "Site/Areas Treated",
+            "type": "category",
+            "scoring": {
+                "combined_score": 10,
+                "combined_max_score": 40,
+                "combined_score_percentage": 25
+            },
+            "children": [
+                "704378e9-b35c-4e58-9d5d-428b9aea7332",
+                "67bfdca0-5d2e-49b7-a235-4048119cb19d",
+                "e094029d-f97a-4fd6-ae09-6dfe98f990aa"
+            ]
+        },
+        {
+            "parent_id": "b25eaf21-d294-4058-af35-26bb20d14c2f",
+            "item_id": "704378e9-b35c-4e58-9d5d-428b9aea7332",
+            "label": "Site treated",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 12,
+                "score_percentage": 8.333
+            },
+            "options": {
+                "response_set": "b8e53271-8e04-4afe-87a5-482e7fb611cb",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "text": "Hichinbrook",
+                "selected": [
+                    {
+                        "id": "f15e729b-32eb-4ce9-a666-1b3bfdf66bb2",
+                        "label": "South Creek",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "b25eaf21-d294-4058-af35-26bb20d14c2f",
+            "item_id": "67bfdca0-5d2e-49b7-a235-4048119cb19d",
+            "label": "Area Worked",
+            "type": "media",
+            "responses": {},
+            "media": [
+                {
+                    "date_created": "2025-01-15T21:24:22Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "520a939b-8844-4d87-8d21-967030c9185f",
+                    "href": "https://api.safetyculture.io/audits/audit_cda07055bba440529c8120dc6f40d882/media/520a939b-8844-4d87-8d21-967030c9185f"
+                }
+            ]
+        },
+        {
+            "parent_id": "b25eaf21-d294-4058-af35-26bb20d14c2f",
+            "item_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "label": "Chemical Application",
+            "type": "category",
+            "scoring": {
+                "combined_score": 9,
+                "combined_max_score": 28,
+                "combined_score_percentage": 32.143
+            },
+            "children": [
+                "e9d8fe6e-0418-4aa2-b832-371506563ed3",
+                "fd4ec0b2-c7d7-4135-ad25-9cc3b382f766",
+                "970de496-592f-4104-a12d-96ee78f32e26",
+                "ef818bdf-2eb5-4f13-a9f5-0fb873e14ff9",
+                "93daa6a2-c4f8-486e-9247-c64593907ea0",
+                "7bade7d8-837a-470c-be5d-089f6afe6d5d",
+                "fd4ea1db-efba-4349-83c6-6a1a6d38586f",
+                "6af02786-4b97-41f6-9805-32c647d92ccb",
+                "36dc3a64-9ba3-49fc-b45c-762d8757ae47",
+                "ada99396-8a10-48ea-9d2c-105dd4ade780",
+                "1dd145cf-b1eb-440d-9c1c-914e2e438a40",
+                "4b852358-1133-441f-91b6-b5654c29bc63"
+            ]
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "e9d8fe6e-0418-4aa2-b832-371506563ed3",
+            "label": "Application Method",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 4,
+                "score_percentage": 25
+            },
+            "options": {
+                "response_set": "2c22270b-746b-46cb-936a-e32bff9f9a33",
+                "failed_responses": [],
+                "is_mandatory": false,
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "72563f6c-79df-47e8-96a1-6c88baf60925",
+                        "label": "Backpack",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "fd4ec0b2-c7d7-4135-ad25-9cc3b382f766",
+            "label": "Time Occurred Start/Finish",
+            "type": "textsingle",
+            "responses": {
+                "text": "7:30/3:20"
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "970de496-592f-4104-a12d-96ee78f32e26",
+            "label": "Public Notification",
+            "type": "question",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "916d5619-4410-46d9-882b-1c4509a29a4b",
+                "failed_responses": []
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "4d303642-67f0-4236-bd24-052bd385b334",
+                        "label": "Signage",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "ef818bdf-2eb5-4f13-a9f5-0fb873e14ff9",
+            "label": "If other please specify",
+            "type": "textsingle"
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "93daa6a2-c4f8-486e-9247-c64593907ea0",
+            "label": "Operator/Applicators Names",
+            "type": "list",
+            "scoring": {
+                "score": 2,
+                "max_score": 7,
+                "score_percentage": 28.571
+            },
+            "options": {
+                "response_set": "3727e2f3-9258-4708-a3e0-30b104af830a",
+                "failed_responses": [],
+                "is_mandatory": false,
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "7edb3217-908d-46ad-9bc8-3c57845bf6d5",
+                        "label": "Jordan Darnley",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "311f318e-26af-4f74-9ea5-6ae1cfbbe769",
+                        "label": "Ethan Magtoto",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "7bade7d8-837a-470c-be5d-089f6afe6d5d",
+            "label": "Supervisors Mobile Number",
+            "type": "question",
+            "scoring": {
+                "score": 1,
+                "max_score": 1,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "6971bac2-664f-4a49-ad14-9ee2baca23c4",
+                "failed_responses": []
+            },
+            "responses": {
+                "text": "0410418083",
+                "selected": [
+                    {
+                        "id": "08044569-bc34-440a-8015-f3459a948277",
+                        "label": "Ryan Arford",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "fd4ea1db-efba-4349-83c6-6a1a6d38586f",
+            "label": "Chemical/s Used",
+            "type": "text",
+            "responses": {
+                "text": "Glyphosate\nStarane\nDicamba"
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "6af02786-4b97-41f6-9805-32c647d92ccb",
+            "label": "Rate Used For Each Chemical (ml/L)",
+            "type": "text",
+            "responses": {
+                "text": "7ml/L\n6ml/L\n6ml/L"
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "36dc3a64-9ba3-49fc-b45c-762d8757ae47",
+            "label": "Total Amount Sprayed (L)",
+            "type": "text",
+            "responses": {
+                "text": "40L"
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "ada99396-8a10-48ea-9d2c-105dd4ade780",
+            "label": "Concentrate used in L",
+            "type": "text",
+            "responses": {
+                "text": "70ml/10L\n60ml/10L\n60ml/10L"
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "1dd145cf-b1eb-440d-9c1c-914e2e438a40",
+            "label": "Additives or Wetters",
+            "type": "list",
+            "scoring": {
+                "score": 2,
+                "max_score": 2,
+                "score_percentage": 100
+            },
+            "options": {
+                "response_set": "ccb24262-48e7-45f5-8e2a-681a64e5b648",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "8e4a3d5b-77e5-42b2-884a-7dcb47ec8ab0",
+                        "label": "Brushwet 2ml/L",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    },
+                    {
+                        "id": "3557d93b-6934-449e-b511-8cb0873c4d1a",
+                        "label": "Blue Dye 5ml/L",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "e094029d-f97a-4fd6-ae09-6dfe98f990aa",
+            "item_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "label": "Weather",
+            "type": "category",
+            "scoring": {
+                "combined_score": 2,
+                "combined_max_score": 13,
+                "combined_score_percentage": 15.385
+            },
+            "children": [
+                "f08663c3-4941-4f85-ba19-33c3988eed3f",
+                "299fae92-467f-428c-808b-f49cd67372f6",
+                "724374f0-34a8-4ddb-bfa0-2d531fe821e1",
+                "fc4dfe21-21f1-435e-af3d-97273bfeb746",
+                "c9666391-d6b0-4ecf-8695-6b58778f8285",
+                "227a4d2b-039f-407c-b6aa-3b70a2892fb0",
+                "bc2b8619-9f10-4fac-94f0-cbeb04de5113",
+                "5485fbec-c34f-4958-a8d9-c670df2dabe1"
+            ]
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "f08663c3-4941-4f85-ba19-33c3988eed3f",
+            "label": "General Weather",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 4,
+                "score_percentage": 25
+            },
+            "options": {
+                "response_set": "f432cc93-4ee1-4fce-a0de-5850a0012e0a",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "26db2d84-3947-4030-80fb-ba5f153668a8",
+                        "label": "Overcast",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            },
+            "media": [
+                {
+                    "date_created": "2025-01-15T21:29:35Z",
+                    "file_ext": "jpg",
+                    "label": "original.jpg",
+                    "media_id": "920a01e8-d42f-4d0a-a252-446bbc7f8adc",
+                    "href": "https://api.safetyculture.io/audits/audit_cda07055bba440529c8120dc6f40d882/media/920a01e8-d42f-4d0a-a252-446bbc7f8adc"
+                }
+            ]
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "299fae92-467f-428c-808b-f49cd67372f6",
+            "label": "Wind Direction",
+            "type": "list",
+            "scoring": {
+                "score": 1,
+                "max_score": 9,
+                "score_percentage": 11.111
+            },
+            "options": {
+                "response_set": "55dcde49-0578-4a38-996e-e355580a4492",
+                "failed_responses": [],
+                "multiple_selection": true
+            },
+            "responses": {
+                "selected": [
+                    {
+                        "id": "abd78017-812d-456f-9d04-43a5ac06d1b9",
+                        "label": "E",
+                        "colour": "112,112,112",
+                        "score": 1,
+                        "enable_score": true
+                    }
+                ],
+                "failed": false
+            }
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "724374f0-34a8-4ddb-bfa0-2d531fe821e1",
+            "label": "Wind Speed",
+            "type": "textsingle",
+            "responses": {
+                "text": ""
+            }
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "fc4dfe21-21f1-435e-af3d-97273bfeb746",
+            "label": "Variability E.g: Gusting, Light Breeze",
+            "type": "textsingle",
+            "responses": {
+                "text": ""
+            }
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "c9666391-d6b0-4ecf-8695-6b58778f8285",
+            "label": "Rainfall (mm) & Was is before, During or After",
+            "type": "textsingle",
+            "responses": {
+                "text": "0"
+            }
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "227a4d2b-039f-407c-b6aa-3b70a2892fb0",
+            "label": "Temperature",
+            "type": "textsingle",
+            "responses": {
+                "text": ""
+            }
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "bc2b8619-9f10-4fac-94f0-cbeb04de5113",
+            "label": "Humidity %",
+            "type": "textsingle"
+        },
+        {
+            "parent_id": "4b852358-1133-441f-91b6-b5654c29bc63",
+            "item_id": "5485fbec-c34f-4958-a8d9-c670df2dabe1",
+            "label": "Other Notes",
+            "type": "category",
+            "children": [
+                "b6726833-05cc-4f1f-8efe-4b8005507361"
+            ]
+        },
+        {
+            "parent_id": "5485fbec-c34f-4958-a8d9-c670df2dabe1",
+            "item_id": "b6726833-05cc-4f1f-8efe-4b8005507361",
+            "label": "",
+            "type": "text"
+        }
+    ]
+}

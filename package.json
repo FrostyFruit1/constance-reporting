@@ -1,0 +1,33 @@
+{
+  "name": "constance-conservation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "sync": "node -r dotenv/config dist/sync/scheduled_sync.js",
+    "sync:backfill": "node -r dotenv/config dist/sync/scheduled_sync.js --backfill",
+    "webhook": "node -r dotenv/config dist/webhook/server.js",
+    "webhook:register": "node -r dotenv/config dist/webhook/register.js",
+    "seed": "node -r dotenv/config dist/seed/onboarding.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.0",
+    "dotenv": "^17.4.2",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.4"
+  }
+}
