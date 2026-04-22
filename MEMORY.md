@@ -1,9 +1,40 @@
 # CONSTANCE CONSERVATION — PROJECT MEMORY
 
 ## Current Phase
-**Phase:** M00 — Foundation & API Testing
-**Status:** COMPLETE
-**Last Updated:** 2026-04-15
+**Phase:** M03 — Report Generation (executor building)
+**Status:** M01 CLOSED. M03 executor running.
+**Last Updated:** 2026-04-23
+**Pilot:** EBSF (Elderslie Banksia Scrub Forest) — validating against `EBSF Zone B C June Report.docx` ground-truth.
+**Distribution (future):** Resend (replaces earlier Microsoft Graph/SMTP plan)
+
+## Orchestration Handoff (2026-04-23)
+
+**If you are a fresh orchestrator picking this up:**
+
+- Peter is running a separate executor chat against `docs/executor_briefs/E1_report_generator.md`. Updated mid-stream to build in two milestones: (A) daily report template — one DWR → HTML+DOCX+PDF; (B) weekly/monthly aggregated report against EBSF June 2025.
+- Executor will come back with a working generator or a specific unblock request. Expected questions they may ask:
+  - `ANTHROPIC_API_KEY` — Peter will need to add to `.env`. Not yet present.
+  - How to handle polygon `area_m2` (answer: leave as manual-edit placeholder, M03 does not compute).
+  - Visual fidelity threshold for DOCX vs source (answer: structural match for v1; pixel match is M04+).
+- Your job as orchestrator: wait for executor return, review output, reconcile against `docs/report_data_mapping.md`, write follow-up briefs as needed. Do NOT re-investigate the codebase — context has already been compacted into the mapping doc + executor brief.
+- **Do not redo my work.** Every major decision is already documented — check MEMORY, `docs/report_data_mapping.md`, `docs/executor_briefs/E1_report_generator.md`, and `milestones/M01_ingestion_pipeline.md` before starting any new investigation.
+
+**Critical path from Peter:** "Automate client report generation. Reverse-engineer the two example reports (`Daily Report WSPT Central.pdf` = daily input, `EBSF Zone B C June Report.docx` = monthly output target) into HTML-with-pills templates. Export to DOCX + PDF. Keep it simple. Move fast."
+
+**Out of scope for now:** email delivery (Resend is M04), review UI (M04), polygon auto-compute (M02/M03 later), dashboard work (M05+).
+
+**Current EBSF June 2025 data available in DB:**
+- 4 Daily Work Reports (Zone B ×2, Zone C ×2, one "Zone B and C")
+- 1 Chemical Application Record (Spring Farm EBSF)
+- All `processing_status='completed'` — parser successfully extracted fields
+
+**Open tasks you can own** (in priority order if executor is still running):
+- #5 M01 closeout — DONE (this update)
+- #10 Reparse sweep — not urgent; post-executor
+- #11 Backfill retry + toolbox misclassification — not urgent; post-executor
+- #3 Failed inspection investigation — 1 row; chase when quiet
+- #4 Data integrity spot-check across child tables — good pre-review task
+- #6 Scope M02 — wait until M03 pilot is validated
 
 ## Project Overview
 Data automation platform for ecological land management business. Ingests Safety Culture inspection data, enriches with AI, generates automated client reports, delivers dashboards.
@@ -26,11 +57,11 @@ Data automation platform for ecological land management business. Ingests Safety
 | # | Milestone | Status | Dependencies | Notes |
 |---|-----------|--------|--------------|-------|
 | M00 | Foundation & API Testing | **COMPLETE** | - | API validated, schema v2 deployed (27 tables), report template analysed, gap analysis done |
-| M01 | Ingestion Pipeline | **IN PROGRESS** | M00 | WP1-6 complete. Backfill partially done (~196/1,683). Resume with `npm run sync:backfill`. |
-| M02 | Data Enrichment | NOT STARTED | M01 | AI vision, normalisation, confidence scoring |
-| M03 | Report Generation | NOT STARTED | M02 | Auto-generate PDF/DOCX matching client template |
-| M04 | Client Dashboard | NOT STARTED | M01 | React frontend, per-client views |
-| M05 | Internal Dashboard | NOT STARTED | M01 | Business intelligence for Cameron/Ryan |
+| M01 | Ingestion Pipeline | **COMPLETE** | M00 | Closed 2026-04-23. WP1-6 built. Backfill 2025-01 through 2026-04 ingested (1544 rows). Parser fixes applied. Deferred hygiene items tracked as tasks #10, #11. |
+| M02 | Data Enrichment | NOT STARTED | M01 | AI vision, normalisation, confidence scoring. Gemini/Claude LLM narrative synthesis moved into M03. |
+| M03 | Report Generation | **STARTING** | M01 | Auto-generate HTML (canonical) + DOCX + PDF matching client template. Pilot: EBSF weekly. Spec: `docs/report_data_mapping.md`. |
+| M04 | Platform — Review & Send | NOT STARTED | M03 | In-platform draft review UI, image swapping, Resend send. Subsumes old "Client Dashboard" scope — reports are the primary UI surface. |
+| M05 | Internal Dashboard | NOT STARTED | M01 | Business intelligence for Cameron/Ryan. Separate from report-review surface. |
 | M06 | Data Warehouse & Future Streams | NOT STARTED | M03 + 3-6mo data | Streams 2-6 schema, materialised views, warehouse tables |
 
 ## Locked Features
@@ -107,6 +138,32 @@ Data automation platform for ecological land management business. Ingests Safety
 - Backfill was running when session ended (~196 of 1,683 processed). Status: 47 completed, 148 needs_review, 1 processing.
 - **RESUME BACKFILL**: The backfill agent may have stopped. Check inspections count and run `npm run build && npm run sync:backfill` to continue. The sync uses high-water mark so it picks up where it left off.
 - Next: Complete backfill, verify data, then scope M04/M05 dashboard build using the design system and dashboard-preview as the prototype reference.
+
+### 2026-04-23 Session 2 (orchestrator — M01 closeout + M03 executor launched)
+- **M01 CLOSED.** `milestones/M01_ingestion_pipeline.md` updated with closeout summary.
+- **Parser fix applied** (task #7 complete). LABEL_VARIANTS extended for 'site name' (client / site, site conducted, prepared by, etc.). Extractor now uses `findItems` (plural) and iterates over matches preferring populated ones. Date falls back to `audit_data.date_completed`. Real DWR site-fill rate now 85% (was 69%); date-fill 100%. Tests pass 227/227.
+- **Schema migration 004 applied** (task #8 complete). Added: `clients.location_maps`, `clients.active_roster_staff_ids`, `client_reports.{cadence, cover_hero_photo_url, period_map_images, narrative_sections, html_content, generated_at, zones_included}`. Via `exec_sql` RPC (param name is `query`).
+- **Executor brief written**: `docs/executor_briefs/E1_report_generator.md`. Self-contained; references spec + sample files. Updated mid-flight: build Milestone A (single daily-report template) first, then Milestone B (monthly aggregation + LLM narratives).
+- **Peter launched executor** in a separate chat. This orchestrator holds for return. Do not do parallel work that burns context.
+- **Critical path confirmed with Peter**: reverse-engineer the two example reports → HTML with pills → DOCX + PDF export. Keep simple, move fast.
+- **Scope trimmed**: 2025 full coverage is NOT required. EBSF June 2025 (5 inspections) is sufficient ground truth. Pre-2025 data retained as background context only.
+- **Known data oddity**: 440 rows mis-tagged `sc_template_type='daily_work_report'` — they're actually "Record of toolbox" templates. `parseInspection` error-fallback returns 'daily_work_report' for unknown templates (src/parser/index.ts:103). Downstream filters can use `sc_raw_json.template_id` for now. Tracked in task #11.
+- **Backfill reliability note**: scheduled_sync dies on transient `fetch failed` errors. A dozen rows failed at end. Retry = task #11.
+
+### 2026-04-22 Session 1 (orchestrator — port to Peter's Mac + M03 kickoff)
+- Project ported from previous machine. `.env` re-populated locally. `npm run build && npm test` green (227 tests pass).
+- **Old backfill was stuck**: inserted zero new rows across 33 min of runtime. Cause suspected: dedup false-positives on the 683 rows it had already ingested; `sync_state.total_synced` never advanced past 0. Killed (PID 69203).
+- **Relaunched targeted backfill**: `npm run sync:backfill -- --backfill-from 2025-01-01` (PID 8440, log `/tmp/sync-2025.log`). Ignored pre-2025 data — backfill had been oldest-first and was burning time on 2022-2023 rows we don't need for pilot.
+- **Real cause of high needs_review rate exposed**: parser fails to link `site_id` on 65% of rows and `date` on 45%. NOT non-DWR template noise as earlier memory assumed. Item `type='site'` branch not handled in `daily_work_report.ts:101-120`. Tracked in task #7.
+- **Parsing warnings not persisted** — `needs_review` is flagged but warnings only live in write-result logs. Triage requires either storing warnings or re-parsing. Schema addition tracked in task #8.
+- **Reverse-engineered output report**: extracted full structure + content from `EBSF Zone B C June Report.docx` (5.2MB, 292 paragraphs). Confirmed `Daily Report WSPT Central.pdf` is INPUT-side (SC native export), not a client report.
+- **Vision update — platform-native review & send**: Reports live in-platform. Ryan reviews/edits drafts, swaps images, tweaks narratives. Sends natively via Resend (replaces SMTP/Graph API). Dashboard gets a "Reports" tab as the main UI surface. Defers the standalone M04/M05 dashboard scope.
+- **New canonical mapping doc**: `docs/report_data_mapping.md` — section-by-section field mapping (cover, §1-§8, TOC), naming conventions (weekly/monthly), LLM prompt shape for §2 narrative synthesis, data-availability gap list, validation procedure against June 2025 EBSF DOCX.
+- **Zones already modelled as separate sites** in schema: `EBSF Zone B` (id `dcd9b90a...`), `EBSF Zone D` (id `c8080033...`). No schema change needed for zone split.
+- **Schema additions needed** for report generation: `clients.location_maps`, `clients.active_roster_staff_ids`, `client_reports.period_map_images`, verify/add `inspection_polygons` and `chemical_application_record_details.rate_ml_per_l`. Task #8.
+- **Current backfill coverage (2025-04-22 20:38 local)**: 875 total rows, 50 from 2025+, 4 EBSF (Zone B ×2, Zone D ×2, Jan-Apr 2025). Backfill at ~2025-05, ETA June 2025 window in ~10 min at current rate.
+- **Next build target**: report generator scaffold per `docs/report_data_mapping.md`. Blocked on tasks #7 (parser fix) + #8 (schema additions). Tracked as task #9.
+- **Orchestrator/executor split**: Peter orchestrates through this chat; executor chats will pick up tasks #7, #8, #9 once briefs are finalized.
 
 ### 2026-04-15 Session 3 (Claude Code — Brief v1.1)
 - Applied project brief update v1.1 (8 updates consolidated from API analysis + client report analysis + density/polygon discovery)

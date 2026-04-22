@@ -151,6 +151,30 @@
     .chem-stat-val { font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; }
     .chem-stat-lbl { font-size:11px; color:var(--color-taupe); }
 
+    /* Report actions + generate button */
+    .btn { font-family:inherit; border:none; border-radius:var(--radius-sm); padding:8px 14px; font-size:12.5px; font-weight:500; cursor:pointer; transition:background 0.15s ease, transform 0.1s ease; }
+    .btn-primary { background:var(--color-clay); color:#fff; }
+    .btn-primary:hover { background:var(--color-clay-hover); }
+    .btn-secondary { background:var(--color-sand); color:var(--color-espresso); }
+    .btn-secondary:hover { background:var(--color-cream); }
+    .btn-ghost { background:transparent; color:var(--color-clay); border:1px solid var(--color-stone); }
+    .btn-ghost:hover { background:var(--color-sand); }
+    .btn[disabled] { opacity:0.5; cursor:not-allowed; }
+    .report-card .actions { display:flex; gap:8px; }
+    .reports-toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:12px; flex-wrap:wrap; }
+    .reports-toolbar .hint { font-size:12px; color:var(--color-taupe); }
+
+    /* Report preview modal */
+    .modal-overlay { position:fixed; inset:0; background:rgba(45,42,38,0.55); display:none; align-items:center; justify-content:center; z-index:1000; padding:40px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--color-white); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); width:100%; max-width:960px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; }
+    .modal-header { display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--color-sand); }
+    .modal-title { font-size:15px; font-weight:600; }
+    .modal-close { background:transparent; border:none; font-size:22px; cursor:pointer; color:var(--color-taupe); line-height:1; }
+    .modal-body { flex:1; overflow:auto; background:var(--color-linen); padding:0; }
+    .modal-body iframe { width:100%; height:100%; min-height:70vh; border:none; background:#fff; }
+    .modal-footer { padding:12px 24px; border-top:1px solid var(--color-sand); display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:12px; color:var(--color-taupe); }
+
     /* Alert bar */
     .alert-bar { background:var(--color-cooling-bg); border-left:3px solid var(--color-cooling); border-radius:var(--radius-lg); padding:14px 20px; margin-bottom:24px; display:flex; align-items:center; gap:10px; font-size:13px; color:var(--color-umber); }
 
@@ -279,10 +303,37 @@
 <div class="page" id="page-reports">
   <div class="page-header">
     <div class="page-title">Client Reports</div>
-    <div class="page-subtitle">Generated monthly reports for clients</div>
+    <div class="page-subtitle">Auto-generated client reports. Review drafts before approval and send.</div>
   </div>
   <div class="kpi-grid kpi-grid-4" id="reports-kpis"></div>
   <div id="reports-content"></div>
+</div>
+
+<!-- Report preview / edit modal -->
+<div class="modal-overlay" id="report-modal" onclick="if(event.target.id==='report-modal')closeReportModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Report Preview</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="edit-status" style="font-size:11.5px;color:var(--color-taupe)"></span>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-umber);cursor:pointer">
+          <input type="checkbox" id="edit-toggle" onchange="toggleEdit(this.checked)" /> Edit mode
+        </label>
+        <button class="modal-close" onclick="closeReportModal()" aria-label="Close">&times;</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe id="modal-iframe"></iframe>
+    </div>
+    <div class="modal-footer">
+      <div id="modal-meta"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" id="modal-open-new">Open in new tab</button>
+        <button class="btn btn-secondary" id="modal-save" onclick="saveReportEdits()" disabled>Save Changes</button>
+        <button class="btn btn-primary" disabled title="Send workflow lands in M04">Approve &amp; Send</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ============ PIPELINE PAGE ============ -->
@@ -314,6 +365,15 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const H = { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` };
 
 async function q(table, params='') { return (await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {headers:H})).json(); }
+async function patchRow(table, id, body) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'PATCH',
+    headers: { ...H, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`PATCH ${table} failed: ${r.status} ${await r.text()}`);
+  return r.json();
+}
 async function qCount(table, filter='') {
   const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=id${filter?'&'+filter:''}`, {headers:{...H,'Prefer':'count=exact','Range':'0-0'}});
   const rng = r.headers.get('content-range'); return rng ? parseInt(rng.split('/')[1]) : 0;
@@ -553,6 +613,132 @@ function loadSpecies(d) {
   `).join('');
 }
 
+// ─── Report preview + inline edit ─────────────────────────────
+const reportEditState = { id: null, dirty: false, editable: false };
+
+function setEditStatus(text, color) {
+  const el = document.getElementById('edit-status');
+  el.textContent = text || '';
+  el.style.color = color || 'var(--color-taupe)';
+}
+
+function markDirty() {
+  reportEditState.dirty = true;
+  document.getElementById('modal-save').disabled = false;
+  setEditStatus('• unsaved changes', 'var(--color-clay)');
+}
+
+function applyEditModeToIframe() {
+  const iframe = document.getElementById('modal-iframe');
+  try {
+    const doc = iframe.contentDocument;
+    if (!doc || !doc.body) return;
+    doc.body.contentEditable = reportEditState.editable ? 'true' : 'false';
+    // Visual cue for edit mode + listen for input
+    const styleId = '__edit_mode_style__';
+    let s = doc.getElementById(styleId);
+    if (!s) { s = doc.createElement('style'); s.id = styleId; doc.head.appendChild(s); }
+    s.textContent = reportEditState.editable
+      ? `body { outline: 2px dashed #B07D4F; outline-offset: -2px; } body [contenteditable="true"]:focus, body:focus { outline: 2px solid #B07D4F; background: #FFFDF5; }`
+      : '';
+    // One-time input listener
+    if (reportEditState.editable && !doc.body.__editListenerAttached) {
+      doc.body.addEventListener('input', markDirty);
+      doc.body.__editListenerAttached = true;
+    }
+  } catch (e) { console.warn('Could not enable edit mode on iframe:', e); }
+}
+
+window.toggleEdit = function(on) {
+  reportEditState.editable = !!on;
+  applyEditModeToIframe();
+  setEditStatus(on ? 'Edit mode on — click text to modify' : '', 'var(--color-taupe)');
+};
+
+window.saveReportEdits = async function() {
+  if (!reportEditState.id || !reportEditState.dirty) return;
+  const iframe = document.getElementById('modal-iframe');
+  const doc = iframe.contentDocument;
+  if (!doc) return;
+  // Strip the edit-mode style before saving
+  const style = doc.getElementById('__edit_mode_style__');
+  if (style) style.remove();
+  const html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  const saveBtn = document.getElementById('modal-save');
+  saveBtn.disabled = true;
+  setEditStatus('saving…', 'var(--color-umber)');
+  try {
+    await patchRow('client_reports', reportEditState.id, { html_content: html, updated_at: new Date().toISOString() });
+    // Refresh local cache entry
+    const idx = (cache.reports || []).findIndex(r => r.id === reportEditState.id);
+    if (idx >= 0) cache.reports[idx].html_content = html;
+    reportEditState.dirty = false;
+    setEditStatus('saved ✓', 'var(--color-sage)');
+    // Re-inject edit-mode style if still editing
+    applyEditModeToIframe();
+    setTimeout(() => setEditStatus(reportEditState.editable ? 'Edit mode on — click text to modify' : '', 'var(--color-taupe)'), 1800);
+  } catch (e) {
+    console.error(e);
+    setEditStatus('save failed — see console', 'var(--color-terracotta)');
+    saveBtn.disabled = false;
+  }
+};
+
+window.previewReport = function(reportId) {
+  const r = (cache.reports || []).find(x => x.id === reportId);
+  if (!r) return;
+  const html = r.html_content || '<p style="padding:40px;text-align:center;color:#888">No html_content stored on this report row.</p>';
+  reportEditState.id = reportId;
+  reportEditState.dirty = false;
+  reportEditState.editable = false;
+  document.getElementById('edit-toggle').checked = false;
+  document.getElementById('modal-save').disabled = true;
+  setEditStatus('', 'var(--color-taupe)');
+
+  const iframe = document.getElementById('modal-iframe');
+  iframe.onload = applyEditModeToIframe;
+  iframe.srcdoc = html;
+
+  document.getElementById('modal-title').textContent = r.title || 'Report Preview';
+  const period = `${r.report_period_start} → ${r.report_period_end}`;
+  const zones = Array.isArray(r.zones_included) ? r.zones_included.join(', ') : '';
+  document.getElementById('modal-meta').innerHTML =
+    `<strong>${r.cadence || 'report'}</strong> &middot; ${period}` +
+    (zones ? ` &middot; zones: ${zones}` : '') +
+    (r.status ? ` &middot; ${pill(r.status)}` : '');
+  document.getElementById('modal-open-new').onclick = () => {
+    const w = window.open('', '_blank');
+    if (w) { w.document.write(html); w.document.close(); }
+  };
+  document.getElementById('report-modal').classList.add('open');
+};
+
+window.closeReportModal = function() {
+  if (reportEditState.dirty && !confirm('You have unsaved changes. Close anyway?')) return;
+  document.getElementById('report-modal').classList.remove('open');
+  document.getElementById('modal-iframe').srcdoc = '';
+  reportEditState.id = null;
+  reportEditState.dirty = false;
+  reportEditState.editable = false;
+};
+
+function reportCardHTML(r) {
+  const period = `${r.report_period_start} → ${r.report_period_end}`;
+  const zones = Array.isArray(r.zones_included) && r.zones_included.length ? r.zones_included.join(', ') : '';
+  const cadence = r.cadence ? r.cadence[0].toUpperCase() + r.cadence.slice(1) : 'Report';
+  const hasHtml = !!r.html_content;
+  return `<div class="report-card ${r.status||'draft'}">
+    <div class="report-title">${r.title || 'Untitled Report'}</div>
+    <div class="report-meta">${cadence} &middot; ${period}${zones?' &middot; Zones: '+zones:''}</div>
+    <div class="report-footer">
+      ${pill(r.status||'draft')}
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="previewReport('${r.id}')" ${hasHtml?'':'disabled title="No html_content stored"'}>Preview</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 function loadReports(d) {
   const hasReports = d.reports && d.reports.length > 0;
   if (!hasReports) {
@@ -589,12 +775,36 @@ function loadReports(d) {
         }).join('')}
       </div></div>`;
   } else {
+    const drafts = d.reports.filter(r=>r.status==='draft');
+    const inReview = d.reports.filter(r=>r.status==='review');
+    const approved = d.reports.filter(r=>r.status==='approved'||r.status==='sent');
+
     document.getElementById('reports-kpis').innerHTML = [
-      kpiHTML('Total Reports', d.reports.length.toString(), ''),
-      kpiHTML('Approved', d.reports.filter(r=>r.status==='approved'||r.status==='sent').length.toString(), '', 'var(--color-sage)'),
-      kpiHTML('In Review', d.reports.filter(r=>r.status==='review').length.toString(), '', '#9A7A3F'),
-      kpiHTML('Drafts', d.reports.filter(r=>r.status==='draft').length.toString(), '', 'var(--color-steel)'),
+      kpiHTML('Total Reports', d.reports.length.toString(), 'across all clients'),
+      kpiHTML('Approved / Sent', approved.length.toString(), '', 'var(--color-sage)'),
+      kpiHTML('In Review', inReview.length.toString(), '', '#9A7A3F'),
+      kpiHTML('Drafts', drafts.length.toString(), 'awaiting review', 'var(--color-steel)'),
     ].join('');
+
+    const sorted = [...d.reports].sort((a,b) => (b.generated_at||b.created_at||'').localeCompare(a.generated_at||a.created_at||''));
+
+    document.getElementById('reports-content').innerHTML = `
+      <div class="reports-toolbar">
+        <div class="hint">Reports are generated from inspection data for a client + period. Click Preview to review a draft.</div>
+        <button class="btn btn-primary" disabled title="CLI-only for now: npm run report -- --client EBSF --month 2025-06. In-UI generation lands in M04.">+ Generate Report</button>
+      </div>
+      <div class="section"><div class="section-header"><div class="section-title">Drafts (${drafts.length})</div><div class="section-badge">Click Preview to open</div></div>
+        <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px">
+          ${drafts.length ? drafts.map(reportCardHTML).join('') : '<div class="empty-state"><div class="msg">No drafts — generate one from the CLI.</div></div>'}
+        </div>
+      </div>
+      ${inReview.length || approved.length ? `
+      <div class="section" style="margin-top:20px"><div class="section-header"><div class="section-title">In Review / Approved</div></div>
+        <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px">
+          ${[...inReview, ...approved].map(reportCardHTML).join('')}
+        </div>
+      </div>` : ''}
+    `;
   }
 }
 
@@ -643,6 +853,7 @@ async function init() {
 }
 init();
 setInterval(async()=>{ await loadData(); loadPage(document.querySelector('.nav-item.active')?.dataset?.page||'dashboard'); }, 30000);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReportModal(); });
 </script>
 </body>
 </html>

@@ -20,7 +20,10 @@ export const REPORT_CSS = `
   .placeholder { background: #fbf3d8; border: 1px dashed #c4ab44; padding: 24px; text-align: center; font-size: 12.5px; color: #6a5a22; margin: 12px 0; border-radius: 4px; }
   .placeholder-box { font-weight: 600; }
   figcaption { font-size: 11.5px; color: #5c5141; font-style: italic; margin-top: 4px; }
-  .review-required { background: #fdecea; border-left: 3px solid #b85c5c; padding: 8px 12px; margin: 8px 0; font-size: 12px; color: #7a2d2d; }
+  /* Inline placeholder tag (e.g. "TBD" in table cells). Keep bare for inline flow. */
+  .review-required { display: inline; background: #fdecea; color: #7a2d2d; padding: 1px 7px; border-radius: 3px; font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em; vertical-align: baseline; white-space: nowrap; }
+  /* Block-level review banner — use .review-banner for full-width alerts (e.g. missing CAR). */
+  .review-banner { background: #fdecea; border-left: 3px solid #b85c5c; padding: 8px 12px; margin: 8px 0; font-size: 12px; color: #7a2d2d; display: block; }
   .bullet-label { font-weight: 700; color: #1f2a24; }
   .herbicide-section { margin: 12px 0; }
   .herbicide-section ul { margin: 6px 0 0 0; }

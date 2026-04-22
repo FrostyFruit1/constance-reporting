@@ -123,6 +123,23 @@ export function normalizeLabel(label: string): string {
 // ── Label variants for fields with known spelling changes ────────────
 
 const LABEL_VARIANTS: Record<string, string[]> = {
+  'site name': [
+    'site name',
+    'client / site',
+    'client/ site',
+    'client /site',
+    'client/site',
+    'site conducted',
+    'site',
+  ],
+  'prepared by/ supervisor': [
+    'prepared by/ supervisor',
+    'prepared by/supervisor',
+    'prepared by /supervisor',
+    'prepared by / supervisor',
+    'prepared by',
+    'supervisor',
+  ],
   'details of mapped areas': [
     'details of mapped areas or discription of areas worked',
     'details of mapped areas or description of areas worked',
