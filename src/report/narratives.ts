@@ -75,7 +75,9 @@ export async function generateNarratives(
       });
       const raw = resp.content.filter((b: any) => b.type === 'text').map((b: any) => b.text).join('').trim();
       const json = extractJson(raw);
-      outlineOfWorks[zone] = Array.isArray(json) ? json.filter(isBullet) : [];
+      outlineOfWorks[zone] = Array.isArray(json)
+        ? json.filter(isBullet).map(b => ({ label: stripMarkdownBold(b.label), body: b.body.trim() }))
+        : [];
     } catch (err) {
       console.warn(`LLM failed for zone ${zone}:`, err instanceof Error ? err.message : err);
       outlineOfWorks[zone] = [];
@@ -177,4 +179,8 @@ function isBullet(x: unknown): x is OutlineBullet {
   return !!x && typeof x === 'object'
     && typeof (x as any).label === 'string'
     && typeof (x as any).body === 'string';
+}
+
+function stripMarkdownBold(s: string): string {
+  return s.replace(/^\*\*(.+)\*\*$/s, '$1').trim();
 }
