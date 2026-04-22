@@ -3,7 +3,6 @@ import {
   WidthType, AlignmentType, BorderStyle,
 } from 'docx';
 import type { ReportData, NarrativeSections, WeedWorkRow, HerbicideRow, StaffHoursRow } from './types';
-import { formatZonesPhrase } from './period';
 
 export async function renderDocx(data: ReportData, n: NarrativeSections): Promise<Buffer> {
   const children: Array<Paragraph | Table> = [];
@@ -74,8 +73,12 @@ export async function renderDocx(data: ReportData, n: NarrativeSections): Promis
       children.push(staffTable(rows));
     });
     const totalHours = data.staffHoursByZone.reduce((s, r) => s + r.hours, 0);
-    const zonesPhrase = formatZonesPhrase(data.zonesIncluded).display || 'this site';
+    const zonesPhrase = data.zonesLabel || 'this site';
     const periodWord = data.cadence === 'monthly' ? 'month' : 'week';
+    children.push(new Paragraph({
+      children: [new TextRun({ text: 'Note: hours from combined-zone field days are attributed in full to each zone worked.', italics: true })],
+      spacing: { before: 120 },
+    }));
     children.push(new Paragraph({
       children: [new TextRun({ text: `A total of ${totalHours} hours were completed this ${periodWord} for ${zonesPhrase}.`, bold: true })],
       spacing: { before: 200 },

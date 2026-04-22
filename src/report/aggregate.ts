@@ -16,7 +16,7 @@ import type {
   ReportData,
   Cadence,
 } from './types';
-import { formatZonesPhrase, formatPublicationDate } from './period';
+import { extractZoneLetters, zoneLabel, formatZoneLabel } from './zones';
 
 export interface AggregateInput {
   clientId: string;
@@ -33,7 +33,7 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
   // 1. Client
   const { data: client, error: cErr } = await db
     .from('clients')
-    .select('id, organization_id, name, contact_name, council_or_body, report_template_variant, location_maps, active_roster_staff_ids')
+    .select('id, organization_id, name, long_name, contact_name, council_or_body, report_template_variant, site_id_pattern, location_maps, active_roster_staff_ids')
     .eq('id', clientId)
     .single();
   if (cErr || !client) throw new Error(`Client not found: ${clientId} (${cErr?.message})`);
@@ -46,31 +46,37 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     .single();
   if (oErr || !org) throw new Error(`Organization not found (${oErr?.message})`);
 
-  // 3. Sites — for the pilot, pull all sites linked to this client. Fallback: sites where name begins with 'EBSF'.
-  let sitesQ = db.from('sites')
-    .select('id, organization_id, client_id, name, canonical_name, sc_label, long_name, street, suburb')
-    .eq('organization_id', org.id);
+  // 3. Sites for this client (primary), plus any sites matching site_id_pattern for CAR reconciliation.
   const { data: sitesByClient } = await db.from('sites')
     .select('id, organization_id, client_id, name, canonical_name, sc_label')
     .eq('client_id', clientId);
-  let sites: SiteRow[];
-  if (sitesByClient && sitesByClient.length > 0) {
-    sites = sitesByClient as unknown as SiteRow[];
-  } else {
-    const { data: fallback } = await sitesQ;
-    sites = ((fallback as unknown as SiteRow[]) || []).filter(s =>
-      s.name.toUpperCase().startsWith(client.name.slice(0, 4).toUpperCase())
-    );
-  }
-  if (sites.length === 0) throw new Error(`No sites found for client ${client.name}`);
-  const siteIds = sites.map(s => s.id);
-  const siteById = new Map(sites.map(s => [s.id, s]));
+  const primarySites: SiteRow[] = (sitesByClient as unknown as SiteRow[]) || [];
+  if (primarySites.length === 0) throw new Error(`No sites found for client ${client.name}`);
 
-  // 4. Inspections in period + children
+  const sitePattern = client.site_id_pattern as string | null;
+  let patternSiteIds: string[] = primarySites.map(s => s.id);
+  if (sitePattern) {
+    const { data: extra } = await db.from('sites')
+      .select('id, name')
+      .eq('organization_id', org.id)
+      .or(`name.ilike.%${sitePattern.split('|')[0]}%`);
+    // pattern may be alternation like "EBSF|Elderslie" — run a name regex match client-side too
+    const rx = new RegExp(sitePattern, 'i');
+    const broaderIds = [
+      ...primarySites.map(s => s.id),
+      ...((extra as any[]) || []).filter(s => rx.test(s.name)).map(s => s.id),
+    ];
+    patternSiteIds = [...new Set(broaderIds)];
+  }
+
+  const primarySiteIds = primarySites.map(s => s.id);
+  const siteById = new Map(primarySites.map(s => [s.id, s]));
+
+  // 4. Inspections in period + children (restricted to primary client sites only)
   const { data: inspRaw, error: iErr } = await db
     .from('inspections')
     .select('id, date, site_id, supervisor_id, sc_template_type, sc_raw_json')
-    .in('site_id', siteIds)
+    .in('site_id', primarySiteIds)
     .not('date', 'is', null)
     .gte('date', periodStart)
     .lte('date', periodEnd)
@@ -79,13 +85,8 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
   if (iErr) throw new Error(`Inspections query failed: ${iErr.message}`);
   const inspections = inspRaw || [];
 
-  if (inspections.length === 0) {
-    // Still produce a valid (empty) report — but narrative/sections will be placeholders.
-  }
-
   const inspectionIds = inspections.map(i => i.id);
 
-  // Eager-load children in one batch each
   const childFetch = async <T>(table: string): Promise<T[]> => {
     if (inspectionIds.length === 0) return [];
     const { data, error } = await db.from(table).select('*').in('inspection_id', inspectionIds);
@@ -102,7 +103,7 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     childFetch<any>('inspection_metadata'),
   ]);
 
-  // Supervisor names + all staff referenced
+  // Staff names
   const staffIdsReferenced = new Set<string>();
   inspections.forEach(i => i.supervisor_id && staffIdsReferenced.add(i.supervisor_id));
   personnelRows.forEach(p => p.staff_id && staffIdsReferenced.add(p.staff_id));
@@ -116,7 +117,6 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     (staffRows || []).forEach((s: any) => staffMap.set(s.id, s));
   }
 
-  // Build InspectionRow tree
   const byInspection = <T extends { inspection_id: string }>(rows: T[]) => {
     const m = new Map<string, T[]>();
     for (const r of rows) {
@@ -135,12 +135,16 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
 
   const inspectionRows: InspectionRow[] = inspections.map(i => {
     const site = i.site_id ? siteById.get(i.site_id) : undefined;
-    const zone = site?.name || 'Unknown Zone';
+    const siteName = site?.name || 'Unknown Site';
+    const letters = extractZoneLetters(siteName);
+    const displayZone = letters.length > 0 ? formatZoneLabel(letters) : siteName;
     return {
       id: i.id,
       date: i.date,
       site_id: i.site_id,
-      zone,
+      site_name: siteName,
+      zone: displayZone,
+      zoneLetters: letters,
       supervisor_id: i.supervisor_id,
       supervisor_name: i.supervisor_id ? staffMap.get(i.supervisor_id)?.name || null : null,
       sc_template_type: i.sc_template_type,
@@ -163,23 +167,28 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
       })),
       observations: (obsByI.get(i.id) || []).map((o: any): InspectionObservationRow => ({
         id: o.id, observation_type: o.observation_type, species_name: o.species_name, notes: o.notes,
-        inspection_id: o.inspection_id, inspection_date: i.date, zone,
+        inspection_id: o.inspection_id, inspection_date: i.date, zone: displayZone,
       })),
       metadata: metaByI.get(i.id)?.[0] || null,
     };
   });
 
-  // Zones included (ordered by first appearance)
-  const zonesSeen = new Set<string>();
-  const zonesIncluded: string[] = [];
+  // Zones: letters in order of first appearance across inspections.
+  const zoneOrder: string[] = [];
+  const zoneSeen = new Set<string>();
   for (const ins of inspectionRows) {
-    if (!zonesSeen.has(ins.zone)) {
-      zonesSeen.add(ins.zone);
-      zonesIncluded.push(ins.zone);
+    for (const L of ins.zoneLetters) {
+      if (!zoneSeen.has(L)) {
+        zoneSeen.add(L);
+        zoneOrder.push(L);
+      }
     }
   }
+  const zonesIncluded = zoneOrder.map(zoneLabel);
+  const zonesLetters = [...zoneOrder].sort();
+  const zonesLabel = formatZoneLabel(zonesLetters);
 
-  // Supervisor: staff with the most inspections in period
+  // Supervisor
   const supervisorCounts = new Map<string, number>();
   for (const ins of inspectionRows) {
     if (ins.supervisor_id) {
@@ -189,17 +198,21 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
   const topSupId = [...supervisorCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
   const supervisor = topSupId ? staffMap.get(topSupId) || null : null;
 
-  // §3 Staff hours by zone
-  const hoursKey = (zone: string, staffKey: string) => `${zone}${staffKey}`;
+  // §3 Staff hours by zone — umbrella inspections contribute full hours to each component zone.
   const hoursMap = new Map<string, StaffHoursRow>();
+  const hoursKey = (zone: string, staffKey: string) => `${zone}${staffKey}`;
   for (const ins of inspectionRows) {
-    for (const p of ins.personnel) {
-      const sid = p.staff_id || `null-${p.staff_name || 'unknown'}`;
-      const name = p.staff_name || 'Unknown';
-      const k = hoursKey(ins.zone, sid);
-      const prev = hoursMap.get(k) || { zone: ins.zone, staff_id: p.staff_id, staff_name: name, hours: 0 };
-      prev.hours += Number(p.hours_worked) || 0;
-      hoursMap.set(k, prev);
+    const contributingZones = ins.zoneLetters.length > 0 ? ins.zoneLetters : [];
+    for (const letter of contributingZones) {
+      const zone = zoneLabel(letter);
+      for (const p of ins.personnel) {
+        const sid = p.staff_id || `null-${p.staff_name || 'unknown'}`;
+        const name = p.staff_name || 'Unknown';
+        const k = hoursKey(zone, sid);
+        const prev = hoursMap.get(k) || { zone, staff_id: p.staff_id, staff_name: name, hours: 0 };
+        prev.hours += Number(p.hours_worked) || 0;
+        hoursMap.set(k, prev);
+      }
     }
   }
   // Include roster staff with 0 hours across each zone
@@ -214,109 +227,193 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
       }
     }
   }
+  const zoneOrderIndex = new Map(zonesIncluded.map((z, i) => [z, i] as const));
   const staffHoursByZone = [...hoursMap.values()].sort((a, b) => {
-    if (a.zone !== b.zone) return a.zone.localeCompare(b.zone);
+    const ai = zoneOrderIndex.get(a.zone) ?? 999;
+    const bi = zoneOrderIndex.get(b.zone) ?? 999;
+    if (ai !== bi) return ai - bi;
     return b.hours - a.hours;
   });
 
-  // §4.1 Weed works — one row per (zone × weed-group × method)
+  // §4.1 Weed works — umbrella inspections produce one row per (zone × weed × method).
   const weedWorksMap = new Map<string, WeedWorkRow>();
   for (const ins of inspectionRows) {
     const zoneTotalHours = ins.personnel.reduce((s, p) => s + (Number(p.hours_worked) || 0), 0);
     const methods = ins.tasks.map(t => t.task_type).filter(Boolean);
     const speciesList = [...new Set(ins.weeds.map(w => w.species_name_canonical || w.species_name_raw))];
     if (speciesList.length === 0 || methods.length === 0) continue;
-    // Parse polygon colours from raw details_of_mapped_areas if present
     const rawJson = ins.sc_raw_json as any;
     let mappedLines: Array<{ colour: string; method: string; weed: string }> = [];
     try {
       const details = extractDetailsOfMappedAreas(rawJson);
-      if (details) {
-        mappedLines = parseMappedAreas(details);
-      }
+      if (details) mappedLines = parseMappedAreas(details);
     } catch { /* ignore */ }
 
     const methodLabel = humanMethod(methods);
-    for (const species of speciesList) {
-      const colourMatch = mappedLines.find(l =>
-        l.weed.toLowerCase().includes(species.toLowerCase()) ||
-        species.toLowerCase().includes(l.weed.toLowerCase())
-      );
-      const key = `${ins.zone}${species}${methodLabel}`;
-      const existing = weedWorksMap.get(key);
-      if (existing) {
-        existing.hours += zoneTotalHours / speciesList.length;
-      } else {
-        weedWorksMap.set(key, {
-          zone: ins.zone,
-          weed_type: species,
-          method: methodLabel,
-          species_list: [species],
-          hours: zoneTotalHours / speciesList.length,
-          colour: colourMatch?.colour || null,
-          gis_lat: null,
-          gis_lng: null,
-          area_m2: null,
-          needs_review: true,
-        });
+    const contributingZones = ins.zoneLetters.length > 0 ? ins.zoneLetters.map(zoneLabel) : [];
+    for (const zone of contributingZones) {
+      for (const species of speciesList) {
+        const colourMatch = mappedLines.find(l =>
+          l.weed.toLowerCase().includes(species.toLowerCase()) ||
+          species.toLowerCase().includes(l.weed.toLowerCase())
+        );
+        const key = `${zone}${species}${methodLabel}`;
+        const existing = weedWorksMap.get(key);
+        if (existing) {
+          existing.hours += zoneTotalHours / speciesList.length;
+        } else {
+          weedWorksMap.set(key, {
+            zone,
+            weed_type: species,
+            method: methodLabel,
+            species_list: [species],
+            hours: zoneTotalHours / speciesList.length,
+            colour: colourMatch?.colour || null,
+            gis_lat: null,
+            gis_lng: null,
+            area_m2: null,
+            needs_review: true,
+          });
+        }
       }
     }
   }
   const weedWorks = [...weedWorksMap.values()]
     .map(w => ({ ...w, hours: Math.round(w.hours) }))
-    .sort((a, b) => a.zone.localeCompare(b.zone) || a.weed_type.localeCompare(b.weed_type));
+    .sort((a, b) => {
+      const ai = zoneOrderIndex.get(a.zone) ?? 999;
+      const bi = zoneOrderIndex.get(b.zone) ?? 999;
+      if (ai !== bi) return ai - bi;
+      return a.weed_type.localeCompare(b.weed_type);
+    });
 
-  // §6 Herbicide totals — no CAR data, fallback to DWR chemicals. Flag needs_review.
+  // §6 Herbicide totals — combine DWR chemicals (per-zone × chemical × weed) with
+  // Chemical Application Record (CAR) real totals aggregated by chemical.
   const herbMap = new Map<string, HerbicideRow>();
   for (const ins of inspectionRows) {
-    for (const c of ins.chemicals) {
-      const name = c.chemical_name_canonical || c.chemical_name_raw;
-      const targetWeed = ins.weeds[0]?.species_name_canonical || ins.weeds[0]?.species_name_raw || null;
-      const key = `${name}${ins.zone}${targetWeed || ''}`;
-      const prev = herbMap.get(key) || {
-        chemical_canonical: name,
-        rate_text: c.rate_raw,
-        target_weed: targetWeed,
-        zone: ins.zone,
-        total_sprayed_litres: null,
-        total_concentrate_ml: null,
-        needs_review: true,
-      };
-      herbMap.set(key, prev);
+    const contributingZones = ins.zoneLetters.length > 0 ? ins.zoneLetters.map(zoneLabel) : [];
+    for (const zone of contributingZones) {
+      for (const c of ins.chemicals) {
+        const name = c.chemical_name_canonical || c.chemical_name_raw;
+        const targetWeed = ins.weeds[0]?.species_name_canonical || ins.weeds[0]?.species_name_raw || null;
+        const key = `${name}${zone}${targetWeed || ''}`;
+        const prev = herbMap.get(key) || {
+          chemical_canonical: name,
+          rate_text: c.rate_raw,
+          target_weed: targetWeed,
+          zone,
+          total_sprayed_litres: null,
+          total_concentrate_ml: null,
+          needs_review: true,
+        };
+        herbMap.set(key, prev);
+      }
     }
   }
-  const herbicideTotals = [...herbMap.values()];
 
-  // observations flat list for §5/§7/§8
+  // Fetch matched CARs in period for pattern-matched sites (broader than primary client sites).
+  const carTotalsByChem = new Map<string, { litres: number; concentrate_ml: number; records: number }>();
+  if (patternSiteIds.length > 0) {
+    const { data: cars } = await db
+      .from('chemical_application_records')
+      .select('id, date, site_id, total_amount_sprayed_litres')
+      .in('site_id', patternSiteIds)
+      .gte('date', periodStart)
+      .lte('date', periodEnd);
+    const carIds = (cars || []).map((r: any) => r.id);
+    let items: any[] = [];
+    if (carIds.length > 0) {
+      const { data: itemRows } = await db
+        .from('chemical_application_items')
+        .select('application_record_id, chemical_name_canonical, chemical_name_raw, rate_raw, rate_value, rate_unit, concentrate_raw')
+        .in('application_record_id', carIds);
+      items = itemRows || [];
+    }
+    // Aggregate: sprayed litres per chemical = sum over CARs / n_items_of_that_chem_in_record * record.total
+    // Simpler: if a CAR has N distinct chemicals, split the total evenly.
+    const itemsByCar = new Map<string, any[]>();
+    for (const it of items) {
+      const l = itemsByCar.get(it.application_record_id) || [];
+      l.push(it);
+      itemsByCar.set(it.application_record_id, l);
+    }
+    for (const car of cars || []) {
+      const its = itemsByCar.get(car.id) || [];
+      if (its.length === 0) continue;
+      const totalL = Number(car.total_amount_sprayed_litres) || 0;
+      const perChemL = totalL / its.length;
+      for (const it of its) {
+        const name = it.chemical_name_canonical || it.chemical_name_raw || 'Unknown';
+        const concMl = parseConcentrateMl(it.concentrate_raw);
+        const prev = carTotalsByChem.get(name) || { litres: 0, concentrate_ml: 0, records: 0 };
+        prev.litres += perChemL;
+        prev.concentrate_ml += concMl;
+        prev.records += 1;
+        carTotalsByChem.set(name, prev);
+      }
+    }
+  }
+
+  // Apply CAR totals to §6 subsections. For each chemical, split totals evenly across
+  // matching (chemical × zone × weed) subsections so sums don't inflate.
+  {
+    const subsectionsByChem = new Map<string, HerbicideRow[]>();
+    for (const h of herbMap.values()) {
+      const list = subsectionsByChem.get(h.chemical_canonical) || [];
+      list.push(h);
+      subsectionsByChem.set(h.chemical_canonical, list);
+    }
+    for (const [chem, totals] of carTotalsByChem) {
+      const matches = subsectionsByChem.get(chem) || [];
+      if (matches.length === 0) continue;
+      const perL = totals.litres / matches.length;
+      const perMl = totals.concentrate_ml / matches.length;
+      for (const m of matches) {
+        m.total_sprayed_litres = round(perL, 2);
+        m.total_concentrate_ml = round(perMl, 1);
+        m.needs_review = false;
+      }
+    }
+  }
+
+  const herbicideTotals = [...herbMap.values()].sort((a, b) => {
+    if (a.chemical_canonical !== b.chemical_canonical) return a.chemical_canonical.localeCompare(b.chemical_canonical);
+    const ai = zoneOrderIndex.get(a.zone) ?? 999;
+    const bi = zoneOrderIndex.get(b.zone) ?? 999;
+    return ai - bi;
+  });
+
   const allObs: InspectionObservationRow[] = inspectionRows.flatMap(i => i.observations);
 
-  // §2 LLM inputs — details of tasks by zone
+  // §2 LLM inputs — details of tasks, grouped by zone letter with umbrella inspections folded in.
   const detailsOfTasksByZone: Record<string, Array<{ date: string; text: string }>> = {};
   for (const ins of inspectionRows) {
-    if (!detailsOfTasksByZone[ins.zone]) detailsOfTasksByZone[ins.zone] = [];
-    const texts = new Set<string>();
-    for (const t of ins.tasks) {
-      if (t.details_text) texts.add(t.details_text.trim());
+    const contributingZones = ins.zoneLetters.length > 0 ? ins.zoneLetters.map(zoneLabel) : [];
+    for (const zone of contributingZones) {
+      if (!detailsOfTasksByZone[zone]) detailsOfTasksByZone[zone] = [];
+      const texts = new Set<string>();
+      for (const t of ins.tasks) {
+        if (t.details_text) texts.add(t.details_text.trim());
+      }
+      const combined = [...texts].join('\n\n');
+      if (combined) detailsOfTasksByZone[zone].push({ date: ins.date || '', text: combined });
     }
-    const combined = [...texts].join('\n\n');
-    if (combined) detailsOfTasksByZone[ins.zone].push({ date: ins.date || '', text: combined });
   }
 
-  // Title, filename label, addressed-to, author
-  const zonesPhrase = formatZonesPhrase(zonesIncluded);
-  const longName = (sites[0] as any)?.long_name || client.name;
+  // Title, addressed-to, author, publication date
+  const longName = (client.long_name as string | null) || client.name;
   const cadenceLabel = cadence === 'monthly' ? 'Monthly Report' : cadence === 'weekly' ? 'Weekly Report' : 'Quarterly Report';
-  const titleLine = `${longName}${zonesPhrase.display ? ` ${zonesPhrase.display}` : ''} ${periodLabel} ${cadenceLabel}`;
+  const titleLine = `${longName}${zonesLabel ? ` ${zonesLabel}` : ''} ${periodLabel} ${cadenceLabel}`;
   const authorLine = supervisor ? `Constance Conservation - ${supervisor.name}` : 'Constance Conservation';
   const addressedToParts = [client.contact_name, client.council_or_body].filter(Boolean) as string[];
   const addressedToDedup = [...new Set(addressedToParts)];
   const addressedTo = addressedToDedup.join(', ') || client.name;
-  const publicationDate = formatPublicationDate();
+  const publicationDate = formatDdMmYyyy(periodEnd);
 
   return {
     client: client as ClientRow,
     organization: org as OrgRow,
-    sites,
+    sites: primarySites,
     supervisor,
     inspections: inspectionRows,
     staffHoursByZone,
@@ -328,6 +425,7 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     periodEnd,
     cadence,
     zonesIncluded,
+    zonesLabel,
     periodLabel,
     periodFilenameLabel,
     titleLine,
@@ -369,7 +467,6 @@ function extractDetailsOfMappedAreas(rawJson: any): string | null {
       }
       return null;
     }
-    // Items have 'label' and 'responses' in SC structure
     const label = (node.label || '').toString().toLowerCase();
     if (label.includes('details of mapped areas') || label.includes('mapped areas')) {
       const txt = node.responses?.text || node.responses?.value || node.text;
@@ -393,4 +490,21 @@ function parseMappedAreas(text: string): Array<{ colour: string; method: string;
     if (m) out.push({ colour: m[1].trim(), method: m[2].trim(), weed: m[3].trim() });
   }
   return out;
+}
+
+function parseConcentrateMl(raw: string | null | undefined): number {
+  if (!raw) return 0;
+  // "70ml", "70ml/10L", "70 ml"
+  const m = /([\d.]+)\s*ml/i.exec(raw);
+  return m ? Number(m[1]) : 0;
+}
+
+function round(n: number, digits: number): number {
+  const f = Math.pow(10, digits);
+  return Math.round(n * f) / f;
+}
+
+function formatDdMmYyyy(isoDate: string): string {
+  const [y, m, d] = isoDate.split('-');
+  return `${d}/${m}/${y}`;
 }

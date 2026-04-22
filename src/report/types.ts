@@ -14,9 +14,11 @@ export interface ClientRow {
   id: string;
   organization_id: string;
   name: string;
+  long_name: string | null;
   contact_name: string | null;
   council_or_body: string | null;
   report_template_variant: string | null;
+  site_id_pattern: string | null;
   location_maps: string[] | null;
   active_roster_staff_ids: string[] | null;
 }
@@ -90,7 +92,9 @@ export interface InspectionRow {
   id: string;
   date: string | null;
   site_id: string | null;
+  site_name: string;
   zone: string;
+  zoneLetters: string[];
   supervisor_id: string | null;
   supervisor_name: string | null;
   sc_template_type: string;
@@ -148,6 +152,7 @@ export interface ReportData {
   periodEnd: string;
   cadence: Cadence;
   zonesIncluded: string[];
+  zonesLabel: string;
   periodLabel: string;
   periodFilenameLabel: string;
   titleLine: string;

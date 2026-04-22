@@ -8,6 +8,7 @@ import { generateNarratives } from './narratives';
 import { renderHtml } from './render_html';
 import { renderDocx } from './render_docx';
 import { inferPeriodLabels } from './period';
+import { extractZoneLetters } from './zones';
 
 export async function generateReport(
   opts: ReportOptions,
@@ -60,19 +61,14 @@ export async function generateReport(
 }
 
 function reportFilenameBase(data: any): string {
-  const zonePart = condenseZones(data.zonesIncluded);
-  const clientPart = (data.client.name as string).split(/\s+/)[0] || 'Client';
+  const longName: string = data.client.long_name || data.client.name;
+  const clientPart = longName.replace(/[^\w\s]/g, '').trim().replace(/\s+/g, '_') || 'Client';
+  const zonesPart = (data.zonesLabel || '').replace(/\s+/g, '_');
   const cadencePretty = data.cadence === 'monthly' ? 'Monthly' : data.cadence === 'weekly' ? 'Weekly' : 'Quarterly';
-  return `${clientPart}_Zone_${zonePart}_${data.periodFilenameLabel}_${cadencePretty}_Report`;
-}
-
-function condenseZones(zones: string[]): string {
-  // Strip org prefix and the literal 'Zone ' token, dedupe, then join
-  const tokens = zones.map(z => z.replace(/^EBSF\s+/i, '').replace(/^Zone\s+/i, '').trim()).filter(Boolean);
-  const uniq = [...new Set(tokens)];
-  if (uniq.length === 0) return 'all';
-  if (uniq.length === 1) return uniq[0].replace(/\s+/g, '_');
-  return uniq.slice(0, -1).join('_') + '_and_' + uniq[uniq.length - 1].replace(/\s+/g, '_');
+  const parts = [clientPart];
+  if (zonesPart) parts.push(zonesPart);
+  parts.push(data.periodFilenameLabel, `${cadencePretty}_Report`);
+  return parts.join('_');
 }
 
 async function upsertClientReport(
@@ -99,7 +95,7 @@ async function upsertClientReport(
       incidents: narratives.incidents,
       fauna_sightings: narratives.faunaSightings,
     },
-    zones_included: data.zonesIncluded,
+    zones_included: data.zonesIncluded.flatMap((z: string) => extractZoneLetters(z)),
     generated_at: new Date().toISOString(),
   };
 

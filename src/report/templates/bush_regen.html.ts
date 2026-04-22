@@ -1,14 +1,13 @@
 import type { ReportData, NarrativeSections, StaffHoursRow, WeedWorkRow, HerbicideRow, OutlineBullet } from '../types';
 import { REPORT_CSS } from './styles';
-import { formatZonesPhrase } from '../period';
 
 export function renderBushRegenHtml(data: ReportData, n: NarrativeSections): string {
   const {
     titleLine, authorLine, publicationDate, addressedTo,
-    organization, client, zonesIncluded, periodLabel, cadence, sites,
+    organization, client, zonesIncluded, zonesLabel, periodLabel, cadence, sites,
   } = data;
 
-  const zonesPhrase = formatZonesPhrase(zonesIncluded).display || '—';
+  const zonesPhrase = zonesLabel || '—';
 
   const locationMapHtml = renderLocationMaps(data);
   const outlineHtml = renderOutlineOfWorks(data, n);
@@ -91,7 +90,7 @@ export function renderBushRegenHtml(data: ReportData, n: NarrativeSections): str
   ${faunaHtml}
 
   <div class="footer">
-    Generated ${escapeHtml(publicationDate)} for ${escapeHtml(client.name)} — zones ${escapeHtml(zonesPhrase)}, ${escapeHtml(periodLabel)} (${escapeHtml(cadence)}).
+    Generated ${escapeHtml(publicationDate)} for ${escapeHtml(client.long_name || client.name)} — ${escapeHtml(zonesPhrase)}, ${escapeHtml(periodLabel)} (${escapeHtml(cadence)}).
     Site references: ${escapeHtml(sites.map(s => s.name).join(', '))}.
   </div>
 </div>
@@ -141,7 +140,7 @@ function renderOutlineOfWorks(data: ReportData, n: NarrativeSections): string {
 function renderStaffSection(data: ReportData): string {
   if (data.zonesIncluded.length === 0) return '<p><em>No staff data for this period.</em></p>';
   const totalHoursAll = data.staffHoursByZone.reduce((s, r) => s + r.hours, 0);
-  const zonesPhrase = formatZonesPhrase(data.zonesIncluded).display || 'this site';
+  const zonesPhrase = data.zonesLabel || 'this site';
   const zoneBlocks = data.zonesIncluded.map((zone, i) => {
     const rows = data.staffHoursByZone.filter(r => r.zone === zone);
     const tableRows = rows.length > 0
@@ -155,6 +154,7 @@ function renderStaffSection(data: ReportData): string {
       </table>`;
   }).join('\n');
   return `${zoneBlocks}
+    <p class="hours-note"><em>Note: hours from combined-zone field days are attributed in full to each zone worked.</em></p>
     <p><strong>A total of ${totalHoursAll} hours were completed this ${data.cadence === 'monthly' ? 'month' : 'week'} for ${escapeHtml(zonesPhrase)}.</strong></p>`;
 }
 
