@@ -2,15 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "framework": null,
-  "buildCommand": "echo 'static — no build step'",
+  "buildCommand": "cp dashboard-preview.html index.html",
   "installCommand": "echo 'static — no install'",
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/", "destination": "/dashboard-preview.html" }
-  ],
   "headers": [
+    {
+      "source": "/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
     {
       "source": "/dashboard-preview.html",
       "headers": [
