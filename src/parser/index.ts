@@ -100,10 +100,10 @@ function errorResult(
   };
 
   return {
-    templateType: 'daily_work_report',
+    templateType: 'unknown',
     inspection: {
       scAuditId: auditId,
-      scTemplateType: 'daily_work_report',
+      scTemplateType: 'unknown',
       scModifiedAt: null,
       siteName: null,
       date: null,
