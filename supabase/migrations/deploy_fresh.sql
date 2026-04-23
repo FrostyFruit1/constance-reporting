@@ -1024,7 +1024,10 @@ BEGIN
     LIMIT 1;
 
     IF ebsf_site_id IS NULL THEN
-        RAISE EXCEPTION 'EBSF top-level site missing — E2 migration not applied?';
+        -- Fresh-install path: no EBSF data yet. Data will be imported post-schema
+        -- via REST and arrives already-clean from the source. Nothing to re-parent.
+        RAISE NOTICE 'EBSF top-level site missing — skipping fix 2 (empty DB)';
+        RETURN;
     END IF;
 
     UPDATE sites
