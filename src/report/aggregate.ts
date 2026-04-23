@@ -60,7 +60,14 @@ async function loadClient(db: SupabaseClient, clientId: string): Promise<ClientR
     .eq('id', clientId)
     .single();
   if (error || !data) throw new Error(`Client not found: ${clientId} (${error?.message})`);
-  return data as unknown as ClientRow;
+  const row = data as unknown as ClientRow;
+  // Filter nullish/empty URLs so the template can trust location_maps.length as
+  // the "has real maps" signal. The dashboard writes sparse arrays when Ryan
+  // uploads only Map 1.1 before Map 1.0.
+  if (Array.isArray(row.location_maps)) {
+    row.location_maps = row.location_maps.filter((u): u is string => !!u && typeof u === 'string');
+  }
+  return row;
 }
 
 async function resolveScope(db: SupabaseClient, scope: AggregateScope): Promise<ResolvedScope> {
