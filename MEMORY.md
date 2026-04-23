@@ -1,11 +1,25 @@
 # CONSTANCE CONSERVATION — PROJECT MEMORY
 
 ## Current Phase
-**Phase:** M03 — Report Generation (executor building)
-**Status:** M01 CLOSED. M03 executor running.
+**Phase:** M03 — Report Generation **COMPLETE for EBSF pilot**. Next: ops handoff for real client roster, then M04 (review/send).
+**Status:** Generator + hierarchy + cleanup all shipped. Dashboard supports Clients/Sites/Zones nav + draft review + inline edit + DOCX/PDF export + image uploads (Supabase Storage).
 **Last Updated:** 2026-04-23
-**Pilot:** EBSF (Elderslie Banksia Scrub Forest) — validating against `EBSF Zone B C June Report.docx` ground-truth.
-**Distribution (future):** Resend (replaces earlier Microsoft Graph/SMTP plan)
+**Pilot:** EBSF validated end-to-end vs `EBSF Zone B C June Report.docx` ground-truth. LLM narratives real (Claude Sonnet 4.6).
+**Distribution (future):** Resend (M04)
+
+## M03 Landed Workstreams (2026-04-23)
+
+| Brief | Commit | Summary |
+|---|---|---|
+| E1 round 1 | 38e4717 | Initial generator scaffold — HTML + DOCX + aggregation pipeline |
+| E1 round 2 | bbf791f + 7838335 | Zones normalization, umbrella folding, CAR matching, cover block, LLM narrative validation, inline pill styling |
+| E2 | 762084f | `sites.parent_site_id` hierarchy — client → site → zone |
+| E4 | 46a8c48 | Clients/Sites/Zones management UI in dashboard-preview.html |
+| E3 | 2122a47 | CLI scope flags (--client-id/--site-id/--zone-id), Download DOCX + Print-to-PDF, docx_url persistence |
+| E5 | 2eed341 | Supabase Storage bucket + drag-drop image upload for §1.0 and §4.0 map slots |
+| E6 | 0dd9a09 | Client data model cleanup — Camden/EBSF merge, orphan re-parenting, dupe dedup, parser bug fix, template retag |
+
+Current DB state: 1 client (Camden Council), 1 EBSF top-level site, 8 nested zones, ~1,600 inspections ingested (2025-01 through 2026-04 + partial 2022-2024 legacy).
 
 ## Orchestration Handoff (2026-04-23)
 
