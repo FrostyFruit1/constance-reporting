@@ -15,3 +15,9 @@ Screenshot*.png
 *.docx
 *.pdf
 deploy_*.sh
+
+# Node tooling — not needed for static deploy
+package.json
+package-lock.json
+tsconfig.json
+vitest.config.mts
