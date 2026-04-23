@@ -17,6 +17,7 @@ import type {
   Cadence,
 } from './types';
 import { extractZoneLetters, zoneLabel, formatZoneLabel } from './zones';
+import { getClientLeafSites } from './hierarchy';
 
 export interface AggregateInput {
   clientId: string;
@@ -33,7 +34,7 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
   // 1. Client
   const { data: client, error: cErr } = await db
     .from('clients')
-    .select('id, organization_id, name, long_name, contact_name, council_or_body, report_template_variant, site_id_pattern, location_maps, active_roster_staff_ids')
+    .select('id, organization_id, name, long_name, contact_name, council_or_body, report_template_variant, location_maps, active_roster_staff_ids')
     .eq('id', clientId)
     .single();
   if (cErr || !client) throw new Error(`Client not found: ${clientId} (${cErr?.message})`);
@@ -46,30 +47,14 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     .single();
   if (oErr || !org) throw new Error(`Organization not found (${oErr?.message})`);
 
-  // 3. Sites for this client (primary), plus any sites matching site_id_pattern for CAR reconciliation.
-  const { data: sitesByClient } = await db.from('sites')
-    .select('id, organization_id, client_id, name, canonical_name, sc_label')
-    .eq('client_id', clientId);
-  const primarySites: SiteRow[] = (sitesByClient as unknown as SiteRow[]) || [];
+  // 3. Sites via hierarchy: top-level sites for this client plus all zones
+  //    beneath them. Leaves (zones + childless top-level sites) are where
+  //    inspections and CARs land.
+  const primarySites: SiteRow[] = await getClientLeafSites(db, clientId);
   if (primarySites.length === 0) throw new Error(`No sites found for client ${client.name}`);
 
-  const sitePattern = client.site_id_pattern as string | null;
-  let patternSiteIds: string[] = primarySites.map(s => s.id);
-  if (sitePattern) {
-    const { data: extra } = await db.from('sites')
-      .select('id, name')
-      .eq('organization_id', org.id)
-      .or(`name.ilike.%${sitePattern.split('|')[0]}%`);
-    // pattern may be alternation like "EBSF|Elderslie" — run a name regex match client-side too
-    const rx = new RegExp(sitePattern, 'i');
-    const broaderIds = [
-      ...primarySites.map(s => s.id),
-      ...((extra as any[]) || []).filter(s => rx.test(s.name)).map(s => s.id),
-    ];
-    patternSiteIds = [...new Set(broaderIds)];
-  }
-
   const primarySiteIds = primarySites.map(s => s.id);
+  const patternSiteIds = primarySiteIds;
   const siteById = new Map(primarySites.map(s => [s.id, s]));
 
   // 4. Inspections in period + children (restricted to primary client sites only)

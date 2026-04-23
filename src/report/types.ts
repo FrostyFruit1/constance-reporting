@@ -18,7 +18,6 @@ export interface ClientRow {
   contact_name: string | null;
   council_or_body: string | null;
   report_template_variant: string | null;
-  site_id_pattern: string | null;
   location_maps: string[] | null;
   active_roster_staff_ids: string[] | null;
 }
@@ -36,6 +35,7 @@ export interface SiteRow {
   id: string;
   organization_id: string;
   client_id: string | null;
+  parent_site_id: string | null;
   name: string;
   canonical_name: string | null;
   sc_label: string | null;
