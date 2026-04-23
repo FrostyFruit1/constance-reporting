@@ -1,0 +1,24 @@
+client_name,client_contact_name,client_contact_email,client_contact_phone,site_short_name,site_long_name,zone_name,zone_billable,report_cadence,notes
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,EBSF,Elderslie Banksia Scrub Forest,Zone B,yes,monthly,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,EBSF,Elderslie Banksia Scrub Forest,Zone C,yes,monthly,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,EBSF,Elderslie Banksia Scrub Forest,Zone D,yes,monthly,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,EBSF,Elderslie Banksia Scrub Forest,Zone B and C,yes,monthly,Umbrella combined-zone for days when both are worked together
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,EBSF,Elderslie Banksia Scrub Forest,Planting,yes,monthly,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,EBSF,Elderslie Banksia Scrub Forest,Watering,yes,monthly,
+,,,,,,,,,
+# ↑ EBSF rows above are seeded from pilot data — please verify and overwrite with real values
+# ↓ Add every other client below. One row per (client × site × zone). Repeat client/site info on each row.
+,,,,,,,,,
+Western Sydney Parklands Trust,,,,WSPT Central,Western Sydney Parklands — Central,,,,
+,,,,,,,,,
+Liverpool City Council,,,,Cloverhill Riparian,Cloverhill Riparian Corridor,,,,
+Liverpool City Council,,,,Kavanaugh Riparian,Kavanaugh Riparian Corridor,,,,
+,,,,,,,,,
+# Camden Council (more sites beyond EBSF — please fill in)
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,Harrington Forest,Harrington Forest,,,,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,Camden Town Farm,Camden Town Farm,,,,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,Oran Park Basins,Oran Park Basins,,,,
+Camden Council,Steven Robertson,s.robertson@camden.nsw.gov.au,02 4654 7777,Spring Farm,Spring Farm,,,,
+,,,,,,,,,
+# Add new rows below for any other clients Constance currently serves.
+# Leave zone_name blank if a site has no distinct zones yet — we'll create a default "Main" zone for it.
