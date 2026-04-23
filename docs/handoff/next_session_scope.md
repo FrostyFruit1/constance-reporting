@@ -1,32 +1,93 @@
 # Next Session Scope — Constance Conservation
 
-*Entry point for a fresh orchestrator chat. 2026-04-23.*
+*Entry point for a fresh orchestrator chat. Last updated: 2026-04-23 late session.*
 
 **Read this first. Then read `docs/handoff/project_state_2026-04-23.md` for the full
 snapshot if you need the back-story.**
 
 ---
 
-## 0. State check — do this in the first 60 seconds
+## 0. Active IN-PROGRESS work (picked up mid-setup)
+
+**Peter paused here to sort a GitHub key issue.** When you resume:
+
+1. **SSH key for Constance Conservation GitHub account** — generated at
+   `~/.ssh/id_ed25519_cc` (ed25519, no passphrase). Public key:
+   ```
+   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1+e5gKyVhkRszoly9R9m8dgE0KIZJScDa8fneW7jW6 peter.f@constanceconservation.com.au
+   ```
+   Peter got "Key is invalid — must be OpenSSH public key format" when pasting in
+   GitHub. Likely a copy-paste issue (line-wrap / invisible char). Fix on resume:
+   `cat ~/.ssh/id_ed25519_cc.pub | pbcopy` then Peter paste fresh; or regenerate.
+   Once accepted, test with `ssh -T git@github.com-cc` — should greet with the
+   CC GitHub username.
+
+2. **`~/.ssh/config`** — already written with two Host aliases:
+   - `github.com` → FrostyFruit (existing key)
+   - `github.com-cc` → Constance Conservation (new key, pending GitHub upload)
+
+3. **Per-repo git config on this repo** — already set:
+   - `user.name` = `Peter Frost`
+   - `user.email` = `peter.f@constanceconservation.com.au`
+   - All FUTURE commits on this repo attribute to the CC identity.
+   - Global git stays as `FrostyFruit <peter@continuumx.io>` for other projects.
+
+4. **Push pending** — `main` is 1 commit ahead of `origin/main` (the design-refresh
+   commit `3f10d77`). Current remote is still HTTPS at
+   `https://github.com/FrostyFruit/constance-conservation.git` — that push will
+   still work via existing FrostyFruit auth; commit author attribution will show
+   Peter Frost / CC email regardless.
+
+5. **Vercel deploy** — not yet done. `vercel.json` not yet created. Peter has
+   Vercel access. Plan: add minimal `vercel.json` serving
+   `dashboard-preview.html` as root → Peter imports repo in Vercel web dashboard
+   → set env vars (or skip for demo since creds are hardcoded) → get the URL →
+   update `cc-dashboard/app/(dashboard)/page.tsx` APPS entry for `id: 'staff'`
+   `href` to point at the Vercel URL.
+
+6. **cc-dashboard integration path agreed** = **(B) interim link-to-deployed-app**.
+   Full Next.js port into `app/(dashboard)/reporting/*` is the real end state
+   (M04-adjacent, 1-2 weeks of executor work) but deferred. `docs/scope/
+   agentic_interface.md` and future M04 brief will capture that plan.
+
+7. **cc-dashboard repo** — cloned at `~/Documents/cc-dashboard/`. Next.js 16 +
+   React 19 + Tailwind 3.4. Empty-shell design with a fully-built design system
+   in `app/globals.css`. Landing page has APPS array with a `staff` entry
+   pointing at `/reporting` — that's the integration anchor we'll update.
+
+---
+
+## 0.5. State check — do this in the first 60 seconds
 
 ```bash
 cd ~/Documents/constance-conservation
-git log --oneline -3
+git log --oneline -5
 git status --short
+git config user.email       # should be peter.f@constanceconservation.com.au
 npm test 2>&1 | tail -4
 ```
 
 Expected:
-- Latest commit on `main`: `68f8273` (docs snapshot) or newer if Peter has
-  pushed/pulled since.
+- Latest commit on `main`: `3f10d77` (design refresh) or newer.
 - Working tree clean (one untracked `Screenshot …png` is fine).
+- git config user.email on this repo → CC address.
 - 259/259 tests pass, build clean.
 
 If any of those are wrong, STOP and diagnose before taking any action.
 
 ---
 
-## 1. Where the work stands
+## 1. Where the work stands (as of 2026-04-23 late session)
+
+**Since the earlier snapshot:**
+- ✅ Supabase migration complete (old `yrkclyeklwjlfblxvdbc` → new `ymcyunspmljaruodjpkd`). 16,018 rows. Storage bucket recreated. All creds updated in `.env` + `dashboard-preview.html`.
+- ✅ Design refresh shipped (commit `3f10d77`). Both `dashboard-preview.html` and `src/report/templates/styles.ts` ported to cc-dashboard design system (OKLCH tokens, Inter + JetBrains Mono, accent palette, mono-label typography). Report regenerates cleanly with new styling.
+- ✅ cc-dashboard repo cloned locally at `~/Documents/cc-dashboard/` for reference and future integration target.
+- 🟡 Second GitHub account setup IN PROGRESS (blocked on Peter pasting the SSH key into GitHub — see §0 item 1).
+- 🟡 Push pending (1 commit ahead of origin/main).
+- ⏸ Vercel deploy not yet started.
+
+
 
 **Done (M03 complete):** Report generator pipeline works end-to-end for the EBSF
 pilot. Dashboard has preview + inline edit + DOCX download + image upload. 1 real
