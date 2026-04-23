@@ -1,0 +1,17 @@
+node_modules
+dist
+.env
+.env.local
+samples
+docs
+milestones
+supabase
+src
+__tests__
+coverage
+*.log
+.DS_Store
+Screenshot*.png
+*.docx
+*.pdf
+deploy_*.sh
