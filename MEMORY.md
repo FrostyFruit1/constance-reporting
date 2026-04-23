@@ -21,7 +21,18 @@
 
 Current DB state: 1 client (Camden Council), 1 EBSF top-level site, 8 nested zones, ~1,600 inspections ingested (2025-01 through 2026-04 + partial 2022-2024 legacy).
 
-## Orchestration Handoff (2026-04-23)
+## Orchestration Handoff (2026-04-23 — end of session)
+
+**If you are a fresh orchestrator picking this up, start here:**
+**→ `docs/handoff/project_state_2026-04-23.md`**
+
+That single doc covers: current state, shipped features, data counts, upcoming changes (Supabase migration, design refresh, parent-dashboard integration), the Supabase migration runbook (§6), file index, and task list.
+
+Do NOT re-investigate the codebase before reading that snapshot. Everything you need to orient is in there. Only then fall back to other docs.
+
+---
+
+## Legacy handoff notes (pre-snapshot, kept for history)
 
 **If you are a fresh orchestrator picking this up:**
 
