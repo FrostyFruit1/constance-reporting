@@ -3,12 +3,29 @@ import * as path from 'path';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { supabase as defaultDb } from '../db/supabase_client';
 import type { ReportOptions, GeneratedReport } from './types';
-import { aggregate } from './aggregate';
+import { aggregate, type AggregateScope } from './aggregate';
 import { generateNarratives } from './narratives';
 import { renderHtml } from './render_html';
 import { renderDocx } from './render_docx';
 import { inferPeriodLabels } from './period';
 import { extractZoneLetters } from './zones';
+
+export function resolveScopeFromOptions(opts: ReportOptions): AggregateScope {
+  const provided = [
+    opts.zoneId ? 'zoneId' : null,
+    opts.siteId ? 'siteId' : null,
+    opts.clientId ? 'clientId' : null,
+  ].filter(Boolean) as string[];
+  if (provided.length === 0) {
+    throw new Error('Report scope required: provide one of clientId, siteId, or zoneId.');
+  }
+  if (provided.length > 1) {
+    throw new Error(`Report scope must be exactly one of clientId|siteId|zoneId (got ${provided.join(', ')}).`);
+  }
+  if (opts.zoneId) return { kind: 'zone', zoneId: opts.zoneId };
+  if (opts.siteId) return { kind: 'site', siteId: opts.siteId };
+  return { kind: 'client', clientId: opts.clientId! };
+}
 
 export async function generateReport(
   opts: ReportOptions,
@@ -16,11 +33,13 @@ export async function generateReport(
 ): Promise<GeneratedReport> {
   const client = db ?? defaultDb;
 
+  const scope = resolveScopeFromOptions(opts);
+
   const { label: periodLabel, filenameLabel: periodFilenameLabel } = inferPeriodLabels(opts.periodStart, opts.periodEnd, opts.cadence);
 
   // 1. Aggregate
   const data = await aggregate(client, {
-    clientId: opts.clientId,
+    scope,
     periodStart: opts.periodStart,
     periodEnd: opts.periodEnd,
     cadence: opts.cadence,
@@ -47,7 +66,8 @@ export async function generateReport(
   // 5. Upsert client_reports row
   let clientReportId: string | null = null;
   if (opts.writeDb !== false) {
-    clientReportId = await upsertClientReport(client, data, narratives, html);
+    const relativeDocxPath = path.relative(process.cwd(), docxPath);
+    clientReportId = await upsertClientReport(client, data, narratives, html, relativeDocxPath);
   }
 
   return {
@@ -76,11 +96,12 @@ async function upsertClientReport(
   data: any,
   narratives: any,
   html: string,
+  docxRelativePath: string,
 ): Promise<string> {
   const payload = {
     organization_id: data.organization.id,
     client_id: data.client.id,
-    site_id: data.sites[0]?.id || null,
+    site_id: data.scopeSiteId ?? data.sites[0]?.id ?? null,
     report_period_start: data.periodStart,
     report_period_end: data.periodEnd,
     title: data.titleLine,
@@ -96,17 +117,21 @@ async function upsertClientReport(
       fauna_sightings: narratives.faunaSightings,
     },
     zones_included: data.zonesIncluded.flatMap((z: string) => extractZoneLetters(z)),
+    docx_url: docxRelativePath,
     generated_at: new Date().toISOString(),
   };
 
-  // Look for existing row by (client_id, period_start, period_end)
-  const { data: existing } = await db
+  // Look for existing row by (client_id, site_id, period_start, period_end) so that
+  // different scopes (whole-client vs. single zone) don't clobber each other.
+  const existingQuery = db
     .from('client_reports')
     .select('id')
     .eq('client_id', data.client.id)
     .eq('report_period_start', data.periodStart)
-    .eq('report_period_end', data.periodEnd)
-    .maybeSingle();
+    .eq('report_period_end', data.periodEnd);
+  const { data: existing } = payload.site_id
+    ? await existingQuery.eq('site_id', payload.site_id).maybeSingle()
+    : await existingQuery.is('site_id', null).maybeSingle();
 
   if (existing?.id) {
     const { error } = await db.from('client_reports').update(payload).eq('id', existing.id);

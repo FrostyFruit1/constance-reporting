@@ -6,6 +6,9 @@ import type { Cadence } from '../report/types';
 
 interface CliArgs {
   client?: string;
+  clientId?: string;
+  siteId?: string;
+  zoneId?: string;
   month?: string;
   week?: string;
   from?: string;
@@ -24,6 +27,9 @@ function parseArgs(argv: string[]): CliArgs {
     const next = () => argv[++i];
     switch (a) {
       case '--client': args.client = next(); break;
+      case '--client-id': args.clientId = next(); break;
+      case '--site-id': args.siteId = next(); break;
+      case '--zone-id': args.zoneId = next(); break;
       case '--month': args.month = next(); break;
       case '--week': args.week = next(); break;
       case '--from': args.from = next(); break;
@@ -45,17 +51,25 @@ function parseArgs(argv: string[]): CliArgs {
 
 function printHelp(): void {
   console.log(`Usage:
-  npm run report -- --client <name> --month YYYY-MM
-  npm run report -- --client <name> --week YYYY-Www
-  npm run report -- --client <name> --from YYYY-MM-DD --to YYYY-MM-DD --cadence weekly
+  npm run report -- --client <name>  --month YYYY-MM
+  npm run report -- --client-id <uuid> --month YYYY-MM
+  npm run report -- --site-id  <uuid>  --week YYYY-Www
+  npm run report -- --zone-id  <uuid>  --month YYYY-MM
   npm run report -- --list-clients
 
-Options:
-  --client <name>     Client name (matched via ILIKE)
+Scope (exactly one required):
+  --client <name>     Client name (matched via ILIKE) — shortcut for --client-id
+  --client-id <uuid>  Whole-client aggregate (all leaf sites under this client)
+  --site-id <uuid>    One top-level site — zones rolled up
+  --zone-id <uuid>    One zone only (leaf-level)
+
+Period (exactly one required):
   --month <YYYY-MM>   Monthly cadence
   --week <YYYY-Www>   ISO week cadence
   --from/--to         Custom range (requires --cadence)
   --cadence           weekly | monthly | quarterly
+
+Other:
   --output-dir <dir>  Output directory (default: dist/reports)
   --skip-llm          Skip LLM narratives (use placeholders)
   --no-db             Don't upsert client_reports row
@@ -90,8 +104,19 @@ async function main(): Promise<void> {
     return;
   }
 
-  if (!args.client) {
-    console.error('Missing --client');
+  const scopeFlags = [
+    args.client ? '--client' : null,
+    args.clientId ? '--client-id' : null,
+    args.siteId ? '--site-id' : null,
+    args.zoneId ? '--zone-id' : null,
+  ].filter(Boolean) as string[];
+
+  if (scopeFlags.length === 0) {
+    console.error('Missing scope: provide exactly one of --client, --client-id, --site-id, --zone-id');
+    printHelp(); process.exit(1);
+  }
+  if (scopeFlags.length > 1) {
+    console.error(`Exactly one scope flag required (got ${scopeFlags.join(', ')})`);
     printHelp(); process.exit(1);
   }
 
@@ -111,11 +136,31 @@ async function main(): Promise<void> {
     printHelp(); process.exit(1);
   }
 
-  const clientId = await resolveClientId(args.client);
+  // Resolve scope → clientId | siteId | zoneId for generateReport()
+  let clientId: string | undefined;
+  let siteId: string | undefined;
+  let zoneId: string | undefined;
+  let scopeDescription: string;
+  if (args.zoneId) {
+    zoneId = args.zoneId;
+    scopeDescription = `zoneId=${zoneId}`;
+  } else if (args.siteId) {
+    siteId = args.siteId;
+    scopeDescription = `siteId=${siteId}`;
+  } else if (args.clientId) {
+    clientId = args.clientId;
+    scopeDescription = `clientId=${clientId}`;
+  } else {
+    // --client <name> shortcut
+    clientId = await resolveClientId(args.client!);
+    scopeDescription = `client=${args.client} clientId=${clientId}`;
+  }
 
-  console.log(`Generating report: client=${args.client} clientId=${clientId} period=${period.start}..${period.end} cadence=${period.cadence}`);
+  console.log(`Generating report: ${scopeDescription} period=${period.start}..${period.end} cadence=${period.cadence}`);
   const report = await generateReport({
     clientId,
+    siteId,
+    zoneId,
     periodStart: period.start,
     periodEnd: period.end,
     cadence: period.cadence,

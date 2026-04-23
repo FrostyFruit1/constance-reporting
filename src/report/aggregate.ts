@@ -14,13 +14,19 @@ import type {
   WeedWorkRow,
   HerbicideRow,
   ReportData,
+  ReportScopeKind,
   Cadence,
 } from './types';
 import { extractZoneLetters, zoneLabel, formatZoneLabel } from './zones';
-import { getClientLeafSites } from './hierarchy';
+import { getClientLeafSites, getZonesForSite } from './hierarchy';
+
+export type AggregateScope =
+  | { kind: 'client'; clientId: string }
+  | { kind: 'site'; siteId: string }
+  | { kind: 'zone'; zoneId: string };
 
 export interface AggregateInput {
-  clientId: string;
+  scope: AggregateScope;
   periodStart: string;
   periodEnd: string;
   cadence: Cadence;
@@ -28,16 +34,98 @@ export interface AggregateInput {
   periodFilenameLabel: string;
 }
 
-export async function aggregate(db: SupabaseClient, input: AggregateInput): Promise<ReportData> {
-  const { clientId, periodStart, periodEnd, cadence, periodLabel, periodFilenameLabel } = input;
+const SITE_COLUMNS =
+  'id, organization_id, client_id, parent_site_id, name, canonical_name, sc_label, long_name';
 
-  // 1. Client
-  const { data: client, error: cErr } = await db
+interface ResolvedScope {
+  client: ClientRow;
+  primarySites: SiteRow[];
+  topLevelSite: SiteRow | null;
+  zoneSite: SiteRow | null;
+  multipleTopLevelSites: boolean;
+  kind: ReportScopeKind;
+  scopeSiteId: string | null;
+}
+
+async function loadSite(db: SupabaseClient, id: string): Promise<SiteRow> {
+  const { data, error } = await db.from('sites').select(SITE_COLUMNS).eq('id', id).single();
+  if (error || !data) throw new Error(`Site not found: ${id} (${error?.message})`);
+  return data as unknown as SiteRow;
+}
+
+async function loadClient(db: SupabaseClient, clientId: string): Promise<ClientRow> {
+  const { data, error } = await db
     .from('clients')
     .select('id, organization_id, name, long_name, contact_name, council_or_body, report_template_variant, location_maps, active_roster_staff_ids')
     .eq('id', clientId)
     .single();
-  if (cErr || !client) throw new Error(`Client not found: ${clientId} (${cErr?.message})`);
+  if (error || !data) throw new Error(`Client not found: ${clientId} (${error?.message})`);
+  return data as unknown as ClientRow;
+}
+
+async function resolveScope(db: SupabaseClient, scope: AggregateScope): Promise<ResolvedScope> {
+  if (scope.kind === 'zone') {
+    const zone = await loadSite(db, scope.zoneId);
+    const parent = zone.parent_site_id ? await loadSite(db, zone.parent_site_id) : zone;
+    const clientId = parent.client_id || zone.client_id;
+    if (!clientId) throw new Error(`Zone ${scope.zoneId} has no associated client`);
+    const client = await loadClient(db, clientId);
+    return {
+      client,
+      primarySites: [zone],
+      topLevelSite: parent,
+      zoneSite: zone,
+      multipleTopLevelSites: false,
+      kind: 'zone',
+      scopeSiteId: zone.id,
+    };
+  }
+  if (scope.kind === 'site') {
+    const site = await loadSite(db, scope.siteId);
+    const clientId = site.client_id;
+    if (!clientId) throw new Error(`Site ${scope.siteId} has no associated client`);
+    const client = await loadClient(db, clientId);
+    const zones = await getZonesForSite(db, scope.siteId);
+    const primarySites = zones.length > 0 ? [site, ...zones] : [site];
+    return {
+      client,
+      primarySites,
+      topLevelSite: site,
+      zoneSite: null,
+      multipleTopLevelSites: false,
+      kind: 'site',
+      scopeSiteId: site.id,
+    };
+  }
+  // client scope
+  const client = await loadClient(db, scope.clientId);
+  const primarySites = await getClientLeafSites(db, scope.clientId);
+  if (primarySites.length === 0) throw new Error(`No sites found for client ${client.name}`);
+  const { data: tops, error: topErr } = await db
+    .from('sites')
+    .select(SITE_COLUMNS)
+    .eq('client_id', scope.clientId)
+    .is('parent_site_id', null);
+  if (topErr) throw new Error(`Top-level site lookup failed: ${topErr.message}`);
+  const topRows = ((tops as unknown) as SiteRow[]) || [];
+  const topLevelSite = topRows.length > 0 ? topRows[0] : null;
+  return {
+    client,
+    primarySites,
+    topLevelSite,
+    zoneSite: null,
+    multipleTopLevelSites: topRows.length > 1,
+    kind: 'client',
+    scopeSiteId: topRows.length === 1 && topLevelSite ? topLevelSite.id : null,
+  };
+}
+
+export async function aggregate(db: SupabaseClient, input: AggregateInput): Promise<ReportData> {
+  const { scope, periodStart, periodEnd, cadence, periodLabel, periodFilenameLabel } = input;
+
+  // 1. Resolve scope → client + sites to query
+  const resolved = await resolveScope(db, scope);
+  const { client, primarySites, topLevelSite, zoneSite, multipleTopLevelSites } = resolved;
 
   // 2. Organization
   const { data: org, error: oErr } = await db
@@ -46,12 +134,6 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     .eq('id', client.organization_id)
     .single();
   if (oErr || !org) throw new Error(`Organization not found (${oErr?.message})`);
-
-  // 3. Sites via hierarchy: top-level sites for this client plus all zones
-  //    beneath them. Leaves (zones + childless top-level sites) are where
-  //    inspections and CARs land.
-  const primarySites: SiteRow[] = await getClientLeafSites(db, clientId);
-  if (primarySites.length === 0) throw new Error(`No sites found for client ${client.name}`);
 
   const primarySiteIds = primarySites.map(s => s.id);
   const patternSiteIds = primarySiteIds;
@@ -386,9 +468,17 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
   }
 
   // Title, addressed-to, author, publication date
-  const longName = (client.long_name as string | null) || client.name;
   const cadenceLabel = cadence === 'monthly' ? 'Monthly Report' : cadence === 'weekly' ? 'Weekly Report' : 'Quarterly Report';
-  const titleLine = `${longName}${zonesLabel ? ` ${zonesLabel}` : ''} ${periodLabel} ${cadenceLabel}`;
+  const titleLine = composeTitleLine({
+    kind: resolved.kind,
+    client,
+    topLevelSite,
+    zoneSite,
+    zonesLabel,
+    periodLabel,
+    cadenceLabel,
+    multipleTopLevelSites,
+  });
   const authorLine = supervisor ? `Constance Conservation - ${supervisor.name}` : 'Constance Conservation';
   const addressedToParts = [client.contact_name, client.council_or_body].filter(Boolean) as string[];
   const addressedToDedup = [...new Set(addressedToParts)];
@@ -406,6 +496,8 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     herbicideTotals,
     observations: allObs,
     detailsOfTasksByZone,
+    scopeKind: resolved.kind,
+    scopeSiteId: resolved.scopeSiteId,
     periodStart,
     periodEnd,
     cadence,
@@ -418,6 +510,42 @@ export async function aggregate(db: SupabaseClient, input: AggregateInput): Prom
     authorLine,
     publicationDate,
   };
+}
+
+interface TitleInput {
+  kind: ReportScopeKind;
+  client: ClientRow;
+  topLevelSite: SiteRow | null;
+  zoneSite: SiteRow | null;
+  zonesLabel: string;
+  periodLabel: string;
+  cadenceLabel: string;
+  multipleTopLevelSites: boolean;
+}
+
+export function composeTitleLine(t: TitleInput): string {
+  // Prefer site.long_name, but fall back to client.long_name when sites
+  // haven't been seeded with a display name (common in early rollout).
+  const clientName = t.client.long_name || t.client.name;
+  const sitePrefix = (s: SiteRow | null): string =>
+    (s && s.long_name) || clientName || (s && s.name) || '';
+
+  if (t.kind === 'zone' && t.zoneSite) {
+    const letters = extractZoneLetters(t.zoneSite.name);
+    const zoneDisp = letters.length > 0 ? formatZoneLabel(letters) : t.zoneSite.name;
+    return `${sitePrefix(t.topLevelSite)} ${zoneDisp} ${t.periodLabel} ${t.cadenceLabel}`;
+  }
+
+  if (t.kind === 'site') {
+    return `${sitePrefix(t.topLevelSite)}${t.zonesLabel ? ` ${t.zonesLabel}` : ''} ${t.periodLabel} ${t.cadenceLabel}`;
+  }
+
+  // client scope
+  if (t.multipleTopLevelSites) {
+    return `${clientName} — All Sites — ${t.periodLabel} ${t.cadenceLabel}`;
+  }
+  // single top-level site → fall back to site-scope title shape
+  return `${sitePrefix(t.topLevelSite)}${t.zonesLabel ? ` ${t.zonesLabel}` : ''} ${t.periodLabel} ${t.cadenceLabel}`;
 }
 
 function humanMethod(methods: string[]): string {

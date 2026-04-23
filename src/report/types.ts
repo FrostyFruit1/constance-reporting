@@ -1,7 +1,10 @@
 export type Cadence = 'weekly' | 'monthly' | 'quarterly';
 
 export interface ReportOptions {
-  clientId: string;
+  // Exactly one of clientId, siteId, or zoneId must be provided.
+  clientId?: string;
+  siteId?: string;
+  zoneId?: string;
   periodStart: string;
   periodEnd: string;
   cadence: Cadence;
@@ -9,6 +12,8 @@ export interface ReportOptions {
   skipLLM?: boolean;
   writeDb?: boolean;
 }
+
+export type ReportScopeKind = 'client' | 'site' | 'zone';
 
 export interface ClientRow {
   id: string;
@@ -148,6 +153,8 @@ export interface ReportData {
   herbicideTotals: HerbicideRow[];
   observations: InspectionObservationRow[];
   detailsOfTasksByZone: Record<string, Array<{ date: string; text: string }>>;
+  scopeKind: ReportScopeKind;
+  scopeSiteId: string | null;
   periodStart: string;
   periodEnd: string;
   cadence: Cadence;

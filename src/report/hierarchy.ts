@@ -2,7 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import type { SiteRow } from './types';
 
 const SITE_COLUMNS =
-  'id, organization_id, client_id, parent_site_id, name, canonical_name, sc_label';
+  'id, organization_id, client_id, parent_site_id, name, canonical_name, sc_label, long_name';
 
 /**
  * Resolve all leaf sites for a client — zones plus any top-level sites that
