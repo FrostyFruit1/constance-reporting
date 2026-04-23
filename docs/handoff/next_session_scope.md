@@ -1,263 +1,210 @@
 # Next Session Scope — Constance Conservation
 
-*Entry point for a fresh orchestrator chat. Last updated: 2026-04-23 late session.*
+*Entry point for a fresh orchestrator chat. Last updated: 2026-04-23 end of day.*
 
-**Read this first. Then read `docs/handoff/project_state_2026-04-23.md` for the full
-snapshot if you need the back-story.**
-
----
-
-## 0. Active IN-PROGRESS work (picked up mid-setup)
-
-**Peter paused here to sort a GitHub key issue.** When you resume:
-
-1. **SSH key for Constance Conservation GitHub account** — generated at
-   `~/.ssh/id_ed25519_cc` (ed25519, no passphrase). Public key:
-   ```
-   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1+e5gKyVhkRszoly9R9m8dgE0KIZJScDa8fneW7jW6 peter.f@constanceconservation.com.au
-   ```
-   Peter got "Key is invalid — must be OpenSSH public key format" when pasting in
-   GitHub. Likely a copy-paste issue (line-wrap / invisible char). Fix on resume:
-   `cat ~/.ssh/id_ed25519_cc.pub | pbcopy` then Peter paste fresh; or regenerate.
-   Once accepted, test with `ssh -T git@github.com-cc` — should greet with the
-   CC GitHub username.
-
-2. **`~/.ssh/config`** — already written with two Host aliases:
-   - `github.com` → FrostyFruit (existing key)
-   - `github.com-cc` → Constance Conservation (new key, pending GitHub upload)
-
-3. **Per-repo git config on this repo** — already set:
-   - `user.name` = `Peter Frost`
-   - `user.email` = `peter.f@constanceconservation.com.au`
-   - All FUTURE commits on this repo attribute to the CC identity.
-   - Global git stays as `FrostyFruit <peter@continuumx.io>` for other projects.
-
-4. **Push pending** — `main` is 1 commit ahead of `origin/main` (the design-refresh
-   commit `3f10d77`). Current remote is still HTTPS at
-   `https://github.com/FrostyFruit/constance-conservation.git` — that push will
-   still work via existing FrostyFruit auth; commit author attribution will show
-   Peter Frost / CC email regardless.
-
-5. **Vercel deploy** — scaffolded (commit `6782226`). `vercel.json` +
-   `.vercelignore` in repo. Full import runbook at
-   `docs/handoff/vercel_deploy.md`. Peter needs to import at vercel.com/new
-   (pick `FrostyFruit/constance-conservation`, Framework: Other, Root: `./`,
-   Deploy), grab the URL, paste to orchestrator. Then orchestrator updates
-   cc-dashboard APPS array + pushes via github.com-cc SSH remote.
-
-6. **cc-dashboard integration path agreed** = **(B) interim link-to-deployed-app**.
-   Full Next.js port into `app/(dashboard)/reporting/*` is the real end state
-   (M04-adjacent, 1-2 weeks of executor work) but deferred. `docs/scope/
-   agentic_interface.md` and future M04 brief will capture that plan.
-
-7. **cc-dashboard repo** — cloned at `~/Documents/cc-dashboard/`. Next.js 16 +
-   React 19 + Tailwind 3.4. Empty-shell design with a fully-built design system
-   in `app/globals.css`. Landing page has APPS array with a `staff` entry
-   pointing at `/reporting` — that's the integration anchor we'll update.
+**Read this first. For the full back-story, see
+`docs/handoff/project_state_2026-04-23.md`.**
 
 ---
 
-## 0.5. State check — do this in the first 60 seconds
+## 0. The 60-second state check
 
 ```bash
 cd ~/Documents/constance-conservation
-git log --oneline -5
-git status --short
-git config user.email       # should be peter.f@constanceconservation.com.au
-npm test 2>&1 | tail -4
+git remote -v                              # origin → git@github.com-cc:FrostyFruit1/constance-reporting.git
+git config user.email                      # peter.f@constanceconservation.com.au
+git log --oneline -3                       # HEAD should be 31f6f47 or newer
+ssh -T git@github.com-cc 2>&1 | head -1    # "Hi FrostyFruit1! ..."
+npm test 2>&1 | tail -4                    # 259/259 pass
 ```
 
-Expected:
-- Latest commit on `main`: `3f10d77` (design refresh) or newer.
-- Working tree clean (one untracked `Screenshot …png` is fine).
-- git config user.email on this repo → CC address.
-- 259/259 tests pass, build clean.
-
-If any of those are wrong, STOP and diagnose before taking any action.
+If any of those are wrong, STOP and diagnose before acting. Everything else in
+this doc assumes the above is clean.
 
 ---
 
-## 1. Where the work stands (as of 2026-04-23 late session)
+## 1. What shipped on 2026-04-23
 
-**Since the earlier snapshot:**
-- ✅ Supabase migration complete (old `yrkclyeklwjlfblxvdbc` → new `ymcyunspmljaruodjpkd`). 16,018 rows. Storage bucket recreated. All creds updated in `.env` + `dashboard-preview.html`.
-- ✅ Design refresh shipped (commit `3f10d77`). Both `dashboard-preview.html` and `src/report/templates/styles.ts` ported to cc-dashboard design system (OKLCH tokens, Inter + JetBrains Mono, accent palette, mono-label typography). Report regenerates cleanly with new styling.
-- ✅ cc-dashboard repo cloned locally at `~/Documents/cc-dashboard/` for reference and future integration target.
-- 🟡 Second GitHub account setup IN PROGRESS (blocked on Peter pasting the SSH key into GitHub — see §0 item 1).
-- 🟡 Push pending (1 commit ahead of origin/main).
-- ⏸ Vercel deploy not yet started.
+**Full day of integration + infra work. Everything's live and connected.**
 
+| Workstream | Status | Details |
+|---|---|---|
+| Report generator (M03) | ✅ | EBSF pilot end-to-end (ingest → aggregate → LLM narratives → HTML + DOCX → preview → edit → save). 259 tests, commit `38e4717`+. |
+| Supabase project migration | ✅ | Moved `yrkclyeklwjlfblxvdbc` → `ymcyunspmljaruodjpkd`. 16,018 rows across 28 tables migrated via REST. Storage bucket recreated. Commit `9ffae5c`. |
+| Design refresh | ✅ | Ported cc-dashboard's OKLCH design system (Inter + JetBrains Mono, mono-label typography, ink-on-cream palette) into both `dashboard-preview.html` and `src/report/templates/styles.ts`. Commit `3f10d77`. |
+| Second GitHub account (FrostyFruit1) | ✅ | SSH key `~/.ssh/id_ed25519_cc` generated + uploaded. `~/.ssh/config` has `github.com-cc` host alias. Per-repo git identity set to `peter.f@constanceconservation.com.au`. |
+| Repo migration | ✅ | Code moved from `FrostyFruit/constance-conservation` → `FrostyFruit1/constance-reporting`. Full history preserved. `FrostyFruit/constance-conservation` is now a stale copy — can be archived/deleted at leisure. |
+| Vercel deploy | ✅ | **Live at https://constance-reporting.vercel.app/**. Static-only; `vercel.json` copies `dashboard-preview.html` → `index.html` during build. Deployed under Constance Vercel team. |
+| cc-dashboard link | ✅ | `cc-dashboard/app/(dashboard)/page.tsx` APPS array updated — "Staff Reporting" card href = the Vercel URL, opens in new tab (`target='_blank'`). Commit `5f22990` on `constance-conservation/cc-dashboard`. |
 
-
-**Done (M03 complete):** Report generator pipeline works end-to-end for the EBSF
-pilot. Dashboard has preview + inline edit + DOCX download + image upload. 1 real
-client (Camden Council) with 1 site (EBSF) and 8 zones, ~1,600 inspections. `main`
-carries all of it.
-
-**Next code milestones:** queued but not urgent. See §4 for the priority order.
-
-**Immediate Peter-flagged work:** Supabase migration (imminent), design refresh
-(when HTML arrives), ops roster onboarding (Cameron/Ryan's timeline).
+**Demo loop verified:** master dashboard → click "Staff Reporting" card → new tab with our app.
 
 ---
 
-## 2. Queued work — in priority order
+## 2. Access / infra — what the new orchestrator has
 
-### Priority 1 — Supabase project migration (Peter says imminent)
+```
+Code repo (this project) :  github.com/FrostyFruit1/constance-reporting
+                            Local clone at ~/Documents/constance-conservation/
+                            Remote: git@github.com-cc:FrostyFruit1/constance-reporting.git (SSH via CC key)
 
-**Status:** runbook ready, waiting to execute.
-**Brief:** not needed — the runbook is already written at
-`docs/handoff/project_state_2026-04-23.md` §6 (9 steps).
-**Who does it:** orchestrator can execute directly (small, well-defined, reversible
-if things break).
-**Key details Peter needs to provide:**
-- The new Supabase project URL + service-role key
-- Confirmation that he's OK with the orchestrator running the export/import (or
-  he'll do some steps himself in Supabase Studio)
+Master dashboard repo    :  github.com/constance-conservation/cc-dashboard
+                            Local clone at ~/Documents/cc-dashboard/
+                            Remote: git@github.com-cc:constance-conservation/cc-dashboard.git (SSH via CC key)
 
-**Watch-outs:**
-- `exec_sql` RPC must be manually created in the new project (SQL in runbook step 4)
-- Storage bucket `report_assets` must be created via `supabase.storage.createBucket()`
-  after updating `.env` (not via SQL migration — RPC doesn't own storage.objects)
-- `dashboard-preview.html` has hardcoded creds on lines ~356-357 that must update
+Supabase project         :  ymcyunspmljaruodjpkd (URL in .env)
+                            exec_sql RPC live, report_assets Storage bucket live.
 
-**Success criteria:**
-- `npm run build && npm test && npm run report -- --client Camden --month 2025-06
-  --skip-llm` all green against new DB
-- Dashboard loads, Clients tab shows Camden Council, Reports tab shows drafts
+Vercel                   :  Constance Vercel team
+                            constance-reporting  → our app     → constance-reporting.vercel.app
+                            cc-dashboard         → master app  → (URL TBD — check Vercel dashboard)
 
-### Priority 2 — Design refresh (waiting on Peter's HTML)
+Git identities           :  This repo + cc-dashboard repo: Peter Frost <peter.f@constanceconservation.com.au>
+                            Global (all other projects):   FrostyFruit <peter@continuumx.io>
 
-**Status:** blocked on Peter providing the HTML with new CSS.
-**Scope:** CSS-only — fonts, colors, spacing, tokens. **Layout does not change.**
-**Files to touch:**
-- `dashboard-preview.html` — inline `<style>` block at top of file (~line 9-163)
-- `src/report/templates/styles.ts` — report output CSS (the REPORT_CSS tagged template)
-**Do NOT touch:**
-- HTML structure, classnames, responsive breakpoints
-- JS behavior
-- The report's section ordering or content mapping
+SSH keys                 :  ~/.ssh/id_ed25519    → FrostyFruit (personal, github.com)
+                            ~/.ssh/id_ed25519_cc → FrostyFruit1 (CC, github.com-cc)
 
-**Estimated effort:** 1-2 hours when the HTML arrives. Orchestrator can do this
-directly OR hand off as a small executor brief, depending on scope of change.
-
-**Smoke test after:** Open the dashboard, visually verify all pages look correct.
-Re-generate EBSF June 2025 report (`npm run report -- --client Camden --month
-2025-06 --skip-llm`) — diff structure against source DOCX to confirm nothing broke.
-
-### Priority 3 — Real client roster onboarding (Cameron/Ryan's timeline)
-
-**Status:** doc sent to them (hopefully). Waiting for filled roster.
-**Docs they have:**
-- `docs/handoff/client_onboarding.md` — the 5-min read + naming conventions
-- `docs/handoff/roster_template.csv` — CSV-shaped template
-
-**Two outcomes possible:**
-- They return a filled spreadsheet → fire **E7 CSV import** (task #13 — brief not
-  yet written, quick to draft)
-- They hand-enter in the dashboard UI → no code work needed; orchestrator just
-  watches dashboard for new clients/sites and confirms the flow feels right
-
-**Parallel ops ask:** Cameron should update the SC "Daily Work Report" template so
-"Client / Site" is a dropdown. ~20 min in SC admin UI. Improves ingest quality from
-85% → ~100% auto-link. Not blocking.
-
-### Priority 4 — M04: Review/Approve/Send workflow *(next code milestone)*
-
-**Status:** task #14. Brief not yet written.
-**Prerequisites:** Priority 1 done. Priority 2 nice-to-have first.
-**Scope (5 pieces):**
-1. Approve button in preview modal → flips `client_reports.status` draft → approved
-2. Resend integration — HTML body + DOCX attachment + PDF attachment
-3. Real server-side PDF via headless Chrome (puppeteer or similar)
-4. Cron trigger reading `sites.schedule_config` / `clients.schedule_config` — auto-generates drafts on schedule
-5. Review-queue UI showing drafts needing attention (needs_review, overdue, etc.)
-
-**Effort:** ~1 day (4-6 executor hours), split across 2-3 briefs.
-
-### Priority 5 — M05: Agentic Interface *(future milestone)*
-
-**Status:** scoped, 5 open questions. See `docs/scope/agentic_interface.md`.
-**Prerequisites:** M04 done + real client data ingested (so agent responses aren't
-against one-pilot dataset).
-**Effort:** ~8-12 executor hours split across 5 sub-briefs (M05a-e).
-
-**Decisions to make before starting:**
-1. Hosting for the MCP server — local, Railway, or Supabase Edge Functions?
-2. LLM for `/ask` — Claude Sonnet (what we use) or cheaper Haiku?
-3. Embedding model — OpenAI ada-2 or local nomic-embed?
-4. First non-human consumer of the agent interface — Ryan's phone bot? Nightly
-   review bot? Internal analyst bot?
-5. Sync vs async tool-call latency handling — `generate_report` takes 30-60s with
-   LLM; do we block or poll?
-
-### Priority 6 — Parent dashboard integration *(much later)*
-
-**Status:** flagged, not scoped in detail yet. Task #17.
-**Scope:** this product becomes a sub-product of a larger Constance master dashboard
-(rostering + more). User clicks "Report Generation" in master → this product opens.
-**Decisions needed when the time comes:**
-- Shared auth (SSO token? Supabase Auth cross-app?)
-- Navigation pattern (iframe? subdomain? route within master?)
-- Shared design language
-- Possibly expose read API from this product for master's KPI widgets
+Env vars in .env         :  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_ANON_KEY,
+                            SAFETY_CULTURE_API_TOKEN, SAFETY_CULTURE_ORG_ID, ANTHROPIC_API_KEY
+                            .env is gitignored. Hardcoded duplicates of SUPABASE_URL + SERVICE_ROLE_KEY
+                            live in dashboard-preview.html lines ~503-504 (also deployed via Vercel).
+```
 
 ---
 
-## 3. Tasks list at a glance
+## 3. Immediate next workstream — NATIVE INTEGRATION into cc-dashboard
 
-**Pending (ordered):**
-- #15 Supabase project migration — priority 1
-- #16 Design refresh — priority 2, blocked on Peter's HTML
-- #13 E7 CSV bulk-import — priority 3, blocked on roster return
-- #14 M04 Review/approve/send — priority 4
-- #17 Parent dashboard integration — priority 6, later
-- #6 Scope M02 Data Enrichment — future, needs 3-6mo data
-- #10 Reparse sweep — hygiene, do opportunistically
+**Peter's stated priority for next session:** port our dashboard from the standalone
+Vercel deploy *into* cc-dashboard as native Next.js routes under
+`app/(dashboard)/reporting/*`. End state: one unified app, our code lives inside
+cc-dashboard, same URL, same auth, same nav chrome.
 
-**Completed this session:** #1, #2, #5, #7, #8, #9, #11, #12.
+This is a 1-2 week sized workstream. **Not a single orchestrator chat task** —
+should be scoped into 3-5 executor briefs executed in sequence or parallel.
+
+### Rough shape of the port
+
+1. **Page routes** — convert `dashboard-preview.html`'s 10 pages into React
+   server/client components under `app/(dashboard)/reporting/`:
+   - `/reporting/` — landing (our current "Dashboard" page + Reports tab)
+   - `/reporting/clients/` — clients list
+   - `/reporting/clients/[id]/` — client detail (sites nested)
+   - `/reporting/clients/[id]/sites/[siteId]/` — site detail (zones)
+   - `/reporting/inspections/` — inspections table
+   - `/reporting/reports/` — reports list with preview modal
+   - `/reporting/pipeline/` — pipeline health
+   - etc.
+2. **Data loading** — replace vanilla `fetch()` + hardcoded creds with cc-dashboard's
+   existing `lib/supabase/client.ts` + `lib/supabase/server.ts` (SSR-aware).
+   Use `useCCState` context where sensible.
+3. **Components** — port our custom components (schedule widget, edit-mode
+   contenteditable modal, drop-zone, etc.) to React. Many will reuse cc-dashboard's
+   existing `TopBar`, `Drawer`, `Icon` components.
+4. **Styling** — already compatible: we ported cc-dashboard's design system into
+   our vanilla CSS, so class names and tokens are already aligned. Move from
+   `<style>` block to using their `app/globals.css` + Tailwind utilities.
+5. **Server-side code** — `src/report/`, `src/parser/`, `src/sync/` become
+   Next.js API routes or Server Actions:
+   - `src/report/index.ts:generateReport()` → Server Action triggered by "Generate"
+     button
+   - `src/sync/scheduled_sync.ts` → Vercel Cron + API route
+   - `src/webhook/server.ts` → Next.js API route
+6. **Build + deploy** — dropping our separate Vercel deploy once cc-dashboard hosts
+   everything natively. Update cc-dashboard's APPS array `href` back to internal
+   `/reporting` route.
+
+### Suggested brief breakdown
+
+| Brief | Scope | Depends on |
+|---|---|---|
+| E8 | Scaffold `/reporting/*` route structure + port dashboard landing page | — |
+| E9 | Port Clients / Sites / Zones hierarchy pages | E8 |
+| E10 | Port Reports page — list + preview modal + inline edit + Save | E8 |
+| E11 | Port Inspections + Pipeline pages | E8 |
+| E12 | Server Actions + Cron — generate_report, scheduled_sync | E8 |
+
+**Recommend:** fresh orchestrator chat brainstorms with Peter, decides brief
+boundaries, writes E8 first, fires executor. Sequential.
 
 ---
 
-## 4. How to work through this
+## 4. Other queued work (lower priority, do after native port scoped)
 
-Default pattern when you pick this up:
+### Cameron/Ryan roster onboarding (ops work, not code)
+- `docs/handoff/client_onboarding.md` + `docs/handoff/roster_template.csv` ready to share.
+- Peter has the handoff conversation when Cameron/Ryan have time.
+- Two possible outcomes:
+  - They return a CSV → fire **E7 CSV bulk-import** (task #13)
+  - They hand-enter in dashboard UI → no code needed
 
-1. Read this file + project_state_2026-04-23.md (5 min total).
-2. Ask Peter: "What's the status on [Priority 1 / 2 / 3]? Anything new?"
-3. Based on answer, either:
-   - Execute a queued task directly (Supabase migration is small, design refresh is
-     medium — both reasonable for the orchestrator chat).
-   - Write an executor brief and hand off (M04 pieces, E7 CSV import, M05 sub-briefs).
-4. Keep MEMORY.md + this doc updated as state changes. When the session ends, update
-   this doc's §1 "Where the work stands" and commit.
+### M04 — Approve / Send workflow (task #14)
+- Resend integration, approve button, real server-side PDF (puppeteer or similar), cron trigger reading `schedule_config`.
+- Naturally rolls into the Next.js port since both need Server Actions.
+- Consider bundling with native-integration work.
 
-**Executor handoff pattern (works well for this project):**
-- Write brief at `docs/executor_briefs/E<n>_<subject>.md`
-- Give Peter the paste prompt: *"Read /Users/peterfrost/Documents/constance-conservation/docs/executor_briefs/E<n>_<subject>.md and execute it. Report back when done or blocked."*
-- Peter spins up a new chat, pastes, they work, they commit to branch, they report
-  summary back. Orchestrator reviews + reconciles.
+### M05 — Agentic interface
+- Scope doc already written at `docs/scope/agentic_interface.md`.
+- Deferred until M04 done + real roster ingested.
+
+### Hygiene
+- #10 Reparse sweep — 58 rows benefit from parser fix re-run. Low priority.
+- #6 M02 Data Enrichment scope — after 3-6 months production data.
+- Archive or delete old `FrostyFruit/constance-conservation` repo (stale copy).
+- Rotate Supabase service-role key (old `yrkclyeklwjlfblxvdbc` key is still in .env history / chat transcripts).
 
 ---
 
-## 5. Known gotchas (quick reference — full list in project_state_2026-04-23.md)
+## 5. Paste prompt for the next orchestrator
 
-- Direct Postgres connection unreachable (IPv6). Use `exec_sql` RPC for DDL.
+```
+Read /Users/peterfrost/Documents/constance-conservation/docs/handoff/next_session_scope.md
+and orient yourself. Confirm the 60-second state check in §0.
+
+Then help me scope the native integration of the reporting app into cc-dashboard
+(the workstream in §3). I want to understand the effort breakdown, write the
+first executor brief (E8 — scaffold /reporting/* routes + port landing page),
+and fire an executor to start the port. The standalone Vercel deploy stays as
+a fallback until the native integration ships.
+
+Everything done today (Supabase migration, design refresh, Vercel deploy,
+cc-dashboard link) is live — that's your starting baseline.
+```
+
+---
+
+## 6. Known gotchas (quick reference — full list in project_state_2026-04-23.md)
+
+- Direct Postgres connection unreachable from this Mac (IPv6). Use `exec_sql` RPC for DDL.
 - `exec_sql` RPC cannot modify `storage.objects` — use Storage API directly.
-- 440 historical rows' `sc_template_type` was wrong pre-E6 — now retagged, but don't
-  let this bug reappear if reparsing.
-- 15% of real DWR rows have null `site_id` — 2022 legacy data with blank SC Site
-  Name. No parser fix possible; manual mapping would be needed if we ever care.
-- Dashboard has hardcoded `SUPABASE_URL` + `SUPABASE_KEY` (lines ~356-357 of
-  dashboard-preview.html) — remember this on migration.
-- Inline vs block `.review-required` CSS class distinction — preserve it through
-  any design refresh (inline = small pill in table cells; block = full-width alert).
+- Dashboard has hardcoded `SUPABASE_URL` + `SUPABASE_KEY` in `dashboard-preview.html`
+  lines ~503-504. Also deployed via Vercel. When porting to Next.js, swap to
+  SSR-aware Supabase client + env vars.
+- 440 historical inspections were mis-tagged as `daily_work_report` pre-E6 — fixed by retag script. Don't regress.
+- 15% of real DWR rows have null `site_id` — 2022 legacy data with blank SC Site Name. No parser fix possible.
+- ~58 rows would benefit from reparse (task #10) — retroactive parser re-run on existing `sc_raw_json`.
+- cc-dashboard is Next.js 16 + React 19 + Tailwind 3.4. `app/(dashboard)/` is a route group (the parens are Next.js syntax, not a folder literal). Design tokens in `app/globals.css`.
+- Inline vs block `.review-required` CSS class distinction — keep through any port (inline = small pill; block = full-width alert).
 
 ---
 
-## 6. One-liner status to open a new session with
+## 7. Task list
 
-> *"Snapshot: M03 complete on main. Next work in priority: Supabase migration
-> (imminent, runbook in docs), design refresh (waiting on new HTML), roster
-> onboarding (Cameron/Ryan). Pending code milestones M04 and M05. 259/259 tests
-> pass. Pick up from docs/handoff/next_session_scope.md."*
+**Completed today (2026-04-23):**
+- #16 Design refresh
+- #15 Supabase project migration
+- #17 Parent dashboard integration (interim link approach)
+- #18 Push design refresh + Vercel deploy
+
+**Still pending:**
+- #14 M04 — Review/approve/send workflow (priority after native port)
+- #13 E7 — CSV bulk-import for sites/zones (when roster arrives)
+- #10 Reparse sweep — hygiene
+- #6 Scope M02 — after 3-6mo data
+- **NEW** — native integration (§3 above), briefs E8-E12
+
+---
+
+## 8. One-line status
+
+> *"2026-04-23 shipped: Supabase migration + design refresh + repo migration to FrostyFruit1/constance-reporting + Vercel deploy at constance-reporting.vercel.app + cc-dashboard linked. Demo loop works. Next up: native Next.js port into cc-dashboard at /reporting."*
