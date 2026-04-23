@@ -500,8 +500,8 @@
 </div><!-- /main -->
 
 <script>
-const SUPABASE_URL = 'https://yrkclyeklwjlfblxvdbc.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlya2NseWVrbHdqbGZibHh2ZGJjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjIxOTI5MywiZXhwIjoyMDkxNzk1MjkzfQ.3GEMeRFnfZBsPs7GAEO93Z_waVMAwVX3BArh6NImZXc';
+const SUPABASE_URL = 'https://ymcyunspmljaruodjpkd.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltY3l1bnNwbWxqYXJ1b2RqcGtkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njc1NTQxNSwiZXhwIjoyMDkyMzMxNDE1fQ.kxygX6SBoKom7Juj8BkNIa0ajS9mR2JodhE4OtfVSMI';
 const H = { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` };
 
 async function q(table, params='') { return (await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {headers:H})).json(); }
