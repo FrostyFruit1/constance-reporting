@@ -38,12 +38,12 @@ snapshot if you need the back-story.**
    still work via existing FrostyFruit auth; commit author attribution will show
    Peter Frost / CC email regardless.
 
-5. **Vercel deploy** — not yet done. `vercel.json` not yet created. Peter has
-   Vercel access. Plan: add minimal `vercel.json` serving
-   `dashboard-preview.html` as root → Peter imports repo in Vercel web dashboard
-   → set env vars (or skip for demo since creds are hardcoded) → get the URL →
-   update `cc-dashboard/app/(dashboard)/page.tsx` APPS entry for `id: 'staff'`
-   `href` to point at the Vercel URL.
+5. **Vercel deploy** — scaffolded (commit `6782226`). `vercel.json` +
+   `.vercelignore` in repo. Full import runbook at
+   `docs/handoff/vercel_deploy.md`. Peter needs to import at vercel.com/new
+   (pick `FrostyFruit/constance-conservation`, Framework: Other, Root: `./`,
+   Deploy), grab the URL, paste to orchestrator. Then orchestrator updates
+   cc-dashboard APPS array + pushes via github.com-cc SSH remote.
 
 6. **cc-dashboard integration path agreed** = **(B) interim link-to-deployed-app**.
    Full Next.js port into `app/(dashboard)/reporting/*` is the real end state
