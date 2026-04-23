@@ -183,6 +183,64 @@
     .empty-state .icon { font-size:36px; margin-bottom:12px; opacity:0.4; }
     .empty-state .msg { font-size:14px; }
 
+    /* Breadcrumbs */
+    .crumbs { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--color-taupe); margin-bottom:10px; flex-wrap:wrap; }
+    .crumbs a { color:var(--color-clay); cursor:pointer; text-decoration:none; }
+    .crumbs a:hover { text-decoration:underline; }
+    .crumbs .sep { color:var(--color-stone); }
+
+    /* Client / site cards in hierarchy UI */
+    .client-card { background:var(--color-white); border-radius:var(--radius-lg); padding:22px; box-shadow:var(--shadow-sm); transition:transform 0.2s ease, box-shadow 0.2s ease; cursor:pointer; display:flex; flex-direction:column; gap:14px; }
+    .client-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+    .client-card .title { font-size:17px; font-weight:600; line-height:1.2; }
+    .client-card .sub { font-size:12px; color:var(--color-taupe); }
+    .client-card .stats { display:flex; gap:18px; }
+    .client-card .stat-val { font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; }
+    .client-card .stat-lbl { font-size:11px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; }
+
+    .row-card { background:var(--color-white); border-radius:var(--radius-md); padding:14px 18px; box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:10px; }
+    .row-card:hover { box-shadow:var(--shadow-hover); }
+    .row-card .title { font-size:14px; font-weight:600; }
+    .row-card .meta { font-size:12px; color:var(--color-taupe); margin-top:2px; }
+    .row-card .stats { display:flex; gap:18px; color:var(--color-umber); font-size:12px; }
+    .row-card .right { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .row-card.clickable { cursor:pointer; }
+
+    /* Editable field */
+    .field-row { display:grid; grid-template-columns:140px 1fr; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid rgba(243,237,231,0.6); }
+    .field-row:last-child { border-bottom:none; }
+    .field-label { font-size:12px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; }
+    .field-input { border:1px solid transparent; border-radius:var(--radius-sm); padding:6px 8px; font-family:inherit; font-size:13px; color:var(--color-espresso); background:transparent; transition:background 0.12s ease, border-color 0.12s ease; width:100%; }
+    .field-input:hover { background:var(--color-linen); }
+    .field-input:focus { background:var(--color-white); border-color:var(--color-clay); outline:none; }
+    .field-save-hint { font-size:11px; color:var(--color-taupe); padding-left:6px; }
+
+    /* Add form */
+    .add-form { background:var(--color-cream); border:1px dashed var(--color-stone); border-radius:var(--radius-md); padding:14px; margin-top:12px; }
+    .add-form .add-title { font-size:12px; font-weight:500; color:var(--color-umber); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:10px; }
+    .add-form input { padding:8px 10px; border:1px solid var(--color-sand); border-radius:var(--radius-sm); font-size:13px; font-family:inherit; margin-right:8px; margin-bottom:8px; background:#fff; min-width:180px; }
+    .add-form input:focus { outline:none; border-color:var(--color-clay); }
+
+    /* Schedule widget pills */
+    .schedule { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+    .schedule-label { font-size:11px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; margin-right:4px; }
+    .sched-pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:9999px; font-size:11.5px; font-weight:500; background:var(--color-sand); color:var(--color-umber); cursor:pointer; user-select:none; border:1px solid transparent; }
+    .sched-pill:hover { background:var(--color-cream); }
+    .sched-pill.selected { background:var(--color-sage-bg); color:var(--color-sage); border-color:var(--color-sage); }
+    .sched-pill.off.selected { background:var(--color-sand); color:var(--color-taupe); border-color:var(--color-stone); }
+    .sched-next { font-size:11px; color:var(--color-taupe); margin-left:6px; }
+
+    /* Gen-report stub */
+    .btn-gen { background:var(--color-sand); color:var(--color-umber); border:1px solid var(--color-stone); }
+    .btn-gen:hover { background:var(--color-cream); }
+
+    /* Drop zone for location maps */
+    .drop-zone { border:2px dashed var(--color-stone); border-radius:var(--radius-md); padding:32px 16px; text-align:center; color:var(--color-taupe); font-size:13px; background:var(--color-linen); cursor:pointer; transition:background 0.15s ease, border-color 0.15s ease; }
+    .drop-zone:hover { background:var(--color-cream); border-color:var(--color-clay); color:var(--color-espresso); }
+    .map-thumb-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin-top:12px; }
+    .map-thumb { background:var(--color-linen); border-radius:var(--radius-sm); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; color:var(--color-taupe); font-size:11px; overflow:hidden; border:1px solid var(--color-sand); }
+    .map-thumb img { width:100%; height:100%; object-fit:cover; }
+
     @media (max-width:1024px) { .kpi-grid{grid-template-columns:repeat(3,1fr)} .two-col,.three-col{grid-template-columns:1fr} }
     @media (max-width:768px) { .sidebar{display:none} .main{margin-left:0;padding:16px} .kpi-grid{grid-template-columns:repeat(2,1fr)} }
   </style>
@@ -195,7 +253,7 @@
   <div class="nav-section">Overview</div>
   <div class="nav-item active" data-page="dashboard"><span class="nav-icon">&#9632;</span> Dashboard</div>
   <div class="nav-item" data-page="inspections"><span class="nav-icon">&#9776;</span> Inspections</div>
-  <div class="nav-item" data-page="sites"><span class="nav-icon">&#9673;</span> Sites</div>
+  <div class="nav-item" data-page="clients"><span class="nav-icon">&#9673;</span> Clients</div>
   <div class="nav-section">Operations</div>
   <div class="nav-item" data-page="staff"><span class="nav-icon">&#9874;</span> Staff &amp; Hours</div>
   <div class="nav-item" data-page="chemicals"><span class="nav-icon">&#9883;</span> Chemicals</div>
@@ -241,14 +299,94 @@
   </div>
 </div>
 
-<!-- ============ SITES PAGE ============ -->
+<!-- ============ SITES PAGE (legacy flat view — still reachable from clients footer) ============ -->
 <div class="page" id="page-sites">
   <div class="page-header">
-    <div class="page-title">Sites</div>
-    <div class="page-subtitle">All tracked work sites</div>
+    <div class="crumbs"><a onclick="showPage('clients')">Clients</a><span class="sep">›</span><span>All sites (flat)</span></div>
+    <div class="page-title">All Sites</div>
+    <div class="page-subtitle">Flat list of every site row — clients view is the primary surface.</div>
   </div>
   <div class="kpi-grid kpi-grid-3" id="sites-kpis"></div>
   <div class="three-col" id="sites-grid"></div>
+</div>
+
+<!-- ============ CLIENTS PAGE ============ -->
+<div class="page" id="page-clients">
+  <div class="page-header">
+    <div class="page-title">Clients</div>
+    <div class="page-subtitle">One card per paying client. Click a card to see their sites and zones.</div>
+  </div>
+  <div class="kpi-grid kpi-grid-3" id="clients-kpis"></div>
+  <div class="three-col" id="clients-grid"></div>
+</div>
+
+<!-- ============ CLIENT DETAIL PAGE ============ -->
+<div class="page" id="page-client-detail">
+  <div class="page-header">
+    <div class="crumbs"><a onclick="showPage('clients')">Clients</a><span class="sep">›</span><span id="cd-crumb-name">—</span></div>
+    <div class="page-title" id="cd-title">—</div>
+    <div class="page-subtitle" id="cd-subtitle"></div>
+  </div>
+  <div class="two-col">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Client details</div><div class="section-badge" id="cd-save-hint"></div></div>
+      <div class="section-body" id="cd-fields"></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-title">Default schedule</div><div class="section-badge">No cron yet — stored for future use</div></div>
+      <div class="section-body" id="cd-schedule"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Sites</div><div class="section-badge" id="cd-sites-count"></div></div>
+    <div class="section-body">
+      <div id="cd-sites-list"></div>
+      <div class="add-form">
+        <div class="add-title">Add site</div>
+        <input type="text" id="cd-add-name" placeholder="Short name (e.g. EBSF)" />
+        <input type="text" id="cd-add-longname" placeholder="Long name (e.g. Elderslie Banksia Scrub Forest)" />
+        <button class="btn btn-primary" onclick="addSiteForCurrentClient()">+ Add site</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SITE DETAIL PAGE ============ -->
+<div class="page" id="page-site-detail">
+  <div class="page-header">
+    <div class="crumbs">
+      <a onclick="showPage('clients')">Clients</a><span class="sep">›</span>
+      <a id="sd-client-crumb" onclick="showClientDetail(state.siteDetailClientId)">—</a><span class="sep">›</span>
+      <span id="sd-crumb-name">—</span>
+    </div>
+    <div class="page-title" id="sd-title">—</div>
+    <div class="page-subtitle" id="sd-subtitle"></div>
+  </div>
+  <div class="two-col">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Site details</div><div class="section-badge" id="sd-save-hint"></div></div>
+      <div class="section-body" id="sd-fields"></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-title">Default schedule</div><div class="section-badge">Applies to this site</div></div>
+      <div class="section-body" id="sd-schedule"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Zones</div><div class="section-badge" id="sd-zones-count"></div></div>
+    <div class="section-body">
+      <div id="sd-zones-list"></div>
+      <div class="add-form">
+        <div class="add-title">Add zone</div>
+        <input type="text" id="sd-add-name" placeholder="Zone name (e.g. Zone E)" />
+        <button class="btn btn-primary" onclick="addZoneForCurrentSite()">+ Add zone</button>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Location maps</div><div class="section-badge">Stored on the parent client</div></div>
+    <div class="section-body" id="sd-maps"></div>
+  </div>
 </div>
 
 <!-- ============ STAFF PAGE ============ -->
@@ -329,6 +467,8 @@
       <div id="modal-meta"></div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost" id="modal-open-new">Open in new tab</button>
+        <button class="btn btn-ghost" id="modal-download-docx" onclick="downloadReportDocx()">Download DOCX</button>
+        <button class="btn btn-secondary" id="modal-print-pdf" onclick="printReportToPdf()">Print to PDF</button>
         <button class="btn btn-secondary" id="modal-save" onclick="saveReportEdits()" disabled>Save Changes</button>
         <button class="btn btn-primary" disabled title="Send workflow lands in M04">Approve &amp; Send</button>
       </div>
@@ -405,26 +545,20 @@ function topN(obj, n=10) { return Object.entries(obj).sort((a,b)=>b[1]-a[1]).sli
 
 // ─── Navigation ───────────────────────────────────────────────
 document.querySelectorAll('.nav-item[data-page]').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('page-'+el.dataset.page).classList.add('active');
-    loadPage(el.dataset.page);
-  });
+  el.addEventListener('click', () => showPage(el.dataset.page));
 });
 
 let cache = {};
 
 async function loadData() {
-  const [inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState, chemLookup, speciesLookup, carRecords, carItems, reports] = await Promise.all([
+  const [inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState, chemLookup, speciesLookup, carRecords, carItems, reports, clients] = await Promise.all([
     q('inspections','select=id,sc_audit_id,date,sc_template_type,processing_status,supervisor_id,staff(name),site_id,sites(name)&order=date.desc.nullslast&limit=2000'),
     q('inspection_tasks','select=task_type,inspection_id&limit=5000'),
     q('inspection_weeds','select=species_name_raw,species_name_canonical,source,inspection_id&limit=5000'),
     q('inspection_chemicals','select=chemical_name_raw,chemical_name_canonical,rate_raw,inspection_id&limit=5000'),
     q('inspection_personnel','select=staff_id,staff(name),hours_worked,raw_hours_text,inspection_id&limit=5000'),
     q('inspection_media','select=id,inspection_id,media_type,sc_media_href,storage_url&limit=5000'),
-    q('sites','select=id,name,canonical_name,project_code,client_id,site_type&order=name'),
+    q('sites','select=id,name,long_name,canonical_name,project_code,client_id,parent_site_id,site_type,schedule_config&order=name'),
     q('staff','select=id,name,role,active&order=name'),
     q('inspection_observations','select=observation_type,species_name,notes,inspection_id&limit=1000'),
     q('sync_state','select=*'),
@@ -433,8 +567,9 @@ async function loadData() {
     q('chemical_application_records','select=id,sc_audit_id,date,site_id,sites(name),application_method,total_amount_sprayed_litres,weather_general&order=date.desc&limit=500'),
     q('chemical_application_items','select=chemical_name_raw,rate_raw,concentrate_raw,application_record_id&limit=2000'),
     q('client_reports','select=*&limit=100').catch(()=>[]),
+    q('clients','select=id,name,long_name,contact_name,contact_email,contact_phone,council_or_body,report_frequency,location_maps,schedule_config&order=name'),
   ]);
-  cache = { inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState: syncState[0]||{}, chemLookup, speciesLookup, carRecords, carItems, reports };
+  cache = { inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState: syncState[0]||{}, chemLookup, speciesLookup, carRecords, carItems, reports, clients };
   return cache;
 }
 
@@ -443,7 +578,47 @@ async function loadData() {
 function loadPage(page) {
   const d = cache;
   if (!d.inspections) return;
-  ({dashboard:loadDashboard, inspections:loadInspections, sites:loadSites, staff:loadStaff, chemicals:loadChemicals, species:loadSpecies, reports:loadReports, pipeline:loadPipeline})[page]?.(d);
+  ({
+    dashboard: loadDashboard,
+    inspections: loadInspections,
+    sites: loadSites,
+    clients: loadClients,
+    'client-detail': () => state.clientDetailId && loadClientDetail(state.clientDetailId),
+    'site-detail': () => state.siteDetailId && loadSiteDetail(state.siteDetailId),
+    staff: loadStaff,
+    chemicals: loadChemicals,
+    species: loadSpecies,
+    reports: loadReports,
+    pipeline: loadPipeline,
+  })[page]?.(d);
+}
+
+// Cross-page state for detail views. siteDetailClientId remembers which
+// client to return to when the crumb is clicked.
+const state = { clientDetailId: null, siteDetailId: null, siteDetailClientId: null, currentPage: 'dashboard' };
+
+function showPage(page) {
+  state.currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+  // Detail + legacy-sites pages keep the Clients nav entry lit.
+  const navKey = (page === 'client-detail' || page === 'site-detail' || page === 'sites') ? 'clients' : page;
+  document.querySelectorAll('.nav-item[data-page]').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === navKey);
+  });
+  loadPage(page);
+}
+
+function showClientDetail(clientId) {
+  state.clientDetailId = clientId;
+  showPage('client-detail');
+}
+
+function showSiteDetail(siteId, clientId) {
+  state.siteDetailId = siteId;
+  state.siteDetailClientId = clientId || state.siteDetailClientId;
+  showPage('site-detail');
 }
 
 function loadDashboard(d) {
@@ -535,6 +710,292 @@ function loadSites(d) {
   `).join('');
 }
 
+// ─── Clients / hierarchy helpers ──────────────────────────────
+function topLevelSitesFor(clientId) {
+  return (cache.sites || []).filter(s => s.client_id === clientId && !s.parent_site_id);
+}
+function zonesFor(siteId) {
+  return (cache.sites || []).filter(s => s.parent_site_id === siteId);
+}
+function inspectionsForSiteIds(ids) {
+  const set = new Set(ids);
+  return (cache.inspections || []).filter(i => i.site_id && set.has(i.site_id));
+}
+function lastInspectionDate(siteId) {
+  const rows = (cache.inspections || []).filter(i => i.site_id === siteId && i.date);
+  if (!rows.length) return null;
+  return rows.reduce((a, b) => a.date > b.date ? a : b).date;
+}
+function titleCase(s) { return (s || '').replace(/\b\w/g, c => c.toUpperCase()); }
+
+// ─── Schedule widget ──────────────────────────────────────────
+const SCHEDULE_OPTIONS = [
+  { key: 'off',       label: 'Off' },
+  { key: 'weekly',    label: 'Weekly' },
+  { key: 'monthly',   label: 'Monthly' },
+  { key: 'quarterly', label: 'Quarterly' },
+];
+function renderScheduleWidget(opts) {
+  const { id, table, current } = opts; // current: {cadence, weekday?, day_of_month?}
+  const cadence = (current && current.cadence) || 'off';
+  const pills = SCHEDULE_OPTIONS.map(o => {
+    const sel = o.key === cadence;
+    const cls = 'sched-pill' + (sel ? ' selected' : '') + (o.key === 'off' ? ' off' : '');
+    return `<span class="${cls}" onclick="setSchedule('${table}','${id}','${o.key}', this)">${o.label}</span>`;
+  }).join('');
+  const next = cadence === 'off' ? '' : `<span class="sched-next">Next run: pending scheduler (E6)</span>`;
+  return `<div class="schedule">${pills}${next}</div>`;
+}
+window.setSchedule = async function(table, id, cadence, el) {
+  const body = { schedule_config: { cadence } };
+  try {
+    await patchRow(table, id, body);
+    // Update cache
+    const row = (cache[table] || []).find(r => r.id === id);
+    if (row) row.schedule_config = body.schedule_config;
+    // Update DOM: selected state on siblings
+    const parent = el.parentElement;
+    parent.querySelectorAll('.sched-pill').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+  } catch (e) { console.error(e); alert('Failed to save schedule: ' + e.message); }
+};
+
+// ─── Editable field rendering ────────────────────────────────
+function renderEditableField(opts) {
+  const { id, table, field, label, value, type, hint } = opts;
+  const val = value == null ? '' : String(value);
+  const inputId = `ef-${table}-${id}-${field}`;
+  return `<div class="field-row">
+    <div class="field-label">${label}</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <input class="field-input" id="${inputId}" type="${type||'text'}" value="${val.replace(/"/g,'&quot;')}" oninput="markFieldDirty('${inputId}')" onblur="saveField('${table}','${id}','${field}','${inputId}')" />
+      <span class="field-save-hint" id="${inputId}-hint">${hint||''}</span>
+    </div>
+  </div>`;
+}
+window.markFieldDirty = function(inputId) {
+  const h = document.getElementById(inputId + '-hint');
+  if (h) { h.textContent = 'unsaved'; h.style.color = 'var(--color-clay)'; }
+};
+window.saveField = async function(table, id, field, inputId) {
+  const el = document.getElementById(inputId);
+  const h = document.getElementById(inputId + '-hint');
+  if (!el) return;
+  const raw = el.value;
+  const newVal = raw === '' ? null : raw;
+  const row = (cache[table] || []).find(r => r.id === id);
+  if (row && row[field] === newVal) { if (h) h.textContent = ''; return; }
+  if (h) { h.textContent = 'saving…'; h.style.color = 'var(--color-umber)'; }
+  try {
+    await patchRow(table, id, { [field]: newVal });
+    if (row) row[field] = newVal;
+    if (h) { h.textContent = 'saved ✓'; h.style.color = 'var(--color-sage)'; setTimeout(() => { if (h.textContent === 'saved ✓') h.textContent = ''; }, 1600); }
+  } catch (e) {
+    console.error(e);
+    if (h) { h.textContent = 'failed'; h.style.color = 'var(--color-terracotta)'; }
+  }
+};
+
+// ─── Clients list ─────────────────────────────────────────────
+function loadClients(d) {
+  const clients = d.clients || [];
+  const totalSites = clients.reduce((s, c) => s + topLevelSitesFor(c.id).length, 0);
+  const totalZones = (d.sites || []).filter(s => s.parent_site_id && clients.some(c => topLevelSitesFor(c.id).find(t => t.id === s.parent_site_id))).length;
+  document.getElementById('clients-kpis').innerHTML = [
+    kpiHTML('Clients', clients.length, 'paying entities'),
+    kpiHTML('Active sites', totalSites, 'across all clients'),
+    kpiHTML('Active zones', totalZones, 'billing units'),
+  ].join('');
+
+  if (clients.length === 0) {
+    document.getElementById('clients-grid').innerHTML = '<div class="empty-state"><div class="icon">&#9673;</div><div class="msg">No clients yet. Seed one via `npm run seed` or Supabase.</div></div>';
+    return;
+  }
+
+  document.getElementById('clients-grid').innerHTML = clients.map(c => {
+    const sites = topLevelSitesFor(c.id);
+    const zoneCount = sites.reduce((s, t) => s + zonesFor(t.id).length, 0);
+    const freq = c.report_frequency ? titleCase(c.report_frequency) : '—';
+    const genTip = `npm run report -- --client-id ${c.id} --month YYYY-MM`;
+    return `<div class="client-card" onclick="showClientDetail('${c.id}')">
+      <div>
+        <div class="title">${c.long_name || c.name}</div>
+        <div class="sub">${c.contact_name || '—'} ${c.council_or_body ? '&middot; ' + c.council_or_body : ''}</div>
+      </div>
+      <div class="stats">
+        <div><div class="stat-val">${sites.length}</div><div class="stat-lbl">Sites</div></div>
+        <div><div class="stat-val">${zoneCount}</div><div class="stat-lbl">Zones</div></div>
+        <div><div class="stat-val">${freq}</div><div class="stat-lbl">Frequency</div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px" onclick="event.stopPropagation()">
+        ${renderScheduleWidget({ id: c.id, table: 'clients', current: c.schedule_config })}
+        <button class="btn btn-gen" title="${genTip}">Generate report</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Client detail ────────────────────────────────────────────
+function loadClientDetail(clientId) {
+  const c = (cache.clients || []).find(x => x.id === clientId);
+  if (!c) { document.getElementById('cd-title').textContent = 'Client not found'; return; }
+  state.clientDetailId = c.id;
+
+  document.getElementById('cd-title').textContent = c.long_name || c.name;
+  document.getElementById('cd-crumb-name').textContent = c.name;
+  document.getElementById('cd-subtitle').textContent = c.council_or_body || '';
+
+  document.getElementById('cd-fields').innerHTML = [
+    renderEditableField({ id: c.id, table: 'clients', field: 'name',            label: 'Short name',   value: c.name }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'long_name',       label: 'Long name',    value: c.long_name }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'contact_name',    label: 'Contact',      value: c.contact_name }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'council_or_body', label: 'Council/body', value: c.council_or_body }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'contact_email',   label: 'Email',        value: c.contact_email, type: 'email' }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'contact_phone',   label: 'Phone',        value: c.contact_phone }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'report_frequency',label: 'Frequency',    value: c.report_frequency, hint: 'weekly | monthly | quarterly' }),
+  ].join('');
+
+  document.getElementById('cd-schedule').innerHTML = renderScheduleWidget({ id: c.id, table: 'clients', current: c.schedule_config });
+
+  const sites = topLevelSitesFor(c.id);
+  document.getElementById('cd-sites-count').textContent = `${sites.length} site${sites.length === 1 ? '' : 's'}`;
+  document.getElementById('cd-sites-list').innerHTML = sites.length ? sites.map(s => {
+    const zoneCount = zonesFor(s.id).length;
+    const genTip = `npm run report -- --site-id ${s.id} --month YYYY-MM`;
+    return `<div class="row-card clickable" onclick="showSiteDetail('${s.id}','${c.id}')">
+      <div>
+        <div class="title">${s.name}</div>
+        <div class="meta">${s.long_name || '—'}</div>
+      </div>
+      <div class="right" onclick="event.stopPropagation()">
+        <span class="pill steel"><span class="pill-dot"></span>${zoneCount} zone${zoneCount===1?'':'s'}</span>
+        ${renderScheduleWidget({ id: s.id, table: 'sites', current: s.schedule_config })}
+        <button class="btn btn-gen" title="${genTip}">Generate report</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty-state"><div class="msg">No sites yet — use the form below to add one.</div></div>';
+}
+
+async function addSiteForCurrentClient() {
+  const c = (cache.clients || []).find(x => x.id === state.clientDetailId);
+  if (!c) return;
+  const nameEl = document.getElementById('cd-add-name');
+  const longEl = document.getElementById('cd-add-longname');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.focus(); return; }
+  const body = {
+    organization_id: await resolveOrgIdForClient(c.id),
+    client_id: c.id,
+    name,
+    long_name: longEl.value.trim() || null,
+    canonical_name: name.toLowerCase(),
+    sc_label: name,
+  };
+  try {
+    const created = await insertRow('sites', body);
+    cache.sites.push(created);
+    nameEl.value = ''; longEl.value = '';
+    loadClientDetail(c.id);
+  } catch (e) { alert('Add site failed: ' + e.message); }
+}
+
+// ─── Site detail ──────────────────────────────────────────────
+function loadSiteDetail(siteId) {
+  const s = (cache.sites || []).find(x => x.id === siteId);
+  if (!s) { document.getElementById('sd-title').textContent = 'Site not found'; return; }
+  state.siteDetailId = s.id;
+  const client = (cache.clients || []).find(c => c.id === s.client_id);
+  state.siteDetailClientId = client?.id || state.siteDetailClientId;
+
+  document.getElementById('sd-title').textContent = s.long_name || s.name;
+  document.getElementById('sd-crumb-name').textContent = s.name;
+  document.getElementById('sd-subtitle').textContent = client ? `Part of ${client.long_name || client.name}` : '';
+  const crumb = document.getElementById('sd-client-crumb');
+  crumb.textContent = client ? client.name : 'Client';
+
+  document.getElementById('sd-fields').innerHTML = [
+    renderEditableField({ id: s.id, table: 'sites', field: 'name',       label: 'Name',      value: s.name }),
+    renderEditableField({ id: s.id, table: 'sites', field: 'long_name',  label: 'Long name', value: s.long_name }),
+    renderEditableField({ id: s.id, table: 'sites', field: 'site_type',  label: 'Site type', value: s.site_type, hint: 'e.g. scrub_forest, riparian' }),
+    renderEditableField({ id: s.id, table: 'sites', field: 'project_code', label: 'Project code', value: s.project_code }),
+  ].join('');
+  document.getElementById('sd-schedule').innerHTML = renderScheduleWidget({ id: s.id, table: 'sites', current: s.schedule_config });
+
+  const zones = zonesFor(s.id);
+  document.getElementById('sd-zones-count').textContent = `${zones.length} zone${zones.length===1?'':'s'}`;
+  document.getElementById('sd-zones-list').innerHTML = zones.length ? zones.map(z => {
+    const inspCount = (cache.inspections || []).filter(i => i.site_id === z.id).length;
+    const last = lastInspectionDate(z.id);
+    const genTip = `npm run report -- --zone-id ${z.id} --month YYYY-MM`;
+    return `<div class="row-card">
+      <div>
+        <div class="title">${z.name}</div>
+        <div class="meta">${z.long_name || z.canonical_name || '—'}</div>
+      </div>
+      <div class="right">
+        <span class="stats">
+          <span>${inspCount} insp.</span>
+          <span>Last: ${last || '—'}</span>
+        </span>
+        ${renderScheduleWidget({ id: z.id, table: 'sites', current: z.schedule_config })}
+        <button class="btn btn-gen" title="${genTip}">Generate report</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty-state"><div class="msg">No zones yet — add one below.</div></div>';
+
+  // Location maps section (stored on parent client)
+  const maps = (client && Array.isArray(client.location_maps)) ? client.location_maps : [];
+  document.getElementById('sd-maps').innerHTML = `
+    <div class="drop-zone" onclick="alert('Image upload plumbing lands in E5. For now, edit clients.location_maps directly in Supabase.')">
+      Drop location-map images here — image upload plumbing lands in E5
+    </div>
+    ${maps.length ? `<div class="map-thumb-grid">${maps.map(u => `<div class="map-thumb"><img src="${u}" alt="map" onerror="this.replaceWith(document.createTextNode('failed to load'))"/></div>`).join('')}</div>` : ''}
+  `;
+}
+
+async function addZoneForCurrentSite() {
+  const s = (cache.sites || []).find(x => x.id === state.siteDetailId);
+  if (!s) return;
+  const nameEl = document.getElementById('sd-add-name');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.focus(); return; }
+  const body = {
+    organization_id: s.organization_id || await resolveOrgIdForClient(s.client_id || state.siteDetailClientId),
+    client_id: null,
+    parent_site_id: s.id,
+    name,
+    canonical_name: name.toLowerCase(),
+    sc_label: name,
+  };
+  try {
+    const created = await insertRow('sites', body);
+    cache.sites.push(created);
+    nameEl.value = '';
+    loadSiteDetail(s.id);
+  } catch (e) { alert('Add zone failed: ' + e.message); }
+}
+
+// ─── Insert helper + org resolver ────────────────────────────
+async function insertRow(table, body) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: { ...H, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`POST ${table} failed: ${r.status} ${await r.text()}`);
+  const rows = await r.json();
+  return Array.isArray(rows) ? rows[0] : rows;
+}
+async function resolveOrgIdForClient(clientId) {
+  // Try any site already tied to the client; fall back to first known org.
+  const s = (cache.sites || []).find(x => x.client_id === clientId && x.organization_id);
+  if (s) return s.organization_id;
+  const any = (cache.sites || []).find(x => x.organization_id);
+  if (any) return any.organization_id;
+  const rows = await q('organizations', 'select=id&limit=1');
+  return rows[0]?.id;
+}
+
 function loadStaff(d) {
   const sh={}, si={};
   d.personnel.forEach(p=>{const n=p.staff?.name||'Unknown';sh[n]=(sh[n]||0)+(parseFloat(p.hours_worked)||0);si[n]=(si[n]||0)+1;});
@@ -614,7 +1075,7 @@ function loadSpecies(d) {
 }
 
 // ─── Report preview + inline edit ─────────────────────────────
-const reportEditState = { id: null, dirty: false, editable: false };
+const reportEditState = { id: null, dirty: false, editable: false, docxUrl: null, title: '' };
 
 function setEditStatus(text, color) {
   const el = document.getElementById('edit-status');
@@ -691,6 +1152,8 @@ window.previewReport = function(reportId) {
   reportEditState.id = reportId;
   reportEditState.dirty = false;
   reportEditState.editable = false;
+  reportEditState.docxUrl = r.docx_url || null;
+  reportEditState.title = r.title || 'Report';
   document.getElementById('edit-toggle').checked = false;
   document.getElementById('modal-save').disabled = true;
   setEditStatus('', 'var(--color-taupe)');
@@ -713,6 +1176,32 @@ window.previewReport = function(reportId) {
   document.getElementById('report-modal').classList.add('open');
 };
 
+window.downloadReportDocx = function() {
+  const url = reportEditState.docxUrl;
+  if (!url) {
+    window.alert('DOCX not yet available — re-run the generator (npm run report -- ...) to populate client_reports.docx_url.');
+    return;
+  }
+  // Relative paths (e.g. "dist/reports/EBSF_...docx") resolve against the dashboard's location.
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = url.split('/').pop() || 'report.docx';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+window.printReportToPdf = function() {
+  const iframe = document.getElementById('modal-iframe');
+  try {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+  } catch (e) {
+    console.error(e);
+    window.alert('Could not open print dialog: ' + (e && e.message ? e.message : e));
+  }
+};
+
 window.closeReportModal = function() {
   if (reportEditState.dirty && !confirm('You have unsaved changes. Close anyway?')) return;
   document.getElementById('report-modal').classList.remove('open');
@@ -720,6 +1209,7 @@ window.closeReportModal = function() {
   reportEditState.id = null;
   reportEditState.dirty = false;
   reportEditState.editable = false;
+  reportEditState.docxUrl = null;
 };
 
 function reportCardHTML(r) {
@@ -791,7 +1281,7 @@ function loadReports(d) {
     document.getElementById('reports-content').innerHTML = `
       <div class="reports-toolbar">
         <div class="hint">Reports are generated from inspection data for a client + period. Click Preview to review a draft.</div>
-        <button class="btn btn-primary" disabled title="CLI-only for now: npm run report -- --client EBSF --month 2025-06. In-UI generation lands in M04.">+ Generate Report</button>
+        <button class="btn btn-primary" disabled title="CLI-only for now. Run: npm run report -- --zone-id <id> --month YYYY-MM  (or --site-id / --client-id). In-UI trigger lands in M04 with a backend endpoint.">+ Generate Report</button>
       </div>
       <div class="section"><div class="section-header"><div class="section-title">Drafts (${drafts.length})</div><div class="section-badge">Click Preview to open</div></div>
         <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px">
@@ -852,7 +1342,7 @@ async function init() {
   loadDashboard(cache);
 }
 init();
-setInterval(async()=>{ await loadData(); loadPage(document.querySelector('.nav-item.active')?.dataset?.page||'dashboard'); }, 30000);
+setInterval(async()=>{ await loadData(); loadPage(state.currentPage || 'dashboard'); }, 30000);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReportModal(); });
 </script>
 </body>
