@@ -3,7 +3,23 @@
 ## Objective
 Build the dual-path ingestion pipeline that takes Safety Culture inspection data from the API and writes it into the Supabase schema deployed in M00. This milestone produces a working pipeline that processes both Daily Work Reports and Chemical Application Records, stores raw JSON for reprocessing, and handles all documented data quality issues.
 
-## Status: IN PROGRESS
+## Status: COMPLETE (as of 2026-04-23)
+
+### Closeout summary
+- **WP1-6 built and tested**: parser, DB writer, scheduled sync, webhook handler, media pipeline, seed. 227 tests pass.
+- **Backfill done**: 2025-01-05 through 2026-04-22 ingested. 1,544 total rows (~627 from 2025+, ~917 pre-2025 retained from prior sessions). Pre-2025 coverage is partial and unused for current pilot (EBSF June 2025) — acceptable.
+- **Data quality discovered during pilot prep**:
+  - Template detection bug: 440 "Record of toolbox" rows mis-tagged as `daily_work_report` because `parseInspection` error-path defaults to 'daily_work_report'. Fix deferred (task #11; low blast radius — downstream filters by real template_id).
+  - Parser fixes applied (task #7): `site` / `'Client / Site'` / `'Prepared by'` label variants, multi-item iteration in extractor, `audit_data.date_completed` fallback. Real DWR site-fill 85% (was 69%); date-fill 100% (was 55%). Remaining 15% are 2022 rows where site was genuinely blank in SC.
+  - Parsing warnings are not persisted — exist only in write logs. Not fixed; low urgency if pilot validates the generator.
+  - Backfill network reliability: a dozen rows failed on `fetch failed` at end of run; retry tracked in task #11.
+- **Infrastructure notes preserved**: Direct DB connection IPv6-only/unreachable. `exec_sql` RPC is working bridge (param is `query`, not `sql_text`).
+
+### Deferred items (do not re-open M01 for these)
+- Task #10 Reparse sweep — retro fix of 58 existing rows
+- Task #11 Backfill retry + toolbox-talk misclassification
+- Parser warnings persistence
+These are hygiene items, handled opportunistically during M02/M03.
 
 ## Prerequisites
 - [x] M00 complete — schema deployed (27 tables), API validated, field mapping documented

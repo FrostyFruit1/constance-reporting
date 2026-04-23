@@ -151,6 +151,30 @@
     .chem-stat-val { font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; }
     .chem-stat-lbl { font-size:11px; color:var(--color-taupe); }
 
+    /* Report actions + generate button */
+    .btn { font-family:inherit; border:none; border-radius:var(--radius-sm); padding:8px 14px; font-size:12.5px; font-weight:500; cursor:pointer; transition:background 0.15s ease, transform 0.1s ease; }
+    .btn-primary { background:var(--color-clay); color:#fff; }
+    .btn-primary:hover { background:var(--color-clay-hover); }
+    .btn-secondary { background:var(--color-sand); color:var(--color-espresso); }
+    .btn-secondary:hover { background:var(--color-cream); }
+    .btn-ghost { background:transparent; color:var(--color-clay); border:1px solid var(--color-stone); }
+    .btn-ghost:hover { background:var(--color-sand); }
+    .btn[disabled] { opacity:0.5; cursor:not-allowed; }
+    .report-card .actions { display:flex; gap:8px; }
+    .reports-toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:12px; flex-wrap:wrap; }
+    .reports-toolbar .hint { font-size:12px; color:var(--color-taupe); }
+
+    /* Report preview modal */
+    .modal-overlay { position:fixed; inset:0; background:rgba(45,42,38,0.55); display:none; align-items:center; justify-content:center; z-index:1000; padding:40px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--color-white); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); width:100%; max-width:960px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; }
+    .modal-header { display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--color-sand); }
+    .modal-title { font-size:15px; font-weight:600; }
+    .modal-close { background:transparent; border:none; font-size:22px; cursor:pointer; color:var(--color-taupe); line-height:1; }
+    .modal-body { flex:1; overflow:auto; background:var(--color-linen); padding:0; }
+    .modal-body iframe { width:100%; height:100%; min-height:70vh; border:none; background:#fff; }
+    .modal-footer { padding:12px 24px; border-top:1px solid var(--color-sand); display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:12px; color:var(--color-taupe); }
+
     /* Alert bar */
     .alert-bar { background:var(--color-cooling-bg); border-left:3px solid var(--color-cooling); border-radius:var(--radius-lg); padding:14px 20px; margin-bottom:24px; display:flex; align-items:center; gap:10px; font-size:13px; color:var(--color-umber); }
 
@@ -158,6 +182,64 @@
     .empty-state { text-align:center; padding:48px 20px; color:var(--color-taupe); }
     .empty-state .icon { font-size:36px; margin-bottom:12px; opacity:0.4; }
     .empty-state .msg { font-size:14px; }
+
+    /* Breadcrumbs */
+    .crumbs { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--color-taupe); margin-bottom:10px; flex-wrap:wrap; }
+    .crumbs a { color:var(--color-clay); cursor:pointer; text-decoration:none; }
+    .crumbs a:hover { text-decoration:underline; }
+    .crumbs .sep { color:var(--color-stone); }
+
+    /* Client / site cards in hierarchy UI */
+    .client-card { background:var(--color-white); border-radius:var(--radius-lg); padding:22px; box-shadow:var(--shadow-sm); transition:transform 0.2s ease, box-shadow 0.2s ease; cursor:pointer; display:flex; flex-direction:column; gap:14px; }
+    .client-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+    .client-card .title { font-size:17px; font-weight:600; line-height:1.2; }
+    .client-card .sub { font-size:12px; color:var(--color-taupe); }
+    .client-card .stats { display:flex; gap:18px; }
+    .client-card .stat-val { font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; }
+    .client-card .stat-lbl { font-size:11px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; }
+
+    .row-card { background:var(--color-white); border-radius:var(--radius-md); padding:14px 18px; box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:10px; }
+    .row-card:hover { box-shadow:var(--shadow-hover); }
+    .row-card .title { font-size:14px; font-weight:600; }
+    .row-card .meta { font-size:12px; color:var(--color-taupe); margin-top:2px; }
+    .row-card .stats { display:flex; gap:18px; color:var(--color-umber); font-size:12px; }
+    .row-card .right { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .row-card.clickable { cursor:pointer; }
+
+    /* Editable field */
+    .field-row { display:grid; grid-template-columns:140px 1fr; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid rgba(243,237,231,0.6); }
+    .field-row:last-child { border-bottom:none; }
+    .field-label { font-size:12px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; }
+    .field-input { border:1px solid transparent; border-radius:var(--radius-sm); padding:6px 8px; font-family:inherit; font-size:13px; color:var(--color-espresso); background:transparent; transition:background 0.12s ease, border-color 0.12s ease; width:100%; }
+    .field-input:hover { background:var(--color-linen); }
+    .field-input:focus { background:var(--color-white); border-color:var(--color-clay); outline:none; }
+    .field-save-hint { font-size:11px; color:var(--color-taupe); padding-left:6px; }
+
+    /* Add form */
+    .add-form { background:var(--color-cream); border:1px dashed var(--color-stone); border-radius:var(--radius-md); padding:14px; margin-top:12px; }
+    .add-form .add-title { font-size:12px; font-weight:500; color:var(--color-umber); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:10px; }
+    .add-form input { padding:8px 10px; border:1px solid var(--color-sand); border-radius:var(--radius-sm); font-size:13px; font-family:inherit; margin-right:8px; margin-bottom:8px; background:#fff; min-width:180px; }
+    .add-form input:focus { outline:none; border-color:var(--color-clay); }
+
+    /* Schedule widget pills */
+    .schedule { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+    .schedule-label { font-size:11px; color:var(--color-taupe); text-transform:uppercase; letter-spacing:0.03em; margin-right:4px; }
+    .sched-pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:9999px; font-size:11.5px; font-weight:500; background:var(--color-sand); color:var(--color-umber); cursor:pointer; user-select:none; border:1px solid transparent; }
+    .sched-pill:hover { background:var(--color-cream); }
+    .sched-pill.selected { background:var(--color-sage-bg); color:var(--color-sage); border-color:var(--color-sage); }
+    .sched-pill.off.selected { background:var(--color-sand); color:var(--color-taupe); border-color:var(--color-stone); }
+    .sched-next { font-size:11px; color:var(--color-taupe); margin-left:6px; }
+
+    /* Gen-report stub */
+    .btn-gen { background:var(--color-sand); color:var(--color-umber); border:1px solid var(--color-stone); }
+    .btn-gen:hover { background:var(--color-cream); }
+
+    /* Drop zone for location maps */
+    .drop-zone { border:2px dashed var(--color-stone); border-radius:var(--radius-md); padding:32px 16px; text-align:center; color:var(--color-taupe); font-size:13px; background:var(--color-linen); cursor:pointer; transition:background 0.15s ease, border-color 0.15s ease; }
+    .drop-zone:hover { background:var(--color-cream); border-color:var(--color-clay); color:var(--color-espresso); }
+    .map-thumb-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin-top:12px; }
+    .map-thumb { background:var(--color-linen); border-radius:var(--radius-sm); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; color:var(--color-taupe); font-size:11px; overflow:hidden; border:1px solid var(--color-sand); }
+    .map-thumb img { width:100%; height:100%; object-fit:cover; }
 
     @media (max-width:1024px) { .kpi-grid{grid-template-columns:repeat(3,1fr)} .two-col,.three-col{grid-template-columns:1fr} }
     @media (max-width:768px) { .sidebar{display:none} .main{margin-left:0;padding:16px} .kpi-grid{grid-template-columns:repeat(2,1fr)} }
@@ -171,7 +253,7 @@
   <div class="nav-section">Overview</div>
   <div class="nav-item active" data-page="dashboard"><span class="nav-icon">&#9632;</span> Dashboard</div>
   <div class="nav-item" data-page="inspections"><span class="nav-icon">&#9776;</span> Inspections</div>
-  <div class="nav-item" data-page="sites"><span class="nav-icon">&#9673;</span> Sites</div>
+  <div class="nav-item" data-page="clients"><span class="nav-icon">&#9673;</span> Clients</div>
   <div class="nav-section">Operations</div>
   <div class="nav-item" data-page="staff"><span class="nav-icon">&#9874;</span> Staff &amp; Hours</div>
   <div class="nav-item" data-page="chemicals"><span class="nav-icon">&#9883;</span> Chemicals</div>
@@ -217,14 +299,94 @@
   </div>
 </div>
 
-<!-- ============ SITES PAGE ============ -->
+<!-- ============ SITES PAGE (legacy flat view — still reachable from clients footer) ============ -->
 <div class="page" id="page-sites">
   <div class="page-header">
-    <div class="page-title">Sites</div>
-    <div class="page-subtitle">All tracked work sites</div>
+    <div class="crumbs"><a onclick="showPage('clients')">Clients</a><span class="sep">›</span><span>All sites (flat)</span></div>
+    <div class="page-title">All Sites</div>
+    <div class="page-subtitle">Flat list of every site row — clients view is the primary surface.</div>
   </div>
   <div class="kpi-grid kpi-grid-3" id="sites-kpis"></div>
   <div class="three-col" id="sites-grid"></div>
+</div>
+
+<!-- ============ CLIENTS PAGE ============ -->
+<div class="page" id="page-clients">
+  <div class="page-header">
+    <div class="page-title">Clients</div>
+    <div class="page-subtitle">One card per paying client. Click a card to see their sites and zones.</div>
+  </div>
+  <div class="kpi-grid kpi-grid-3" id="clients-kpis"></div>
+  <div class="three-col" id="clients-grid"></div>
+</div>
+
+<!-- ============ CLIENT DETAIL PAGE ============ -->
+<div class="page" id="page-client-detail">
+  <div class="page-header">
+    <div class="crumbs"><a onclick="showPage('clients')">Clients</a><span class="sep">›</span><span id="cd-crumb-name">—</span></div>
+    <div class="page-title" id="cd-title">—</div>
+    <div class="page-subtitle" id="cd-subtitle"></div>
+  </div>
+  <div class="two-col">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Client details</div><div class="section-badge" id="cd-save-hint"></div></div>
+      <div class="section-body" id="cd-fields"></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-title">Default schedule</div><div class="section-badge">No cron yet — stored for future use</div></div>
+      <div class="section-body" id="cd-schedule"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Sites</div><div class="section-badge" id="cd-sites-count"></div></div>
+    <div class="section-body">
+      <div id="cd-sites-list"></div>
+      <div class="add-form">
+        <div class="add-title">Add site</div>
+        <input type="text" id="cd-add-name" placeholder="Short name (e.g. EBSF)" />
+        <input type="text" id="cd-add-longname" placeholder="Long name (e.g. Elderslie Banksia Scrub Forest)" />
+        <button class="btn btn-primary" onclick="addSiteForCurrentClient()">+ Add site</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SITE DETAIL PAGE ============ -->
+<div class="page" id="page-site-detail">
+  <div class="page-header">
+    <div class="crumbs">
+      <a onclick="showPage('clients')">Clients</a><span class="sep">›</span>
+      <a id="sd-client-crumb" onclick="showClientDetail(state.siteDetailClientId)">—</a><span class="sep">›</span>
+      <span id="sd-crumb-name">—</span>
+    </div>
+    <div class="page-title" id="sd-title">—</div>
+    <div class="page-subtitle" id="sd-subtitle"></div>
+  </div>
+  <div class="two-col">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Site details</div><div class="section-badge" id="sd-save-hint"></div></div>
+      <div class="section-body" id="sd-fields"></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-title">Default schedule</div><div class="section-badge">Applies to this site</div></div>
+      <div class="section-body" id="sd-schedule"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Zones</div><div class="section-badge" id="sd-zones-count"></div></div>
+    <div class="section-body">
+      <div id="sd-zones-list"></div>
+      <div class="add-form">
+        <div class="add-title">Add zone</div>
+        <input type="text" id="sd-add-name" placeholder="Zone name (e.g. Zone E)" />
+        <button class="btn btn-primary" onclick="addZoneForCurrentSite()">+ Add zone</button>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Location maps</div><div class="section-badge">Stored on the parent client</div></div>
+    <div class="section-body" id="sd-maps"></div>
+  </div>
 </div>
 
 <!-- ============ STAFF PAGE ============ -->
@@ -279,10 +441,39 @@
 <div class="page" id="page-reports">
   <div class="page-header">
     <div class="page-title">Client Reports</div>
-    <div class="page-subtitle">Generated monthly reports for clients</div>
+    <div class="page-subtitle">Auto-generated client reports. Review drafts before approval and send.</div>
   </div>
   <div class="kpi-grid kpi-grid-4" id="reports-kpis"></div>
   <div id="reports-content"></div>
+</div>
+
+<!-- Report preview / edit modal -->
+<div class="modal-overlay" id="report-modal" onclick="if(event.target.id==='report-modal')closeReportModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Report Preview</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="edit-status" style="font-size:11.5px;color:var(--color-taupe)"></span>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-umber);cursor:pointer">
+          <input type="checkbox" id="edit-toggle" onchange="toggleEdit(this.checked)" /> Edit mode
+        </label>
+        <button class="modal-close" onclick="closeReportModal()" aria-label="Close">&times;</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe id="modal-iframe"></iframe>
+    </div>
+    <div class="modal-footer">
+      <div id="modal-meta"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" id="modal-open-new">Open in new tab</button>
+        <button class="btn btn-ghost" id="modal-download-docx" onclick="downloadReportDocx()">Download DOCX</button>
+        <button class="btn btn-secondary" id="modal-print-pdf" onclick="printReportToPdf()">Print to PDF</button>
+        <button class="btn btn-secondary" id="modal-save" onclick="saveReportEdits()" disabled>Save Changes</button>
+        <button class="btn btn-primary" disabled title="Send workflow lands in M04">Approve &amp; Send</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ============ PIPELINE PAGE ============ -->
@@ -314,6 +505,15 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const H = { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` };
 
 async function q(table, params='') { return (await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {headers:H})).json(); }
+async function patchRow(table, id, body) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'PATCH',
+    headers: { ...H, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`PATCH ${table} failed: ${r.status} ${await r.text()}`);
+  return r.json();
+}
 async function qCount(table, filter='') {
   const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=id${filter?'&'+filter:''}`, {headers:{...H,'Prefer':'count=exact','Range':'0-0'}});
   const rng = r.headers.get('content-range'); return rng ? parseInt(rng.split('/')[1]) : 0;
@@ -345,26 +545,20 @@ function topN(obj, n=10) { return Object.entries(obj).sort((a,b)=>b[1]-a[1]).sli
 
 // ─── Navigation ───────────────────────────────────────────────
 document.querySelectorAll('.nav-item[data-page]').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('page-'+el.dataset.page).classList.add('active');
-    loadPage(el.dataset.page);
-  });
+  el.addEventListener('click', () => showPage(el.dataset.page));
 });
 
 let cache = {};
 
 async function loadData() {
-  const [inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState, chemLookup, speciesLookup, carRecords, carItems, reports] = await Promise.all([
+  const [inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState, chemLookup, speciesLookup, carRecords, carItems, reports, clients] = await Promise.all([
     q('inspections','select=id,sc_audit_id,date,sc_template_type,processing_status,supervisor_id,staff(name),site_id,sites(name)&order=date.desc.nullslast&limit=2000'),
     q('inspection_tasks','select=task_type,inspection_id&limit=5000'),
     q('inspection_weeds','select=species_name_raw,species_name_canonical,source,inspection_id&limit=5000'),
     q('inspection_chemicals','select=chemical_name_raw,chemical_name_canonical,rate_raw,inspection_id&limit=5000'),
     q('inspection_personnel','select=staff_id,staff(name),hours_worked,raw_hours_text,inspection_id&limit=5000'),
     q('inspection_media','select=id,inspection_id,media_type,sc_media_href,storage_url&limit=5000'),
-    q('sites','select=id,name,canonical_name,project_code,client_id,site_type&order=name'),
+    q('sites','select=id,name,long_name,canonical_name,project_code,client_id,parent_site_id,site_type,schedule_config&order=name'),
     q('staff','select=id,name,role,active&order=name'),
     q('inspection_observations','select=observation_type,species_name,notes,inspection_id&limit=1000'),
     q('sync_state','select=*'),
@@ -373,8 +567,9 @@ async function loadData() {
     q('chemical_application_records','select=id,sc_audit_id,date,site_id,sites(name),application_method,total_amount_sprayed_litres,weather_general&order=date.desc&limit=500'),
     q('chemical_application_items','select=chemical_name_raw,rate_raw,concentrate_raw,application_record_id&limit=2000'),
     q('client_reports','select=*&limit=100').catch(()=>[]),
+    q('clients','select=id,name,long_name,contact_name,contact_email,contact_phone,council_or_body,report_frequency,location_maps,schedule_config&order=name'),
   ]);
-  cache = { inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState: syncState[0]||{}, chemLookup, speciesLookup, carRecords, carItems, reports };
+  cache = { inspections, tasks, weeds, chemicals, personnel, media, sites, staff, observations, syncState: syncState[0]||{}, chemLookup, speciesLookup, carRecords, carItems, reports, clients };
   return cache;
 }
 
@@ -383,7 +578,47 @@ async function loadData() {
 function loadPage(page) {
   const d = cache;
   if (!d.inspections) return;
-  ({dashboard:loadDashboard, inspections:loadInspections, sites:loadSites, staff:loadStaff, chemicals:loadChemicals, species:loadSpecies, reports:loadReports, pipeline:loadPipeline})[page]?.(d);
+  ({
+    dashboard: loadDashboard,
+    inspections: loadInspections,
+    sites: loadSites,
+    clients: loadClients,
+    'client-detail': () => state.clientDetailId && loadClientDetail(state.clientDetailId),
+    'site-detail': () => state.siteDetailId && loadSiteDetail(state.siteDetailId),
+    staff: loadStaff,
+    chemicals: loadChemicals,
+    species: loadSpecies,
+    reports: loadReports,
+    pipeline: loadPipeline,
+  })[page]?.(d);
+}
+
+// Cross-page state for detail views. siteDetailClientId remembers which
+// client to return to when the crumb is clicked.
+const state = { clientDetailId: null, siteDetailId: null, siteDetailClientId: null, currentPage: 'dashboard' };
+
+function showPage(page) {
+  state.currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+  // Detail + legacy-sites pages keep the Clients nav entry lit.
+  const navKey = (page === 'client-detail' || page === 'site-detail' || page === 'sites') ? 'clients' : page;
+  document.querySelectorAll('.nav-item[data-page]').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === navKey);
+  });
+  loadPage(page);
+}
+
+function showClientDetail(clientId) {
+  state.clientDetailId = clientId;
+  showPage('client-detail');
+}
+
+function showSiteDetail(siteId, clientId) {
+  state.siteDetailId = siteId;
+  state.siteDetailClientId = clientId || state.siteDetailClientId;
+  showPage('site-detail');
 }
 
 function loadDashboard(d) {
@@ -475,6 +710,409 @@ function loadSites(d) {
   `).join('');
 }
 
+// ─── Clients / hierarchy helpers ──────────────────────────────
+function topLevelSitesFor(clientId) {
+  return (cache.sites || []).filter(s => s.client_id === clientId && !s.parent_site_id);
+}
+function zonesFor(siteId) {
+  return (cache.sites || []).filter(s => s.parent_site_id === siteId);
+}
+function inspectionsForSiteIds(ids) {
+  const set = new Set(ids);
+  return (cache.inspections || []).filter(i => i.site_id && set.has(i.site_id));
+}
+function lastInspectionDate(siteId) {
+  const rows = (cache.inspections || []).filter(i => i.site_id === siteId && i.date);
+  if (!rows.length) return null;
+  return rows.reduce((a, b) => a.date > b.date ? a : b).date;
+}
+function titleCase(s) { return (s || '').replace(/\b\w/g, c => c.toUpperCase()); }
+
+// ─── Schedule widget ──────────────────────────────────────────
+const SCHEDULE_OPTIONS = [
+  { key: 'off',       label: 'Off' },
+  { key: 'weekly',    label: 'Weekly' },
+  { key: 'monthly',   label: 'Monthly' },
+  { key: 'quarterly', label: 'Quarterly' },
+];
+function renderScheduleWidget(opts) {
+  const { id, table, current } = opts; // current: {cadence, weekday?, day_of_month?}
+  const cadence = (current && current.cadence) || 'off';
+  const pills = SCHEDULE_OPTIONS.map(o => {
+    const sel = o.key === cadence;
+    const cls = 'sched-pill' + (sel ? ' selected' : '') + (o.key === 'off' ? ' off' : '');
+    return `<span class="${cls}" onclick="setSchedule('${table}','${id}','${o.key}', this)">${o.label}</span>`;
+  }).join('');
+  const next = cadence === 'off' ? '' : `<span class="sched-next">Next run: pending scheduler (E6)</span>`;
+  return `<div class="schedule">${pills}${next}</div>`;
+}
+window.setSchedule = async function(table, id, cadence, el) {
+  const body = { schedule_config: { cadence } };
+  try {
+    await patchRow(table, id, body);
+    // Update cache
+    const row = (cache[table] || []).find(r => r.id === id);
+    if (row) row.schedule_config = body.schedule_config;
+    // Update DOM: selected state on siblings
+    const parent = el.parentElement;
+    parent.querySelectorAll('.sched-pill').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+  } catch (e) { console.error(e); alert('Failed to save schedule: ' + e.message); }
+};
+
+// ─── Editable field rendering ────────────────────────────────
+function renderEditableField(opts) {
+  const { id, table, field, label, value, type, hint } = opts;
+  const val = value == null ? '' : String(value);
+  const inputId = `ef-${table}-${id}-${field}`;
+  return `<div class="field-row">
+    <div class="field-label">${label}</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <input class="field-input" id="${inputId}" type="${type||'text'}" value="${val.replace(/"/g,'&quot;')}" oninput="markFieldDirty('${inputId}')" onblur="saveField('${table}','${id}','${field}','${inputId}')" />
+      <span class="field-save-hint" id="${inputId}-hint">${hint||''}</span>
+    </div>
+  </div>`;
+}
+window.markFieldDirty = function(inputId) {
+  const h = document.getElementById(inputId + '-hint');
+  if (h) { h.textContent = 'unsaved'; h.style.color = 'var(--color-clay)'; }
+};
+window.saveField = async function(table, id, field, inputId) {
+  const el = document.getElementById(inputId);
+  const h = document.getElementById(inputId + '-hint');
+  if (!el) return;
+  const raw = el.value;
+  const newVal = raw === '' ? null : raw;
+  const row = (cache[table] || []).find(r => r.id === id);
+  if (row && row[field] === newVal) { if (h) h.textContent = ''; return; }
+  if (h) { h.textContent = 'saving…'; h.style.color = 'var(--color-umber)'; }
+  try {
+    await patchRow(table, id, { [field]: newVal });
+    if (row) row[field] = newVal;
+    if (h) { h.textContent = 'saved ✓'; h.style.color = 'var(--color-sage)'; setTimeout(() => { if (h.textContent === 'saved ✓') h.textContent = ''; }, 1600); }
+  } catch (e) {
+    console.error(e);
+    if (h) { h.textContent = 'failed'; h.style.color = 'var(--color-terracotta)'; }
+  }
+};
+
+// ─── Clients list ─────────────────────────────────────────────
+function loadClients(d) {
+  const clients = d.clients || [];
+  const totalSites = clients.reduce((s, c) => s + topLevelSitesFor(c.id).length, 0);
+  const totalZones = (d.sites || []).filter(s => s.parent_site_id && clients.some(c => topLevelSitesFor(c.id).find(t => t.id === s.parent_site_id))).length;
+  document.getElementById('clients-kpis').innerHTML = [
+    kpiHTML('Clients', clients.length, 'paying entities'),
+    kpiHTML('Active sites', totalSites, 'across all clients'),
+    kpiHTML('Active zones', totalZones, 'billing units'),
+  ].join('');
+
+  if (clients.length === 0) {
+    document.getElementById('clients-grid').innerHTML = '<div class="empty-state"><div class="icon">&#9673;</div><div class="msg">No clients yet. Seed one via `npm run seed` or Supabase.</div></div>';
+    return;
+  }
+
+  document.getElementById('clients-grid').innerHTML = clients.map(c => {
+    const sites = topLevelSitesFor(c.id);
+    const zoneCount = sites.reduce((s, t) => s + zonesFor(t.id).length, 0);
+    const freq = c.report_frequency ? titleCase(c.report_frequency) : '—';
+    const genTip = `npm run report -- --client-id ${c.id} --month YYYY-MM`;
+    return `<div class="client-card" onclick="showClientDetail('${c.id}')">
+      <div>
+        <div class="title">${c.long_name || c.name}</div>
+        <div class="sub">${c.contact_name || '—'} ${c.council_or_body ? '&middot; ' + c.council_or_body : ''}</div>
+      </div>
+      <div class="stats">
+        <div><div class="stat-val">${sites.length}</div><div class="stat-lbl">Sites</div></div>
+        <div><div class="stat-val">${zoneCount}</div><div class="stat-lbl">Zones</div></div>
+        <div><div class="stat-val">${freq}</div><div class="stat-lbl">Frequency</div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px" onclick="event.stopPropagation()">
+        ${renderScheduleWidget({ id: c.id, table: 'clients', current: c.schedule_config })}
+        <button class="btn btn-gen" title="${genTip}">Generate report</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Client detail ────────────────────────────────────────────
+function loadClientDetail(clientId) {
+  const c = (cache.clients || []).find(x => x.id === clientId);
+  if (!c) { document.getElementById('cd-title').textContent = 'Client not found'; return; }
+  state.clientDetailId = c.id;
+
+  document.getElementById('cd-title').textContent = c.long_name || c.name;
+  document.getElementById('cd-crumb-name').textContent = c.name;
+  document.getElementById('cd-subtitle').textContent = c.council_or_body || '';
+
+  document.getElementById('cd-fields').innerHTML = [
+    renderEditableField({ id: c.id, table: 'clients', field: 'name',            label: 'Short name',   value: c.name }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'long_name',       label: 'Long name',    value: c.long_name }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'contact_name',    label: 'Contact',      value: c.contact_name }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'council_or_body', label: 'Council/body', value: c.council_or_body }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'contact_email',   label: 'Email',        value: c.contact_email, type: 'email' }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'contact_phone',   label: 'Phone',        value: c.contact_phone }),
+    renderEditableField({ id: c.id, table: 'clients', field: 'report_frequency',label: 'Frequency',    value: c.report_frequency, hint: 'weekly | monthly | quarterly' }),
+  ].join('');
+
+  document.getElementById('cd-schedule').innerHTML = renderScheduleWidget({ id: c.id, table: 'clients', current: c.schedule_config });
+
+  const sites = topLevelSitesFor(c.id);
+  document.getElementById('cd-sites-count').textContent = `${sites.length} site${sites.length === 1 ? '' : 's'}`;
+  document.getElementById('cd-sites-list').innerHTML = sites.length ? sites.map(s => {
+    const zoneCount = zonesFor(s.id).length;
+    const genTip = `npm run report -- --site-id ${s.id} --month YYYY-MM`;
+    return `<div class="row-card clickable" onclick="showSiteDetail('${s.id}','${c.id}')">
+      <div>
+        <div class="title">${s.name}</div>
+        <div class="meta">${s.long_name || '—'}</div>
+      </div>
+      <div class="right" onclick="event.stopPropagation()">
+        <span class="pill steel"><span class="pill-dot"></span>${zoneCount} zone${zoneCount===1?'':'s'}</span>
+        ${renderScheduleWidget({ id: s.id, table: 'sites', current: s.schedule_config })}
+        <button class="btn btn-gen" title="${genTip}">Generate report</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty-state"><div class="msg">No sites yet — use the form below to add one.</div></div>';
+}
+
+async function addSiteForCurrentClient() {
+  const c = (cache.clients || []).find(x => x.id === state.clientDetailId);
+  if (!c) return;
+  const nameEl = document.getElementById('cd-add-name');
+  const longEl = document.getElementById('cd-add-longname');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.focus(); return; }
+  const body = {
+    organization_id: await resolveOrgIdForClient(c.id),
+    client_id: c.id,
+    name,
+    long_name: longEl.value.trim() || null,
+    canonical_name: name.toLowerCase(),
+    sc_label: name,
+  };
+  try {
+    const created = await insertRow('sites', body);
+    cache.sites.push(created);
+    nameEl.value = ''; longEl.value = '';
+    loadClientDetail(c.id);
+  } catch (e) { alert('Add site failed: ' + e.message); }
+}
+
+// ─── Site detail ──────────────────────────────────────────────
+function loadSiteDetail(siteId) {
+  const s = (cache.sites || []).find(x => x.id === siteId);
+  if (!s) { document.getElementById('sd-title').textContent = 'Site not found'; return; }
+  state.siteDetailId = s.id;
+  const client = (cache.clients || []).find(c => c.id === s.client_id);
+  state.siteDetailClientId = client?.id || state.siteDetailClientId;
+
+  document.getElementById('sd-title').textContent = s.long_name || s.name;
+  document.getElementById('sd-crumb-name').textContent = s.name;
+  document.getElementById('sd-subtitle').textContent = client ? `Part of ${client.long_name || client.name}` : '';
+  const crumb = document.getElementById('sd-client-crumb');
+  crumb.textContent = client ? client.name : 'Client';
+
+  document.getElementById('sd-fields').innerHTML = [
+    renderEditableField({ id: s.id, table: 'sites', field: 'name',       label: 'Name',      value: s.name }),
+    renderEditableField({ id: s.id, table: 'sites', field: 'long_name',  label: 'Long name', value: s.long_name }),
+    renderEditableField({ id: s.id, table: 'sites', field: 'site_type',  label: 'Site type', value: s.site_type, hint: 'e.g. scrub_forest, riparian' }),
+    renderEditableField({ id: s.id, table: 'sites', field: 'project_code', label: 'Project code', value: s.project_code }),
+  ].join('');
+  document.getElementById('sd-schedule').innerHTML = renderScheduleWidget({ id: s.id, table: 'sites', current: s.schedule_config });
+
+  const zones = zonesFor(s.id);
+  document.getElementById('sd-zones-count').textContent = `${zones.length} zone${zones.length===1?'':'s'}`;
+  document.getElementById('sd-zones-list').innerHTML = zones.length ? zones.map(z => {
+    const inspCount = (cache.inspections || []).filter(i => i.site_id === z.id).length;
+    const last = lastInspectionDate(z.id);
+    const genTip = `npm run report -- --zone-id ${z.id} --month YYYY-MM`;
+    return `<div class="row-card">
+      <div>
+        <div class="title">${z.name}</div>
+        <div class="meta">${z.long_name || z.canonical_name || '—'}</div>
+      </div>
+      <div class="right">
+        <span class="stats">
+          <span>${inspCount} insp.</span>
+          <span>Last: ${last || '—'}</span>
+        </span>
+        ${renderScheduleWidget({ id: z.id, table: 'sites', current: z.schedule_config })}
+        <button class="btn btn-gen" title="${genTip}">Generate report</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty-state"><div class="msg">No zones yet — add one below.</div></div>';
+
+  // Location maps section — drop-zone uploads directly to Supabase Storage
+  // and patches clients.location_maps (shared across all reports for this client).
+  renderClientLocationMapsWidget(document.getElementById('sd-maps'), client);
+}
+
+function renderClientLocationMapsWidget(container, client) {
+  if (!container) return;
+  if (!client) {
+    container.innerHTML = '<div class="empty-state"><div class="msg">No parent client — location maps live on the client row.</div></div>';
+    return;
+  }
+  const maps = Array.isArray(client.location_maps) ? [...client.location_maps] : [];
+  // Fixed 2 slots (Map 1.0 and Map 1.1) to match the report template.
+  const slots = [0, 1].map(i => ({ index: i, url: maps[i] || null }));
+  container.innerHTML = `
+    <div class="map-thumb-grid" id="client-maps-${client.id}">
+      ${slots.map(slot => `
+        <div class="drop-zone map-slot" data-slot="${slot.index}" data-client="${client.id}"
+             style="position:relative;padding:0;min-height:140px;display:flex;flex-direction:column;align-items:stretch;overflow:hidden">
+          ${slot.url
+            ? `<img src="${slot.url}" alt="Map 1.${slot.index}" style="width:100%;flex:1;object-fit:cover;min-height:0"/>`
+            : `<div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-taupe);padding:24px">Drop or click to upload<br/>Map 1.${slot.index}</div>`}
+          <div style="padding:6px 10px;background:var(--color-linen);border-top:1px solid var(--color-sand);font-size:11px;color:var(--color-espresso);display:flex;justify-content:space-between;align-items:center">
+            <span>Map 1.${slot.index}</span>
+            ${slot.url ? `<button class="btn btn-ghost" style="padding:2px 8px;font-size:11px" data-remove-slot="${slot.index}">Remove</button>` : ''}
+          </div>
+          <div class="slot-status" style="position:absolute;top:6px;right:6px;font-size:11px;color:var(--color-clay);background:#fff;padding:2px 6px;border-radius:4px;display:none"></div>
+        </div>`).join('')}
+    </div>
+    <div class="slot-help" style="font-size:12px;color:var(--color-taupe);margin-top:8px">
+      PNG, JPEG or WebP. Max 10 MB. These maps appear in every report's §1.0 Project Location for this client.
+    </div>
+  `;
+  container.querySelectorAll('.map-slot').forEach(el => wireClientMapSlot(el));
+}
+
+function wireClientMapSlot(slotEl) {
+  const clientId = slotEl.getAttribute('data-client');
+  const slotIndex = parseInt(slotEl.getAttribute('data-slot'), 10);
+  const status = slotEl.querySelector('.slot-status');
+  const setStatus = (msg, color) => {
+    if (!status) return;
+    status.textContent = msg || '';
+    status.style.color = color || 'var(--color-clay)';
+    status.style.display = msg ? 'block' : 'none';
+  };
+  const stop = (e) => { e.preventDefault(); e.stopPropagation(); };
+  slotEl.addEventListener('dragenter', (e) => { stop(e); slotEl.style.borderColor = 'var(--color-clay)'; });
+  slotEl.addEventListener('dragover',  (e) => { stop(e); e.dataTransfer.dropEffect = 'copy'; });
+  slotEl.addEventListener('dragleave', (e) => { stop(e); slotEl.style.borderColor = ''; });
+  slotEl.addEventListener('drop', async (e) => {
+    stop(e);
+    slotEl.style.borderColor = '';
+    const file = e.dataTransfer?.files?.[0];
+    if (file) await uploadForClientSlot(clientId, slotIndex, file, setStatus);
+  });
+  slotEl.addEventListener('click', (e) => {
+    // Don't trigger the picker when clicking the Remove button
+    if (e.target.closest('[data-remove-slot]')) return;
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/png,image/jpeg,image/webp';
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (file) await uploadForClientSlot(clientId, slotIndex, file, setStatus);
+    };
+    input.click();
+  });
+  const removeBtn = slotEl.querySelector('[data-remove-slot]');
+  if (removeBtn) {
+    removeBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      await removeClientSlot(clientId, slotIndex, setStatus);
+    });
+  }
+}
+
+async function uploadForClientSlot(clientId, slotIndex, file, setStatus) {
+  setStatus('uploading…', 'var(--color-umber)');
+  try {
+    const url = await uploadImage(file, clientId, 'location_map');
+    const client = (cache.clients || []).find(c => c.id === clientId);
+    if (!client) throw new Error('Client missing from cache');
+    const maps = Array.isArray(client.location_maps) ? [...client.location_maps] : [];
+    // Pad to slotIndex so we preserve slot semantics (0 = Map 1.0, 1 = Map 1.1).
+    while (maps.length <= slotIndex) maps.push(null);
+    maps[slotIndex] = url;
+    // Drop trailing nulls so we don't write sparse arrays.
+    const cleaned = maps.reduce((acc, v, i) => { if (v) acc[i] = v; return acc; }, []);
+    const compact = [];
+    for (let i = 0; i <= Math.max(...Object.keys(cleaned).map(Number), -1); i++) {
+      if (cleaned[i]) compact[i] = cleaned[i];
+    }
+    await patchRow('clients', clientId, { location_maps: compact });
+    client.location_maps = compact;
+    setStatus('saved ✓', 'var(--color-sage)');
+    // Refresh the widget so the new image appears.
+    const sdMaps = document.getElementById('sd-maps');
+    if (sdMaps) renderClientLocationMapsWidget(sdMaps, client);
+  } catch (err) {
+    console.error(err);
+    setStatus(err.message || 'upload failed', 'var(--color-terracotta)');
+  }
+}
+
+async function removeClientSlot(clientId, slotIndex, setStatus) {
+  setStatus('removing…', 'var(--color-umber)');
+  try {
+    const client = (cache.clients || []).find(c => c.id === clientId);
+    if (!client) throw new Error('Client missing from cache');
+    const maps = Array.isArray(client.location_maps) ? [...client.location_maps] : [];
+    if (slotIndex < maps.length) maps[slotIndex] = null;
+    // Compact trailing nulls only; preserve intermediate nulls as gaps.
+    let end = maps.length;
+    while (end > 0 && !maps[end - 1]) end--;
+    const compact = maps.slice(0, end);
+    await patchRow('clients', clientId, { location_maps: compact });
+    client.location_maps = compact;
+    setStatus('removed', 'var(--color-sage)');
+    const sdMaps = document.getElementById('sd-maps');
+    if (sdMaps) renderClientLocationMapsWidget(sdMaps, client);
+  } catch (err) {
+    console.error(err);
+    setStatus(err.message || 'remove failed', 'var(--color-terracotta)');
+  }
+}
+
+async function addZoneForCurrentSite() {
+  const s = (cache.sites || []).find(x => x.id === state.siteDetailId);
+  if (!s) return;
+  const nameEl = document.getElementById('sd-add-name');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.focus(); return; }
+  const body = {
+    organization_id: s.organization_id || await resolveOrgIdForClient(s.client_id || state.siteDetailClientId),
+    client_id: null,
+    parent_site_id: s.id,
+    name,
+    canonical_name: name.toLowerCase(),
+    sc_label: name,
+  };
+  try {
+    const created = await insertRow('sites', body);
+    cache.sites.push(created);
+    nameEl.value = '';
+    loadSiteDetail(s.id);
+  } catch (e) { alert('Add zone failed: ' + e.message); }
+}
+
+// ─── Insert helper + org resolver ────────────────────────────
+async function insertRow(table, body) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: { ...H, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`POST ${table} failed: ${r.status} ${await r.text()}`);
+  const rows = await r.json();
+  return Array.isArray(rows) ? rows[0] : rows;
+}
+async function resolveOrgIdForClient(clientId) {
+  // Try any site already tied to the client; fall back to first known org.
+  const s = (cache.sites || []).find(x => x.client_id === clientId && x.organization_id);
+  if (s) return s.organization_id;
+  const any = (cache.sites || []).find(x => x.organization_id);
+  if (any) return any.organization_id;
+  const rows = await q('organizations', 'select=id&limit=1');
+  return rows[0]?.id;
+}
+
 function loadStaff(d) {
   const sh={}, si={};
   d.personnel.forEach(p=>{const n=p.staff?.name||'Unknown';sh[n]=(sh[n]||0)+(parseFloat(p.hours_worked)||0);si[n]=(si[n]||0)+1;});
@@ -553,6 +1191,353 @@ function loadSpecies(d) {
   `).join('');
 }
 
+// ─── Report preview + inline edit ─────────────────────────────
+const reportEditState = { id: null, clientId: null, dirty: false, editable: false, docxUrl: null, title: '' };
+
+// ─── E5: Image uploads (Supabase Storage) ────────────────────────────
+const IMAGE_MAX_BYTES = 10 * 1024 * 1024; // 10 MB
+const IMAGE_MIME_ALLOWED = new Set(['image/png', 'image/jpeg', 'image/webp']);
+
+async function uploadImage(file, clientId, type /* 'location_map' | 'period_map' */) {
+  if (!file) throw new Error('No file selected');
+  if (!IMAGE_MIME_ALLOWED.has(file.type)) {
+    throw new Error(`Unsupported file type: ${file.type || 'unknown'}. Use PNG, JPEG or WebP.`);
+  }
+  if (file.size > IMAGE_MAX_BYTES) {
+    throw new Error(`File too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Max 10 MB.`);
+  }
+  if (!clientId) throw new Error('Missing clientId for upload');
+  const extFromName = (file.name.split('.').pop() || '').toLowerCase();
+  const ext = /^(png|jpe?g|webp)$/.test(extFromName) ? extFromName
+    : (file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg');
+  const filename = `${type}_${Date.now()}.${ext}`;
+  const path = `${clientId}/${type}/${filename}`;
+  const r = await fetch(`${SUPABASE_URL}/storage/v1/object/report_assets/${path}`, {
+    method: 'POST',
+    headers: { ...H, 'Content-Type': file.type, 'x-upsert': 'true' },
+    body: file,
+  });
+  if (!r.ok) {
+    const txt = await r.text().catch(() => '');
+    throw new Error(`Upload failed: ${r.status} ${txt}`);
+  }
+  return `${SUPABASE_URL}/storage/v1/object/public/report_assets/${path}`;
+}
+
+function slotTypeFromPlaceholder(placeholder) {
+  if (!placeholder) return null;
+  if (placeholder.startsWith('location_map')) return 'location_map';
+  if (placeholder.startsWith('period_map')) return 'period_map';
+  return null;
+}
+
+function setEditStatus(text, color) {
+  const el = document.getElementById('edit-status');
+  el.textContent = text || '';
+  el.style.color = color || 'var(--color-taupe)';
+}
+
+function markDirty() {
+  reportEditState.dirty = true;
+  document.getElementById('modal-save').disabled = false;
+  setEditStatus('• unsaved changes', 'var(--color-clay)');
+}
+
+function applyEditModeToIframe() {
+  const iframe = document.getElementById('modal-iframe');
+  try {
+    const doc = iframe.contentDocument;
+    if (!doc || !doc.body) return;
+    doc.body.contentEditable = reportEditState.editable ? 'true' : 'false';
+    // Visual cue for edit mode + listen for input
+    const styleId = '__edit_mode_style__';
+    let s = doc.getElementById(styleId);
+    if (!s) { s = doc.createElement('style'); s.id = styleId; doc.head.appendChild(s); }
+    s.textContent = reportEditState.editable
+      ? `body { outline: 2px dashed #B07D4F; outline-offset: -2px; }
+         body [contenteditable="true"]:focus, body:focus { outline: 2px solid #B07D4F; background: #FFFDF5; }
+         figure[data-placeholder] { position: relative; cursor: pointer; }
+         figure[data-placeholder].drop-hover { outline: 3px dashed #D4A574; outline-offset: -3px; background: #FFF7E6; }
+         figure[data-placeholder].drop-hover::after {
+           content: 'Drop image here';
+           position: absolute; top: 8px; left: 8px;
+           background: #B07D4F; color: #fff; padding: 4px 10px;
+           font: 600 12px/1 system-ui, sans-serif; border-radius: 4px;
+           pointer-events: none;
+         }
+         figure[data-placeholder].drop-uploading { opacity: 0.6; }
+         figure[data-placeholder] .drop-error {
+           position: absolute; bottom: 8px; left: 8px; right: 8px;
+           background: #C75146; color: #fff; padding: 6px 10px;
+           font: 500 12px/1.3 system-ui, sans-serif; border-radius: 4px;
+         }`
+      : '';
+    // One-time input listener
+    if (reportEditState.editable && !doc.body.__editListenerAttached) {
+      doc.body.addEventListener('input', markDirty);
+      doc.body.__editListenerAttached = true;
+    }
+    // Drop-zone wiring — attach once per iframe load
+    if (reportEditState.editable && !doc.body.__dropZonesAttached) {
+      wireImageDropZones(doc);
+      doc.body.__dropZonesAttached = true;
+    }
+  } catch (e) { console.warn('Could not enable edit mode on iframe:', e); }
+}
+
+function wireImageDropZones(doc) {
+  const slots = doc.querySelectorAll('figure[data-placeholder][data-editable="true"]');
+  slots.forEach(fig => {
+    const stop = (e) => { e.preventDefault(); e.stopPropagation(); };
+    fig.addEventListener('dragenter', (e) => { stop(e); fig.classList.add('drop-hover'); });
+    fig.addEventListener('dragover',  (e) => { stop(e); e.dataTransfer.dropEffect = 'copy'; fig.classList.add('drop-hover'); });
+    fig.addEventListener('dragleave', (e) => { stop(e); if (e.target === fig) fig.classList.remove('drop-hover'); });
+    fig.addEventListener('drop', async (e) => {
+      stop(e);
+      fig.classList.remove('drop-hover');
+      const file = e.dataTransfer?.files?.[0];
+      if (!file) return;
+      await handleFileDropOnFigure(doc, fig, file);
+    });
+    // Click-to-upload fallback
+    fig.addEventListener('click', () => {
+      if (!reportEditState.editable) return;
+      const input = doc.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/png,image/jpeg,image/webp';
+      input.onchange = async () => {
+        const file = input.files?.[0];
+        if (file) await handleFileDropOnFigure(doc, fig, file);
+      };
+      input.click();
+    });
+  });
+}
+
+async function handleFileDropOnFigure(doc, fig, file) {
+  const placeholder = fig.getAttribute('data-placeholder') || '';
+  const type = slotTypeFromPlaceholder(placeholder);
+  if (!type) {
+    showFigureError(fig, `Unknown slot: ${placeholder}`);
+    return;
+  }
+  if (!reportEditState.clientId) {
+    showFigureError(fig, 'Missing clientId on report');
+    return;
+  }
+  clearFigureError(fig);
+  fig.classList.add('drop-uploading');
+  try {
+    const url = await uploadImage(file, reportEditState.clientId, type);
+    replaceFigureWithImage(doc, fig, url, placeholder);
+    markDirty();
+  } catch (err) {
+    console.error('Upload failed', err);
+    showFigureError(fig, err.message || String(err));
+  } finally {
+    fig.classList.remove('drop-uploading');
+  }
+}
+
+function replaceFigureWithImage(doc, fig, url, placeholder) {
+  const caption = fig.querySelector('figcaption');
+  const newFig = doc.createElement('figure');
+  newFig.setAttribute('data-placeholder', placeholder);
+  newFig.setAttribute('data-editable', 'true');
+  newFig.setAttribute('data-img-source', 'upload');
+  const img = doc.createElement('img');
+  img.src = url;
+  img.alt = placeholder;
+  img.style.maxWidth = '100%';
+  newFig.appendChild(img);
+  if (caption) newFig.appendChild(caption.cloneNode(true));
+  fig.replaceWith(newFig);
+  // Re-wire drop zone on the replacement so user can swap again.
+  const stop = (e) => { e.preventDefault(); e.stopPropagation(); };
+  newFig.addEventListener('dragenter', (e) => { stop(e); newFig.classList.add('drop-hover'); });
+  newFig.addEventListener('dragover',  (e) => { stop(e); e.dataTransfer.dropEffect = 'copy'; newFig.classList.add('drop-hover'); });
+  newFig.addEventListener('dragleave', (e) => { stop(e); if (e.target === newFig) newFig.classList.remove('drop-hover'); });
+  newFig.addEventListener('drop', async (e) => {
+    stop(e);
+    newFig.classList.remove('drop-hover');
+    const file = e.dataTransfer?.files?.[0];
+    if (file) await handleFileDropOnFigure(doc, newFig, file);
+  });
+}
+
+function showFigureError(fig, msg) {
+  clearFigureError(fig);
+  const div = fig.ownerDocument.createElement('div');
+  div.className = 'drop-error';
+  div.textContent = msg;
+  fig.appendChild(div);
+  setTimeout(() => clearFigureError(fig), 6000);
+}
+function clearFigureError(fig) {
+  fig.querySelectorAll('.drop-error').forEach(e => e.remove());
+}
+
+window.toggleEdit = function(on) {
+  reportEditState.editable = !!on;
+  applyEditModeToIframe();
+  setEditStatus(on ? 'Edit mode on — click text to modify' : '', 'var(--color-taupe)');
+};
+
+function collectUploadedImageUrls(doc) {
+  // Look at figures tagged as user uploads AND at figures that carry an
+  // <img> even without the tag (in case the html came from a prior save).
+  const slots = doc.querySelectorAll('figure[data-placeholder]');
+  const location = {};
+  const period = {};
+  slots.forEach(fig => {
+    const slot = fig.getAttribute('data-placeholder') || '';
+    const img = fig.querySelector('img');
+    if (!img || !img.src) return;
+    const m = slot.match(/^(location_map|period_map)_(\d+)$/);
+    if (!m) return;
+    const idx = parseInt(m[2], 10);
+    if (m[1] === 'location_map') location[idx] = img.src;
+    else period[idx] = img.src;
+  });
+  const toArray = (obj) => {
+    const keys = Object.keys(obj).map(Number).sort((a, b) => a - b);
+    if (keys.length === 0) return null;
+    return keys.map(k => obj[k]);
+  };
+  return { location: toArray(location), period: toArray(period) };
+}
+
+window.saveReportEdits = async function() {
+  if (!reportEditState.id || !reportEditState.dirty) return;
+  const iframe = document.getElementById('modal-iframe');
+  const doc = iframe.contentDocument;
+  if (!doc) return;
+  // Strip the edit-mode style before saving
+  const style = doc.getElementById('__edit_mode_style__');
+  if (style) style.remove();
+  // Also strip any transient UI the drop-zone added
+  doc.querySelectorAll('figure[data-placeholder]').forEach(f => {
+    f.classList.remove('drop-hover', 'drop-uploading');
+    f.querySelectorAll('.drop-error').forEach(e => e.remove());
+  });
+  const html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  const saveBtn = document.getElementById('modal-save');
+  saveBtn.disabled = true;
+  setEditStatus('saving…', 'var(--color-umber)');
+  try {
+    const urls = collectUploadedImageUrls(doc);
+    const reportUpdate = { html_content: html, updated_at: new Date().toISOString() };
+    if (urls.period) reportUpdate.period_map_images = urls.period;
+    await patchRow('client_reports', reportEditState.id, reportUpdate);
+    // Persist location maps to the client (shared across reports)
+    if (urls.location && reportEditState.clientId) {
+      await patchRow('clients', reportEditState.clientId, { location_maps: urls.location });
+      const ci = (cache.clients || []).findIndex(c => c.id === reportEditState.clientId);
+      if (ci >= 0) cache.clients[ci].location_maps = urls.location;
+    }
+    // Refresh local cache entry
+    const idx = (cache.reports || []).findIndex(r => r.id === reportEditState.id);
+    if (idx >= 0) {
+      cache.reports[idx].html_content = html;
+      if (urls.period) cache.reports[idx].period_map_images = urls.period;
+    }
+    reportEditState.dirty = false;
+    setEditStatus('saved ✓', 'var(--color-sage)');
+    // Re-inject edit-mode style if still editing
+    applyEditModeToIframe();
+    setTimeout(() => setEditStatus(reportEditState.editable ? 'Edit mode on — click text to modify' : '', 'var(--color-taupe)'), 1800);
+  } catch (e) {
+    console.error(e);
+    setEditStatus('save failed — see console', 'var(--color-terracotta)');
+    saveBtn.disabled = false;
+  }
+};
+
+window.previewReport = function(reportId) {
+  const r = (cache.reports || []).find(x => x.id === reportId);
+  if (!r) return;
+  const html = r.html_content || '<p style="padding:40px;text-align:center;color:#888">No html_content stored on this report row.</p>';
+  reportEditState.id = reportId;
+  reportEditState.clientId = r.client_id || null;
+  reportEditState.dirty = false;
+  reportEditState.editable = false;
+  reportEditState.docxUrl = r.docx_url || null;
+  reportEditState.title = r.title || 'Report';
+  document.getElementById('edit-toggle').checked = false;
+  document.getElementById('modal-save').disabled = true;
+  setEditStatus('', 'var(--color-taupe)');
+
+  const iframe = document.getElementById('modal-iframe');
+  iframe.onload = applyEditModeToIframe;
+  iframe.srcdoc = html;
+
+  document.getElementById('modal-title').textContent = r.title || 'Report Preview';
+  const period = `${r.report_period_start} → ${r.report_period_end}`;
+  const zones = Array.isArray(r.zones_included) ? r.zones_included.join(', ') : '';
+  document.getElementById('modal-meta').innerHTML =
+    `<strong>${r.cadence || 'report'}</strong> &middot; ${period}` +
+    (zones ? ` &middot; zones: ${zones}` : '') +
+    (r.status ? ` &middot; ${pill(r.status)}` : '');
+  document.getElementById('modal-open-new').onclick = () => {
+    const w = window.open('', '_blank');
+    if (w) { w.document.write(html); w.document.close(); }
+  };
+  document.getElementById('report-modal').classList.add('open');
+};
+
+window.downloadReportDocx = function() {
+  const url = reportEditState.docxUrl;
+  if (!url) {
+    window.alert('DOCX not yet available — re-run the generator (npm run report -- ...) to populate client_reports.docx_url.');
+    return;
+  }
+  // Relative paths (e.g. "dist/reports/EBSF_...docx") resolve against the dashboard's location.
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = url.split('/').pop() || 'report.docx';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+window.printReportToPdf = function() {
+  const iframe = document.getElementById('modal-iframe');
+  try {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+  } catch (e) {
+    console.error(e);
+    window.alert('Could not open print dialog: ' + (e && e.message ? e.message : e));
+  }
+};
+
+window.closeReportModal = function() {
+  if (reportEditState.dirty && !confirm('You have unsaved changes. Close anyway?')) return;
+  document.getElementById('report-modal').classList.remove('open');
+  document.getElementById('modal-iframe').srcdoc = '';
+  reportEditState.id = null;
+  reportEditState.dirty = false;
+  reportEditState.editable = false;
+  reportEditState.docxUrl = null;
+};
+
+function reportCardHTML(r) {
+  const period = `${r.report_period_start} → ${r.report_period_end}`;
+  const zones = Array.isArray(r.zones_included) && r.zones_included.length ? r.zones_included.join(', ') : '';
+  const cadence = r.cadence ? r.cadence[0].toUpperCase() + r.cadence.slice(1) : 'Report';
+  const hasHtml = !!r.html_content;
+  return `<div class="report-card ${r.status||'draft'}">
+    <div class="report-title">${r.title || 'Untitled Report'}</div>
+    <div class="report-meta">${cadence} &middot; ${period}${zones?' &middot; Zones: '+zones:''}</div>
+    <div class="report-footer">
+      ${pill(r.status||'draft')}
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="previewReport('${r.id}')" ${hasHtml?'':'disabled title="No html_content stored"'}>Preview</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 function loadReports(d) {
   const hasReports = d.reports && d.reports.length > 0;
   if (!hasReports) {
@@ -589,12 +1574,36 @@ function loadReports(d) {
         }).join('')}
       </div></div>`;
   } else {
+    const drafts = d.reports.filter(r=>r.status==='draft');
+    const inReview = d.reports.filter(r=>r.status==='review');
+    const approved = d.reports.filter(r=>r.status==='approved'||r.status==='sent');
+
     document.getElementById('reports-kpis').innerHTML = [
-      kpiHTML('Total Reports', d.reports.length.toString(), ''),
-      kpiHTML('Approved', d.reports.filter(r=>r.status==='approved'||r.status==='sent').length.toString(), '', 'var(--color-sage)'),
-      kpiHTML('In Review', d.reports.filter(r=>r.status==='review').length.toString(), '', '#9A7A3F'),
-      kpiHTML('Drafts', d.reports.filter(r=>r.status==='draft').length.toString(), '', 'var(--color-steel)'),
+      kpiHTML('Total Reports', d.reports.length.toString(), 'across all clients'),
+      kpiHTML('Approved / Sent', approved.length.toString(), '', 'var(--color-sage)'),
+      kpiHTML('In Review', inReview.length.toString(), '', '#9A7A3F'),
+      kpiHTML('Drafts', drafts.length.toString(), 'awaiting review', 'var(--color-steel)'),
     ].join('');
+
+    const sorted = [...d.reports].sort((a,b) => (b.generated_at||b.created_at||'').localeCompare(a.generated_at||a.created_at||''));
+
+    document.getElementById('reports-content').innerHTML = `
+      <div class="reports-toolbar">
+        <div class="hint">Reports are generated from inspection data for a client + period. Click Preview to review a draft.</div>
+        <button class="btn btn-primary" disabled title="CLI-only for now. Run: npm run report -- --zone-id <id> --month YYYY-MM  (or --site-id / --client-id). In-UI trigger lands in M04 with a backend endpoint.">+ Generate Report</button>
+      </div>
+      <div class="section"><div class="section-header"><div class="section-title">Drafts (${drafts.length})</div><div class="section-badge">Click Preview to open</div></div>
+        <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px">
+          ${drafts.length ? drafts.map(reportCardHTML).join('') : '<div class="empty-state"><div class="msg">No drafts — generate one from the CLI.</div></div>'}
+        </div>
+      </div>
+      ${inReview.length || approved.length ? `
+      <div class="section" style="margin-top:20px"><div class="section-header"><div class="section-title">In Review / Approved</div></div>
+        <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px">
+          ${[...inReview, ...approved].map(reportCardHTML).join('')}
+        </div>
+      </div>` : ''}
+    `;
   }
 }
 
@@ -642,7 +1651,8 @@ async function init() {
   loadDashboard(cache);
 }
 init();
-setInterval(async()=>{ await loadData(); loadPage(document.querySelector('.nav-item.active')?.dataset?.page||'dashboard'); }, 30000);
+setInterval(async()=>{ await loadData(); loadPage(state.currentPage || 'dashboard'); }, 30000);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReportModal(); });
 </script>
 </body>
 </html>

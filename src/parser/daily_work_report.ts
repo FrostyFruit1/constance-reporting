@@ -10,6 +10,7 @@ import {
   ScAudit,
   ScItem,
   findItem,
+  findItems,
   findItemFuzzy,
   getChildren,
   readText,
@@ -94,46 +95,63 @@ function extractInspectionFields(
   allItems: ScItem[],
   warnings: ParsingWarning[]
 ): InspectionFields {
-  // Site Name — could be list (early) or text (late)
-  const siteNameItem = findItem(allItems, 'Site Name');
+  // Site Name — template has evolved through multiple shapes:
+  //   2022-2023: [type=site] label="Site conducted" (builtin picker, often empty)
+  //   2024:      [type=list]/[type=question] label="Site conducted"
+  //   2025+:     [type=text] label="Client / Site"
+  // Multiple such items can coexist in the same audit (e.g. both builtin picker
+  // AND free-text field). Iterate all matches under the 'site name' variant
+  // group and pick the first one that actually yields a value.
+  const siteNameCandidates = findItems(allItems, 'Site Name');
   let siteName: string | null = null;
 
-  if (siteNameItem) {
-    if (siteNameItem.type === 'list') {
-      // Early 2025: dropdown. Prefer selected label, fall back to text.
-      siteName = readFirstSelectedLabel(siteNameItem);
-      // Also check text field — may differ from selected (data quality issue)
-      const textValue = readText(siteNameItem);
-      if (textValue && siteName && textValue.toLowerCase() !== siteName.toLowerCase()) {
+  for (const item of siteNameCandidates) {
+    let candidate: string | null = null;
+    if (item.type === 'list' || item.type === 'question') {
+      candidate = readFirstSelectedLabel(item);
+      const textValue = readText(item);
+      if (candidate && textValue && textValue.toLowerCase() !== candidate.toLowerCase()) {
+        // Known data-quality issue: dropdown and typed-text disagree.
         warnings.push({
           field: 'siteName',
-          message: `Site Name dropdown label "${siteName}" differs from text value "${textValue}"`,
+          message: `Site Name dropdown label "${candidate}" differs from text value "${textValue}"`,
           rawValue: textValue,
         });
       }
-      // Use text value if no selection
-      if (!siteName) siteName = textValue;
-    } else {
-      // Late 2025+: free text
-      siteName = readText(siteNameItem);
+      if (!candidate) candidate = textValue;
+    } else if (item.type === 'text' || item.type === 'textsingle') {
+      candidate = readText(item);
+    } else if (item.type === 'site') {
+      // Builtin SC site picker — responses shape varies; try common fields.
+      const r = item.responses as { site?: { name?: string }; text?: string } | undefined;
+      candidate = r?.site?.name ?? r?.text ?? null;
+    }
+    if (candidate && candidate.trim()) {
+      siteName = candidate.trim();
+      break;
     }
   }
 
-  // Trim trailing whitespace (known data quality issue)
-  if (siteName) siteName = siteName.trim();
-
-  // Conducted on
+  // Conducted on — datetime header item; fall back to audit_data.date_completed
+  // which is reliably present on every audit.
   const conductedOnItem = findItem(allItems, 'Conducted on');
   const datetimeRaw = readDatetime(conductedOnItem);
   let date: string | null = null;
   if (datetimeRaw) {
-    // Extract date portion from ISO datetime
     date = datetimeRaw.substring(0, 10);
+  } else if (audit.audit_data?.date_completed) {
+    // Template evolution: some templates omit "Conducted on" as a header item.
+    date = audit.audit_data.date_completed.substring(0, 10);
   }
 
-  // Prepared by / Supervisor — could be question (early) or list (late)
-  const supervisorItem = findItem(allItems, 'Prepared by/ Supervisor', 'Prepared by/Supervisor');
-  const supervisorName = readFirstSelectedLabel(supervisorItem);
+  // Prepared by / Supervisor — could be question (early), list (2024+),
+  // or plain text (2025+ "Prepared by" label). Try both read modes.
+  const supervisorItem = findItem(allItems, 'Prepared by/ Supervisor');
+  let supervisorName = readFirstSelectedLabel(supervisorItem);
+  if (!supervisorName) {
+    const text = readText(supervisorItem);
+    if (text) supervisorName = text.trim();
+  }
 
   return {
     scAuditId: audit.audit_id,

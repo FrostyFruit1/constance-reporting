@@ -9,7 +9,7 @@
 
 export interface ExtractionResult {
   /** Which template produced this result */
-  templateType: 'daily_work_report' | 'chemical_application_record';
+  templateType: 'daily_work_report' | 'chemical_application_record' | 'unknown';
 
   /** Core inspection fields (maps to `inspections` table) */
   inspection: InspectionFields;
@@ -49,7 +49,7 @@ export interface ExtractionResult {
 
 export interface InspectionFields {
   scAuditId: string;
-  scTemplateType: 'daily_work_report' | 'chemical_application_record';
+  scTemplateType: 'daily_work_report' | 'chemical_application_record' | 'unknown';
   scModifiedAt: string | null;
 
   /** Site name as extracted from SC (raw — resolved to site_id by lookups) */

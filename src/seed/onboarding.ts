@@ -213,6 +213,62 @@ async function upsertSiteNameLookups(
   }
 }
 
+async function applyEbsfHierarchy(organizationId: string): Promise<void> {
+  const { data: ebsfClient } = await supabase
+    .from('clients')
+    .select('id')
+    .eq('organization_id', organizationId)
+    .ilike('name', 'EBSF%')
+    .limit(1)
+    .single();
+  if (!ebsfClient?.id) {
+    log.info('No EBSF client in this org, skipping hierarchy wiring');
+    return;
+  }
+
+  const { data: existingTop } = await supabase
+    .from('sites')
+    .select('id')
+    .eq('organization_id', organizationId)
+    .eq('canonical_name', 'ebsf')
+    .is('parent_site_id', null)
+    .limit(1)
+    .single();
+
+  let topLevelId = existingTop?.id as string | undefined;
+  if (!topLevelId) {
+    const { data: created, error } = await supabase
+      .from('sites')
+      .insert({
+        organization_id: organizationId,
+        client_id: ebsfClient.id,
+        name: 'EBSF',
+        canonical_name: 'ebsf',
+        sc_label: 'EBSF',
+      })
+      .select('id')
+      .single();
+    if (error || !created) throw new Error(`Failed to create top-level EBSF site: ${error?.message}`);
+    topLevelId = created.id;
+    log.info('Created top-level EBSF site', { id: topLevelId });
+  }
+
+  // Ensure the top-level row owns the client link.
+  await supabase
+    .from('sites')
+    .update({ client_id: ebsfClient.id })
+    .eq('id', topLevelId);
+
+  const zoneNames = ['EBSF Zone B', 'EBSF Zone C', 'EBSF Zone D', 'EBSF Zone B and C', 'Spring Farm EBSF'];
+  const { error: upErr } = await supabase
+    .from('sites')
+    .update({ parent_site_id: topLevelId, client_id: null })
+    .eq('organization_id', organizationId)
+    .in('name', zoneNames);
+  if (upErr) throw new Error(`Failed to attach EBSF zones: ${upErr.message}`);
+  log.info('EBSF hierarchy wired', { topLevelId, zoneNames });
+}
+
 // ── Main ─────────────────────────────────────────────────────────────
 
 async function main(): Promise<void> {
@@ -232,6 +288,9 @@ async function main(): Promise<void> {
 
   // 5. Site name lookups (depends on sites)
   await upsertSiteNameLookups(sitesData as SiteEntry[], siteMap);
+
+  // 6. EBSF hierarchy (depends on sites + EBSF client)
+  await applyEbsfHierarchy(orgId);
 
   // Summary
   log.info('Onboarding seed complete', {
